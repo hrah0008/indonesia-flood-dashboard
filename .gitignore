@@ -7,3 +7,6 @@ __pycache__/
 C:/Users/
 *.7z
 *.zip
+# Large GIS files — too big for GitHub
+data/Kab_Kota_with_BPS.gpkg
+*.gpkg
