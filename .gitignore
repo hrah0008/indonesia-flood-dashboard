@@ -1,0 +1,9 @@
+venv/
+__pycache__/
+*.pyc
+.env
+*.ipynb_checkpoints
+# Exclude large raw data files — keep only processed ones in data/
+C:/Users/
+*.7z
+*.zip
