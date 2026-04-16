@@ -2,7 +2,7 @@
 app.py
 ======
 Indonesia Flood Pattern Analysis Dashboard
-Data loaded from Google Drive — no local data folder needed
+Data loaded from Google Drive
 """
 
 import os
@@ -24,13 +24,12 @@ st.set_page_config(
 
 # ═════════════════════════════════════════════════════════
 # GOOGLE DRIVE FILE IDs
-# ← replace FILE_ID_X with your actual IDs
 # ═════════════════════════════════════════════════════════
 
 DRIVE_FILES = {
-    "regency_centroids.xlsx"  : "15YSPe2SYGMfF1mhQQNtNTLMbl08SQMlW",   # ← replace
-    "shp_to_bps_lookup.csv"  : "17LZ8IqtXKoxMr4S5QVYDmUfwIIn3aiUL",   # ← replace
-    "Kab_Kota_with_BPS.gpkg" : "1tCK9eMXbRWKsVLcU0-Nd1CSC8ZIGqa0e",   # ← replace
+    "regency_centroids.xlsx" : "15YSPe2SYGMfF1mhQQNtNTLMbl08SQMlW",
+    "shp_to_bps_lookup.csv" : "17LZ8IqtXKoxMr4S5QVYDmUfwIIn3aiUL",
+    "Kab_Kota_with_BPS.gpkg": "FILE_ID_3",   # ← add your gpkg ID
 }
 
 # ═════════════════════════════════════════════════════════
@@ -38,24 +37,17 @@ DRIVE_FILES = {
 # ═════════════════════════════════════════════════════════
 
 def download_file(filename: str, file_id: str) -> str:
-    """
-    Download file from Google Drive if not already cached.
-    Returns local file path.
-    """
     os.makedirs("data", exist_ok=True)
     filepath = f"data/{filename}"
-
     if not os.path.exists(filepath):
         url = f"https://drive.google.com/uc?id={file_id}"
         with st.spinner(f"Downloading {filename}..."):
             gdown.download(url, filepath, quiet=False)
         st.success(f"✓ {filename} ready")
-
     return filepath
 
-
 # ═════════════════════════════════════════════════════════
-# LOAD DATA FUNCTIONS
+# LOAD DATA
 # ═════════════════════════════════════════════════════════
 
 @st.cache_data
@@ -73,26 +65,18 @@ def load_lookup() -> pd.DataFrame:
         "shp_to_bps_lookup.csv",
         DRIVE_FILES["shp_to_bps_lookup.csv"],
     )
-    # Try different separators and encodings
-    for sep in [",", ";", "\t"]:
-        for encoding in ["utf-8", "latin-1", "cp1252"]:
-            try:
-                df = pd.read_csv(
-                    path,
-                    sep          = sep,
-                    encoding     = encoding,
-                    on_bad_lines = "skip",   # skip problematic lines
-                    engine       = "python",
-                )
-                if len(df.columns) > 1:     # valid parse has multiple columns
-                    st.info(f"Loaded with sep='{sep}', encoding='{encoding}', "
-                            f"shape={df.shape}")
-                    return df
-            except Exception:
-                continue
-    # Last resort — read as plain text
-    st.error("Could not parse CSV — check file format")
+    for encoding in ["utf-8", "latin-1", "cp1252"]:
+        try:
+            return pd.read_csv(
+                path,
+                encoding     = encoding,
+                on_bad_lines = "skip",
+                engine       = "python",
+            )
+        except Exception:
+            continue
     return pd.DataFrame()
+
 
 @st.cache_data
 def load_gpkg() -> gpd.GeoDataFrame:
@@ -101,7 +85,6 @@ def load_gpkg() -> gpd.GeoDataFrame:
         DRIVE_FILES["Kab_Kota_with_BPS.gpkg"],
     )
     return gpd.read_file(path)
-
 
 # ═════════════════════════════════════════════════════════
 # HEADER
@@ -120,62 +103,52 @@ st.divider()
 # ═════════════════════════════════════════════════════════
 
 st.sidebar.title("⚙️ Settings")
-st.sidebar.markdown("---")
 show_polygon = st.sidebar.checkbox(
     "Show polygon map",
-    value   = False,
-    help    = "Downloads 325MB GeoPackage from Google Drive"
-)
-st.sidebar.markdown("---")
-st.sidebar.info(
-    "**Data Sources**\n"
-    "- BNPB Flood Records 2016–2025\n"
-    "- BPS Regional Statistics\n"
-    "- Kemendagri Administrative Boundaries"
+    value = False,
+    help  = "Downloads 325MB — takes a few minutes"
 )
 
 # ═════════════════════════════════════════════════════════
-# LOAD SMALL FILES
+# LOAD SMALL FILES FIRST
 # ═════════════════════════════════════════════════════════
 
 centroids = load_centroids()
 lookup    = load_lookup()
 
 # ═════════════════════════════════════════════════════════
-# METRICS ROW
+# METRICS
 # ═════════════════════════════════════════════════════════
 
 st.subheader("📊 Overview")
-
 col1, col2, col3, col4 = st.columns(4)
-col1.metric("Total Regencies",  f"{len(centroids):,}")
-col2.metric("Total Provinces",  f"{centroids['bps_prov_name'].nunique()}")
-col3.metric("Lookup Records",   f"{len(lookup):,}")
-col4.metric("Study Period",     "2016 – 2025")
-
+col1.metric("Total Regencies", f"{len(centroids):,}")
+col2.metric("Total Provinces", f"{centroids['bps_prov_name'].nunique()}")
+col3.metric("Lookup Records",  f"{len(lookup):,}")
+col4.metric("Study Period",    "2016 – 2025")
 st.divider()
 
 # ═════════════════════════════════════════════════════════
-# BUBBLE MAP — fast, uses centroids only
+# BUBBLE MAP — fast, no gpkg needed
 # ═════════════════════════════════════════════════════════
 
 st.subheader("📍 Regency Locations — Bubble Map")
 
-fig_bubble = px.scatter_geo(
+fig = px.scatter_geo(
     centroids,
-    lat          = "centroid_lat",
-    lon          = "centroid_lon",
-    hover_name   = "bps_kab_name",
-    hover_data   = {
-        "bps_prov_name" : True,
-        "centroid_lat"  : False,
-        "centroid_lon"  : False,
+    lat        = "centroid_lat",
+    lon        = "centroid_lon",
+    hover_name = "bps_kab_name",
+    hover_data = {
+        "bps_prov_name": True,
+        "centroid_lat" : False,
+        "centroid_lon" : False,
     },
-    color        = "bps_prov_name",
-    title        = "514 Indonesian Regencies by Province",
-    scope        = "asia",
+    color      = "bps_prov_name",
+    title      = "514 Indonesian Regencies by Province",
+    scope      = "asia",
 )
-fig_bubble.update_layout(
+fig.update_layout(
     geo = dict(
         center           = dict(lat=-2.5, lon=118),
         projection_scale = 4,
@@ -190,42 +163,34 @@ fig_bubble.update_layout(
     showlegend = False,
     margin     = dict(l=0, r=0, t=40, b=0),
 )
-st.plotly_chart(fig_bubble, width="stretch")
-
+st.plotly_chart(fig, width="stretch")
 st.divider()
 
 # ═════════════════════════════════════════════════════════
-# POLYGON MAP — optional, loads gpkg from Google Drive
+# POLYGON MAP — optional, loads gpkg
 # ═════════════════════════════════════════════════════════
 
 if show_polygon:
     st.subheader("🗺️ Polygon Map — Regency Boundaries")
-    st.warning(
-        "⚠️ This downloads a 325MB file from Google Drive. "
-        "Please wait — this only happens once per session."
-    )
+    st.warning("⚠️ Downloading 325MB — please wait...")
 
     gdf = load_gpkg()
-    st.success(f"✓ GeoPackage loaded: {len(gdf)} regency polygons")
+    st.success(f"✓ Loaded {len(gdf)} regency polygons")
 
-    fig_poly = px.choropleth(
+    fig2 = px.choropleth(
         gdf,
         geojson   = gdf.geometry.__geo_interface__,
         locations = gdf.index,
         color     = "bps_prov_name",
-        title     = "Indonesia Regency Boundaries by Province",
+        title     = "Indonesia Regency Boundaries",
     )
-    fig_poly.update_geos(
-        fitbounds = "locations",
-        visible   = False,
-    )
-    fig_poly.update_layout(
+    fig2.update_geos(fitbounds="locations", visible=False)
+    fig2.update_layout(
         height     = 550,
         showlegend = False,
         margin     = dict(l=0, r=0, t=40, b=0),
     )
-    st.plotly_chart(fig_poly, use_container_width=True)
-
+    st.plotly_chart(fig2, width="stretch")
     st.divider()
 
 # ═════════════════════════════════════════════════════════
@@ -233,27 +198,15 @@ if show_polygon:
 # ═════════════════════════════════════════════════════════
 
 st.subheader("📋 Data Preview")
-
-tab1, tab2 = st.tabs([
-    "📌 Regency Centroids",
-    "🔗 SHP to BPS Lookup",
-])
+tab1, tab2 = st.tabs(["📌 Regency Centroids", "🔗 SHP Lookup"])
 
 with tab1:
-    st.markdown(f"**{len(centroids):,} regencies** with centroid coordinates")
-    st.dataframe(
-        centroids,
-        use_container_width = True,
-        height              = 400,
-    )
+    st.markdown(f"**{len(centroids):,} regencies**")
+    st.dataframe(centroids, width="stretch", height=400)
 
 with tab2:
-    st.markdown(f"**{len(lookup):,} records** linking SHP codes to BPS codes")
-    st.dataframe(
-        lookup,
-        use_container_width = True,
-        height              = 400,
-    )
+    st.markdown(f"**{len(lookup):,} records**")
+    st.dataframe(lookup, width="stretch", height=400)
 
 # ═════════════════════════════════════════════════════════
 # FOOTER
