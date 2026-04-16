@@ -27,10 +27,10 @@ st.set_page_config(
 # ═════════════════════════════════════════════════════════
 
 DRIVE_FILES = {
-    "regency_centroids.xlsx" : "15YSPe2SYGMfF1mhQQNtNTLMbl08SQMlW",
-    "shp_to_bps_lookup.csv" : "17LZ8IqtXKoxMr4S5QVYDmUfwIIn3aiUL",
-    "Kab_Kota_with_BPS.gpkg": "FILE_ID_3",   # ← add your gpkg ID
-}
+    "regency_centroids.xlsx"  : "15YSPe2SYGMfF1mhQQNtNTLMbl08SQMlW",   # ← replace
+    "shp_to_bps_lookup.csv"  : "17LZ8IqtXKoxMr4S5QVYDmUfwIIn3aiUL",   # ← replace
+    "Kab_Kota_with_BPS.gpkg" : "1tCK9eMXbRWKsVLcU0-Nd1CSC8ZIGqa0e",   # ← replace
+}    
 
 # ═════════════════════════════════════════════════════════
 # DOWNLOAD HELPER
