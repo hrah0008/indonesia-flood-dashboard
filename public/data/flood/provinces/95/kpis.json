@@ -1,0 +1,20 @@
+{
+ "prov_code": 95,
+ "prov_name": "Papua Pegunungan",
+ "n_regencies": 8,
+ "total_events": 16,
+ "total_deaths": 11,
+ "total_missing": 34,
+ "total_injured": 91,
+ "total_houses": 11669,
+ "avg_fsi_percent": 18.74,
+ "n_hot_spots": 0,
+ "n_hot_99": 0,
+ "n_hot_95": 0,
+ "n_hot_90": 0,
+ "n_catastrophic": 0,
+ "n_mk_sig_freq": 0,
+ "avg_freq_annual": 1.6,
+ "avg_hci_annual": 1.78,
+ "avg_pdi_annual": 6.51
+}

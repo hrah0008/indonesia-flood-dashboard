@@ -1,0 +1,20 @@
+{
+ "prov_code": 33,
+ "prov_name": "Jawa Tengah",
+ "n_regencies": 35,
+ "total_events": 1455,
+ "total_deaths": 158,
+ "total_missing": 26,
+ "total_injured": 62,
+ "total_houses": 1084535,
+ "avg_fsi_percent": 44.88,
+ "n_hot_spots": 4,
+ "n_hot_99": 0,
+ "n_hot_95": 2,
+ "n_hot_90": 2,
+ "n_catastrophic": 0,
+ "n_mk_sig_freq": 0,
+ "avg_freq_annual": 145.5,
+ "avg_hci_annual": 9.21,
+ "avg_pdi_annual": 216.66
+}

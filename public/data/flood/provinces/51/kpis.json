@@ -1,0 +1,20 @@
+{
+ "prov_code": 51,
+ "prov_name": "Bali",
+ "n_regencies": 9,
+ "total_events": 99,
+ "total_deaths": 30,
+ "total_missing": 4,
+ "total_injured": 10,
+ "total_houses": 9929,
+ "avg_fsi_percent": 30.67,
+ "n_hot_spots": 0,
+ "n_hot_99": 0,
+ "n_hot_95": 0,
+ "n_hot_90": 0,
+ "n_catastrophic": 0,
+ "n_mk_sig_freq": 0,
+ "avg_freq_annual": 9.9,
+ "avg_hci_annual": 1.86,
+ "avg_pdi_annual": 16.3
+}

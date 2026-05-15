@@ -1,0 +1,35 @@
+# ── Python ───────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.pytest_cache/
+
+# ── Virtual envs ─────────────────────────────────────────────────────
+venv/
+env/
+.venv/
+
+# ── Streamlit ────────────────────────────────────────────────────────
+.streamlit/secrets.toml
+
+# ── IDE ──────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+
+# ── OS ───────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Local notebooks / scratch (keep dashboard repo clean) ────────────
+*.ipynb_checkpoints/
+notebooks_local/
+
+# ── Optional: skip published large geo files until ready ─────────────
+# Uncomment these lines BEFORE publishing if you want to push the
+# dashboard skeleton without committing the data:
+# public/data/geo/regencies.geojson
+# public/data/flood/national/regency_table.parquet

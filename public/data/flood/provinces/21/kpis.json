@@ -1,0 +1,20 @@
+{
+ "prov_code": 21,
+ "prov_name": "Kepulauan Riau",
+ "n_regencies": 7,
+ "total_events": 45,
+ "total_deaths": 4,
+ "total_missing": 6,
+ "total_injured": 1,
+ "total_houses": 7175,
+ "avg_fsi_percent": 25.12,
+ "n_hot_spots": 0,
+ "n_hot_99": 0,
+ "n_hot_95": 0,
+ "n_hot_90": 0,
+ "n_catastrophic": 0,
+ "n_mk_sig_freq": 0,
+ "avg_freq_annual": 4.5,
+ "avg_hci_annual": 0.51,
+ "avg_pdi_annual": 13.63
+}

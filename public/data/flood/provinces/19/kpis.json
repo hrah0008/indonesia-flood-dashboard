@@ -1,0 +1,20 @@
+{
+ "prov_code": 19,
+ "prov_name": "Kepulauan Bangka Belitung",
+ "n_regencies": 7,
+ "total_events": 84,
+ "total_deaths": 4,
+ "total_missing": 0,
+ "total_injured": 5,
+ "total_houses": 9852,
+ "avg_fsi_percent": 30.69,
+ "n_hot_spots": 0,
+ "n_hot_99": 0,
+ "n_hot_95": 0,
+ "n_hot_90": 0,
+ "n_catastrophic": 0,
+ "n_mk_sig_freq": 0,
+ "avg_freq_annual": 8.4,
+ "avg_hci_annual": 0.48,
+ "avg_pdi_annual": 19.54
+}

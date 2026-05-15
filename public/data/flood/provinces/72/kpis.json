@@ -1,0 +1,20 @@
+{
+ "prov_code": 72,
+ "prov_name": "Sulawesi Tengah",
+ "n_regencies": 13,
+ "total_events": 556,
+ "total_deaths": 31,
+ "total_missing": 13,
+ "total_injured": 69,
+ "total_houses": 66121,
+ "avg_fsi_percent": 47.08,
+ "n_hot_spots": 4,
+ "n_hot_99": 0,
+ "n_hot_95": 0,
+ "n_hot_90": 4,
+ "n_catastrophic": 0,
+ "n_mk_sig_freq": 2,
+ "avg_freq_annual": 55.6,
+ "avg_hci_annual": 4.07,
+ "avg_pdi_annual": 77.84
+}

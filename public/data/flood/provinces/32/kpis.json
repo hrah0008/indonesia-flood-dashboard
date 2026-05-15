@@ -1,0 +1,20 @@
+{
+ "prov_code": 32,
+ "prov_name": "Jawa Barat",
+ "n_regencies": 27,
+ "total_events": 1553,
+ "total_deaths": 177,
+ "total_missing": 33,
+ "total_injured": 10851,
+ "total_houses": 1375531,
+ "avg_fsi_percent": 54.77,
+ "n_hot_spots": 10,
+ "n_hot_99": 4,
+ "n_hot_95": 2,
+ "n_hot_90": 4,
+ "n_catastrophic": 4,
+ "n_mk_sig_freq": 1,
+ "avg_freq_annual": 155.3,
+ "avg_hci_annual": 15.29,
+ "avg_pdi_annual": 204.04
+}

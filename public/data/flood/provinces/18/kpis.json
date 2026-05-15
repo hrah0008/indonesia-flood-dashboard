@@ -1,0 +1,20 @@
+{
+ "prov_code": 18,
+ "prov_name": "Lampung",
+ "n_regencies": 15,
+ "total_events": 257,
+ "total_deaths": 40,
+ "total_missing": 3,
+ "total_injured": 3,
+ "total_houses": 120031,
+ "avg_fsi_percent": 33.59,
+ "n_hot_spots": 0,
+ "n_hot_99": 0,
+ "n_hot_95": 0,
+ "n_hot_90": 0,
+ "n_catastrophic": 0,
+ "n_mk_sig_freq": 2,
+ "avg_freq_annual": 25.7,
+ "avg_hci_annual": 2.16,
+ "avg_pdi_annual": 61.22
+}

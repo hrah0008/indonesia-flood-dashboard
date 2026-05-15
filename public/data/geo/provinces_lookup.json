@@ -1,0 +1,230 @@
+{
+ "11": {
+  "name": "Aceh",
+  "n_regencies": 23,
+  "centroid_lat": 4.226952,
+  "centroid_lon": 96.911455
+ },
+ "12": {
+  "name": "Sumatera Utara",
+  "n_regencies": 33,
+  "centroid_lat": 2.189346,
+  "centroid_lon": 99.057935
+ },
+ "13": {
+  "name": "Sumatera Barat",
+  "n_regencies": 19,
+  "centroid_lat": -0.848837,
+  "centroid_lon": 100.465436
+ },
+ "14": {
+  "name": "Riau",
+  "n_regencies": 12,
+  "centroid_lat": 0.508913,
+  "centroid_lon": 101.8149
+ },
+ "15": {
+  "name": "Jambi",
+  "n_regencies": 11,
+  "centroid_lat": -1.698973,
+  "centroid_lon": 102.715807
+ },
+ "16": {
+  "name": "Sumatera Selatan",
+  "n_regencies": 17,
+  "centroid_lat": -3.213417,
+  "centroid_lon": 104.170333
+ },
+ "17": {
+  "name": "Bengkulu",
+  "n_regencies": 10,
+  "centroid_lat": -3.557165,
+  "centroid_lon": 102.342895
+ },
+ "18": {
+  "name": "Lampung",
+  "n_regencies": 15,
+  "centroid_lat": -4.917822,
+  "centroid_lon": 105.021598
+ },
+ "19": {
+  "name": "Kepulauan Bangka Belitung",
+  "n_regencies": 7,
+  "centroid_lat": -2.45017,
+  "centroid_lon": 106.556384
+ },
+ "21": {
+  "name": "Kepulauan Riau",
+  "n_regencies": 7,
+  "centroid_lat": 1.483076,
+  "centroid_lon": 105.406435
+ },
+ "31": {
+  "name": "Dki Jakarta",
+  "n_regencies": 6,
+  "centroid_lat": -6.199075,
+  "centroid_lon": 106.834383
+ },
+ "32": {
+  "name": "Jawa Barat",
+  "n_regencies": 27,
+  "centroid_lat": -6.921198,
+  "centroid_lon": 107.603463
+ },
+ "33": {
+  "name": "Jawa Tengah",
+  "n_regencies": 35,
+  "centroid_lat": -7.259794,
+  "centroid_lon": 110.201404
+ },
+ "34": {
+  "name": "Di Yogyakarta",
+  "n_regencies": 5,
+  "centroid_lat": -7.89499,
+  "centroid_lon": 110.445621
+ },
+ "35": {
+  "name": "Jawa Timur",
+  "n_regencies": 38,
+  "centroid_lat": -7.720227,
+  "centroid_lon": 112.732615
+ },
+ "36": {
+  "name": "Banten",
+  "n_regencies": 8,
+  "centroid_lat": -6.456347,
+  "centroid_lon": 106.108889
+ },
+ "51": {
+  "name": "Bali",
+  "n_regencies": 9,
+  "centroid_lat": -8.369875,
+  "centroid_lon": 115.131722
+ },
+ "52": {
+  "name": "Nusa Tenggara Barat",
+  "n_regencies": 10,
+  "centroid_lat": -8.60681,
+  "centroid_lon": 117.507585
+ },
+ "53": {
+  "name": "Nusa Tenggara Timur",
+  "n_regencies": 22,
+  "centroid_lat": -9.262469,
+  "centroid_lon": 122.182067
+ },
+ "61": {
+  "name": "Kalimantan Barat",
+  "n_regencies": 14,
+  "centroid_lat": -0.086725,
+  "centroid_lon": 111.120718
+ },
+ "62": {
+  "name": "Kalimantan Tengah",
+  "n_regencies": 14,
+  "centroid_lat": -1.606814,
+  "centroid_lon": 113.4161
+ },
+ "63": {
+  "name": "Kalimantan Selatan",
+  "n_regencies": 13,
+  "centroid_lat": -3.002528,
+  "centroid_lon": 115.439555
+ },
+ "64": {
+  "name": "Kalimantan Timur",
+  "n_regencies": 10,
+  "centroid_lat": 0.454825,
+  "centroid_lon": 116.450998
+ },
+ "65": {
+  "name": "Kalimantan Utara",
+  "n_regencies": 5,
+  "centroid_lat": 2.915922,
+  "centroid_lon": 116.245978
+ },
+ "71": {
+  "name": "Sulawesi Utara",
+  "n_regencies": 15,
+  "centroid_lat": 1.262206,
+  "centroid_lon": 124.523267
+ },
+ "72": {
+  "name": "Sulawesi Tengah",
+  "n_regencies": 13,
+  "centroid_lat": -1.01833,
+  "centroid_lon": 121.206959
+ },
+ "73": {
+  "name": "Sulawesi Selatan",
+  "n_regencies": 24,
+  "centroid_lat": -3.736515,
+  "centroid_lon": 120.160848
+ },
+ "74": {
+  "name": "Sulawesi Tenggara",
+  "n_regencies": 17,
+  "centroid_lat": -4.137473,
+  "centroid_lon": 122.074957
+ },
+ "75": {
+  "name": "Gorontalo",
+  "n_regencies": 6,
+  "centroid_lat": 0.68631,
+  "centroid_lon": 122.375703
+ },
+ "76": {
+  "name": "Sulawesi Barat",
+  "n_regencies": 6,
+  "centroid_lat": -2.465923,
+  "centroid_lon": 119.34736
+ },
+ "81": {
+  "name": "Maluku",
+  "n_regencies": 11,
+  "centroid_lat": -4.746314,
+  "centroid_lon": 129.843414
+ },
+ "82": {
+  "name": "Maluku Utara",
+  "n_regencies": 10,
+  "centroid_lat": 0.211655,
+  "centroid_lon": 127.542044
+ },
+ "91": {
+  "name": "Papua",
+  "n_regencies": 9,
+  "centroid_lat": -2.610921,
+  "centroid_lon": 138.533669
+ },
+ "92": {
+  "name": "Papua Barat",
+  "n_regencies": 7,
+  "centroid_lat": -2.65648,
+  "centroid_lon": 133.651581
+ },
+ "93": {
+  "name": "Papua Selatan",
+  "n_regencies": 4,
+  "centroid_lat": -6.683673,
+  "centroid_lon": 139.547346
+ },
+ "94": {
+  "name": "Papua Tengah",
+  "n_regencies": 8,
+  "centroid_lat": -3.911229,
+  "centroid_lon": 136.623631
+ },
+ "95": {
+  "name": "Papua Pegunungan",
+  "n_regencies": 8,
+  "centroid_lat": -4.229433,
+  "centroid_lon": 139.453908
+ },
+ "96": {
+  "name": "Papua Barat Daya",
+  "n_regencies": 6,
+  "centroid_lat": -1.12371,
+  "centroid_lon": 131.953901
+ }
+}

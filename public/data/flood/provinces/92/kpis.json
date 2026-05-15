@@ -1,0 +1,20 @@
+{
+ "prov_code": 92,
+ "prov_name": "Papua Barat",
+ "n_regencies": 7,
+ "total_events": 59,
+ "total_deaths": 21,
+ "total_missing": 10,
+ "total_injured": 4,
+ "total_houses": 5348,
+ "avg_fsi_percent": 25.63,
+ "n_hot_spots": 0,
+ "n_hot_99": 0,
+ "n_hot_95": 0,
+ "n_hot_90": 0,
+ "n_catastrophic": 0,
+ "n_mk_sig_freq": 0,
+ "avg_freq_annual": 5.9,
+ "avg_hci_annual": 0.98,
+ "avg_pdi_annual": 12.59
+}

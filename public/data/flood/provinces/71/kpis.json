@@ -1,0 +1,20 @@
+{
+ "prov_code": 71,
+ "prov_name": "Sulawesi Utara",
+ "n_regencies": 15,
+ "total_events": 162,
+ "total_deaths": 40,
+ "total_missing": 4,
+ "total_injured": 16,
+ "total_houses": 84905,
+ "avg_fsi_percent": 33.9,
+ "n_hot_spots": 0,
+ "n_hot_99": 0,
+ "n_hot_95": 0,
+ "n_hot_90": 0,
+ "n_catastrophic": 0,
+ "n_mk_sig_freq": 0,
+ "avg_freq_annual": 16.2,
+ "avg_hci_annual": 2.8,
+ "avg_pdi_annual": 53.3
+}

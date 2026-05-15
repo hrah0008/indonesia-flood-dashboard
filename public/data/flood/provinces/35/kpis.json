@@ -1,0 +1,20 @@
+{
+ "prov_code": 35,
+ "prov_name": "Jawa Timur",
+ "n_regencies": 38,
+ "total_events": 1258,
+ "total_deaths": 104,
+ "total_missing": 13,
+ "total_injured": 46,
+ "total_houses": 620477,
+ "avg_fsi_percent": 41.11,
+ "n_hot_spots": 1,
+ "n_hot_99": 0,
+ "n_hot_95": 0,
+ "n_hot_90": 1,
+ "n_catastrophic": 0,
+ "n_mk_sig_freq": 0,
+ "avg_freq_annual": 125.8,
+ "avg_hci_annual": 7.37,
+ "avg_pdi_annual": 209.0
+}

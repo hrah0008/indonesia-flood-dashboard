@@ -1,0 +1,20 @@
+{
+ "prov_code": 62,
+ "prov_name": "Kalimantan Tengah",
+ "n_regencies": 14,
+ "total_events": 391,
+ "total_deaths": 15,
+ "total_missing": 4,
+ "total_injured": 47,
+ "total_houses": 433519,
+ "avg_fsi_percent": 40.53,
+ "n_hot_spots": 0,
+ "n_hot_99": 0,
+ "n_hot_95": 0,
+ "n_hot_90": 0,
+ "n_catastrophic": 0,
+ "n_mk_sig_freq": 1,
+ "avg_freq_annual": 39.1,
+ "avg_hci_annual": 1.69,
+ "avg_pdi_annual": 86.62
+}

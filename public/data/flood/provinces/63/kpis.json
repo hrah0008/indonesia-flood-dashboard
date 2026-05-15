@@ -1,0 +1,20 @@
+{
+ "prov_code": 63,
+ "prov_name": "Kalimantan Selatan",
+ "n_regencies": 13,
+ "total_events": 371,
+ "total_deaths": 42,
+ "total_missing": 0,
+ "total_injured": 877,
+ "total_houses": 567277,
+ "avg_fsi_percent": 43.32,
+ "n_hot_spots": 1,
+ "n_hot_99": 0,
+ "n_hot_95": 0,
+ "n_hot_90": 1,
+ "n_catastrophic": 1,
+ "n_mk_sig_freq": 0,
+ "avg_freq_annual": 37.1,
+ "avg_hci_annual": 2.29,
+ "avg_pdi_annual": 70.92
+}

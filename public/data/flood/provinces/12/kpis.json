@@ -1,0 +1,20 @@
+{
+ "prov_code": 12,
+ "prov_name": "Sumatera Utara",
+ "n_regencies": 33,
+ "total_events": 678,
+ "total_deaths": 508,
+ "total_missing": 75,
+ "total_injured": 525,
+ "total_houses": 700847,
+ "avg_fsi_percent": 43.39,
+ "n_hot_spots": 8,
+ "n_hot_99": 1,
+ "n_hot_95": 4,
+ "n_hot_90": 3,
+ "n_catastrophic": 3,
+ "n_mk_sig_freq": 1,
+ "avg_freq_annual": 67.8,
+ "avg_hci_annual": 14.82,
+ "avg_pdi_annual": 151.49
+}

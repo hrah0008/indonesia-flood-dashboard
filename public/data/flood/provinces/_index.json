@@ -1,0 +1,192 @@
+{
+ "11": {
+  "prov_name": "Aceh",
+  "n_regencies": 23,
+  "n_hot_spots": 15
+ },
+ "12": {
+  "prov_name": "Sumatera Utara",
+  "n_regencies": 33,
+  "n_hot_spots": 8
+ },
+ "13": {
+  "prov_name": "Sumatera Barat",
+  "n_regencies": 19,
+  "n_hot_spots": 9
+ },
+ "14": {
+  "prov_name": "Riau",
+  "n_regencies": 12,
+  "n_hot_spots": 0
+ },
+ "15": {
+  "prov_name": "Jambi",
+  "n_regencies": 11,
+  "n_hot_spots": 3
+ },
+ "16": {
+  "prov_name": "Sumatera Selatan",
+  "n_regencies": 17,
+  "n_hot_spots": 0
+ },
+ "17": {
+  "prov_name": "Bengkulu",
+  "n_regencies": 10,
+  "n_hot_spots": 0
+ },
+ "18": {
+  "prov_name": "Lampung",
+  "n_regencies": 15,
+  "n_hot_spots": 0
+ },
+ "19": {
+  "prov_name": "Kepulauan Bangka Belitung",
+  "n_regencies": 7,
+  "n_hot_spots": 0
+ },
+ "21": {
+  "prov_name": "Kepulauan Riau",
+  "n_regencies": 7,
+  "n_hot_spots": 0
+ },
+ "31": {
+  "prov_name": "Dki Jakarta",
+  "n_regencies": 6,
+  "n_hot_spots": 0
+ },
+ "32": {
+  "prov_name": "Jawa Barat",
+  "n_regencies": 27,
+  "n_hot_spots": 10
+ },
+ "33": {
+  "prov_name": "Jawa Tengah",
+  "n_regencies": 35,
+  "n_hot_spots": 4
+ },
+ "34": {
+  "prov_name": "Di Yogyakarta",
+  "n_regencies": 5,
+  "n_hot_spots": 0
+ },
+ "35": {
+  "prov_name": "Jawa Timur",
+  "n_regencies": 38,
+  "n_hot_spots": 1
+ },
+ "36": {
+  "prov_name": "Banten",
+  "n_regencies": 8,
+  "n_hot_spots": 2
+ },
+ "51": {
+  "prov_name": "Bali",
+  "n_regencies": 9,
+  "n_hot_spots": 0
+ },
+ "52": {
+  "prov_name": "Nusa Tenggara Barat",
+  "n_regencies": 10,
+  "n_hot_spots": 2
+ },
+ "53": {
+  "prov_name": "Nusa Tenggara Timur",
+  "n_regencies": 22,
+  "n_hot_spots": 1
+ },
+ "61": {
+  "prov_name": "Kalimantan Barat",
+  "n_regencies": 14,
+  "n_hot_spots": 0
+ },
+ "62": {
+  "prov_name": "Kalimantan Tengah",
+  "n_regencies": 14,
+  "n_hot_spots": 0
+ },
+ "63": {
+  "prov_name": "Kalimantan Selatan",
+  "n_regencies": 13,
+  "n_hot_spots": 1
+ },
+ "64": {
+  "prov_name": "Kalimantan Timur",
+  "n_regencies": 10,
+  "n_hot_spots": 0
+ },
+ "65": {
+  "prov_name": "Kalimantan Utara",
+  "n_regencies": 5,
+  "n_hot_spots": 0
+ },
+ "71": {
+  "prov_name": "Sulawesi Utara",
+  "n_regencies": 15,
+  "n_hot_spots": 0
+ },
+ "72": {
+  "prov_name": "Sulawesi Tengah",
+  "n_regencies": 13,
+  "n_hot_spots": 4
+ },
+ "73": {
+  "prov_name": "Sulawesi Selatan",
+  "n_regencies": 24,
+  "n_hot_spots": 0
+ },
+ "74": {
+  "prov_name": "Sulawesi Tenggara",
+  "n_regencies": 17,
+  "n_hot_spots": 0
+ },
+ "75": {
+  "prov_name": "Gorontalo",
+  "n_regencies": 6,
+  "n_hot_spots": 0
+ },
+ "76": {
+  "prov_name": "Sulawesi Barat",
+  "n_regencies": 6,
+  "n_hot_spots": 0
+ },
+ "81": {
+  "prov_name": "Maluku",
+  "n_regencies": 11,
+  "n_hot_spots": 0
+ },
+ "82": {
+  "prov_name": "Maluku Utara",
+  "n_regencies": 10,
+  "n_hot_spots": 0
+ },
+ "91": {
+  "prov_name": "Papua",
+  "n_regencies": 9,
+  "n_hot_spots": 0
+ },
+ "92": {
+  "prov_name": "Papua Barat",
+  "n_regencies": 7,
+  "n_hot_spots": 0
+ },
+ "93": {
+  "prov_name": "Papua Selatan",
+  "n_regencies": 4,
+  "n_hot_spots": 0
+ },
+ "94": {
+  "prov_name": "Papua Tengah",
+  "n_regencies": 8,
+  "n_hot_spots": 0
+ },
+ "95": {
+  "prov_name": "Papua Pegunungan",
+  "n_regencies": 8,
+  "n_hot_spots": 0
+ },
+ "96": {
+  "prov_name": "Papua Barat Daya",
+  "n_regencies": 6,
+  "n_hot_spots": 0
+ }
+}

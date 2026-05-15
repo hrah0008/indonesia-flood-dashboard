@@ -1,0 +1,20 @@
+{
+ "prov_code": 15,
+ "prov_name": "Jambi",
+ "n_regencies": 11,
+ "total_events": 238,
+ "total_deaths": 11,
+ "total_missing": 4,
+ "total_injured": 10,
+ "total_houses": 202506,
+ "avg_fsi_percent": 41.97,
+ "n_hot_spots": 3,
+ "n_hot_99": 0,
+ "n_hot_95": 2,
+ "n_hot_90": 1,
+ "n_catastrophic": 0,
+ "n_mk_sig_freq": 0,
+ "avg_freq_annual": 23.8,
+ "avg_hci_annual": 1.46,
+ "avg_pdi_annual": 57.14
+}

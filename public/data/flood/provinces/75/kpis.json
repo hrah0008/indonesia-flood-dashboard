@@ -1,0 +1,20 @@
+{
+ "prov_code": 75,
+ "prov_name": "Gorontalo",
+ "n_regencies": 6,
+ "total_events": 218,
+ "total_deaths": 14,
+ "total_missing": 4,
+ "total_injured": 230,
+ "total_houses": 103558,
+ "avg_fsi_percent": 51.1,
+ "n_hot_spots": 0,
+ "n_hot_99": 0,
+ "n_hot_95": 0,
+ "n_hot_90": 0,
+ "n_catastrophic": 0,
+ "n_mk_sig_freq": 1,
+ "avg_freq_annual": 21.8,
+ "avg_hci_annual": 1.69,
+ "avg_pdi_annual": 41.94
+}

@@ -1,0 +1,20 @@
+{
+ "prov_code": 64,
+ "prov_name": "Kalimantan Timur",
+ "n_regencies": 10,
+ "total_events": 310,
+ "total_deaths": 12,
+ "total_missing": 1,
+ "total_injured": 88,
+ "total_houses": 220092,
+ "avg_fsi_percent": 39.42,
+ "n_hot_spots": 0,
+ "n_hot_99": 0,
+ "n_hot_95": 0,
+ "n_hot_90": 0,
+ "n_catastrophic": 0,
+ "n_mk_sig_freq": 1,
+ "avg_freq_annual": 31.0,
+ "avg_hci_annual": 1.43,
+ "avg_pdi_annual": 50.08
+}

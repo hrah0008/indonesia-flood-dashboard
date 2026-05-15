@@ -1,0 +1,20 @@
+{
+ "prov_code": 36,
+ "prov_name": "Banten",
+ "n_regencies": 8,
+ "total_events": 388,
+ "total_deaths": 47,
+ "total_missing": 6,
+ "total_injured": 84,
+ "total_houses": 173202,
+ "avg_fsi_percent": 51.0,
+ "n_hot_spots": 2,
+ "n_hot_99": 0,
+ "n_hot_95": 1,
+ "n_hot_90": 1,
+ "n_catastrophic": 1,
+ "n_mk_sig_freq": 0,
+ "avg_freq_annual": 38.8,
+ "avg_hci_annual": 3.1,
+ "avg_pdi_annual": 54.57
+}

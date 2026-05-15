@@ -1,0 +1,20 @@
+{
+ "prov_code": 34,
+ "prov_name": "Di Yogyakarta",
+ "n_regencies": 5,
+ "total_events": 48,
+ "total_deaths": 6,
+ "total_missing": 2,
+ "total_injured": 2,
+ "total_houses": 2238,
+ "avg_fsi_percent": 30.32,
+ "n_hot_spots": 0,
+ "n_hot_99": 0,
+ "n_hot_95": 0,
+ "n_hot_90": 0,
+ "n_catastrophic": 0,
+ "n_mk_sig_freq": 0,
+ "avg_freq_annual": 4.8,
+ "avg_hci_annual": 0.57,
+ "avg_pdi_annual": 13.27
+}

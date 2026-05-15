@@ -1,0 +1,3600 @@
+{
+ "1171": {
+  "name": "Kota Banda Aceh",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 5.558706,
+  "centroid_lon": 95.327714
+ },
+ "1272": {
+  "name": "Kota Pematangsiantar",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 2.961419,
+  "centroid_lon": 99.059034
+ },
+ "3528": {
+  "name": "Kabupaten Pamekasan",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.065252,
+  "centroid_lon": 113.504042
+ },
+ "3216": {
+  "name": "Kabupaten Bekasi",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -6.219794,
+  "centroid_lon": 107.121716
+ },
+ "5317": {
+  "name": "Kabupaten Sumba Tengah",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -9.543221,
+  "centroid_lon": 119.66865
+ },
+ "6107": {
+  "name": "Kabupaten Bengkayang",
+  "prov_code": 61,
+  "prov_name": "Kalimantan Barat",
+  "centroid_lat": 1.011976,
+  "centroid_lon": 109.578415
+ },
+ "3579": {
+  "name": "Kota Batu",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.834685,
+  "centroid_lon": 112.533755
+ },
+ "1214": {
+  "name": "Kabupaten Nias Selatan",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 0.329343,
+  "centroid_lon": 98.098881
+ },
+ "7412": {
+  "name": "Kabupaten Konawe Kepulauan",
+  "prov_code": 74,
+  "prov_name": "Sulawesi Tenggara",
+  "centroid_lat": -4.114592,
+  "centroid_lon": 123.096251
+ },
+ "3371": {
+  "name": "Kota Magelang",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.476556,
+  "centroid_lon": 110.220111
+ },
+ "1803": {
+  "name": "Kabupaten Lampung Utara",
+  "prov_code": 18,
+  "prov_name": "Lampung",
+  "centroid_lat": -4.796821,
+  "centroid_lon": 104.807364
+ },
+ "5205": {
+  "name": "Kabupaten Dompu",
+  "prov_code": 52,
+  "prov_name": "Nusa Tenggara Barat",
+  "centroid_lat": -8.472329,
+  "centroid_lon": 118.216937
+ },
+ "3275": {
+  "name": "Kota Bekasi",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -6.280841,
+  "centroid_lon": 106.975365
+ },
+ "7305": {
+  "name": "Kabupaten Takalar",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -5.418469,
+  "centroid_lon": 119.474144
+ },
+ "2104": {
+  "name": "Kabupaten Lingga",
+  "prov_code": 21,
+  "prov_name": "Kepulauan Riau",
+  "centroid_lat": -0.221843,
+  "centroid_lon": 104.526947
+ },
+ "7304": {
+  "name": "Kabupaten Jeneponto",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -5.56704,
+  "centroid_lon": 119.698882
+ },
+ "3516": {
+  "name": "Kabupaten Mojokerto",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.550736,
+  "centroid_lon": 112.484447
+ },
+ "3522": {
+  "name": "Kabupaten Bojonegoro",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.255608,
+  "centroid_lon": 111.809867
+ },
+ "6102": {
+  "name": "Kabupaten Mempawah",
+  "prov_code": 61,
+  "prov_name": "Kalimantan Barat",
+  "centroid_lat": 0.351782,
+  "centroid_lon": 109.15419
+ },
+ "7303": {
+  "name": "Kabupaten Bantaeng",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -5.490188,
+  "centroid_lon": 119.987365
+ },
+ "5207": {
+  "name": "Kabupaten Sumbawa Barat",
+  "prov_code": 52,
+  "prov_name": "Nusa Tenggara Barat",
+  "centroid_lat": -8.830368,
+  "centroid_lon": 116.914432
+ },
+ "1503": {
+  "name": "Kabupaten Sarolangun",
+  "prov_code": 15,
+  "prov_name": "Jambi",
+  "centroid_lat": -2.306308,
+  "centroid_lon": 102.672522
+ },
+ "3274": {
+  "name": "Kota Cirebon",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -6.74172,
+  "centroid_lon": 108.553305
+ },
+ "1608": {
+  "name": "Kabupaten Ogan Komering Ulu Timur",
+  "prov_code": 16,
+  "prov_name": "Sumatera Selatan",
+  "centroid_lat": -4.074392,
+  "centroid_lon": 104.566955
+ },
+ "7409": {
+  "name": "Kabupaten Konawe Utara",
+  "prov_code": 74,
+  "prov_name": "Sulawesi Tenggara",
+  "centroid_lat": -3.390749,
+  "centroid_lon": 122.030469
+ },
+ "3527": {
+  "name": "Kabupaten Sampang",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.052057,
+  "centroid_lon": 113.256337
+ },
+ "1107": {
+  "name": "Kabupaten Pidie",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 5.053666,
+  "centroid_lon": 96.033385
+ },
+ "1223": {
+  "name": "Kabupaten Labuhanbatu Utara",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 2.411031,
+  "centroid_lon": 99.757811
+ },
+ "1376": {
+  "name": "Kota Payakumbuh",
+  "prov_code": 13,
+  "prov_name": "Sumatera Barat",
+  "centroid_lat": -0.226985,
+  "centroid_lon": 100.632118
+ },
+ "6474": {
+  "name": "Kota Bontang",
+  "prov_code": 64,
+  "prov_name": "Kalimantan Timur",
+  "centroid_lat": 0.093265,
+  "centroid_lon": 117.458068
+ },
+ "7401": {
+  "name": "Kabupaten Kolaka",
+  "prov_code": 74,
+  "prov_name": "Sulawesi Tenggara",
+  "centroid_lat": -4.074648,
+  "centroid_lon": 121.522028
+ },
+ "5208": {
+  "name": "Kabupaten Lombok Utara",
+  "prov_code": 52,
+  "prov_name": "Nusa Tenggara Barat",
+  "centroid_lat": -8.34891,
+  "centroid_lon": 116.282909
+ },
+ "3312": {
+  "name": "Kabupaten Wonogiri",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.919332,
+  "centroid_lon": 110.999192
+ },
+ "3318": {
+  "name": "Kabupaten Pati",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -6.74339,
+  "centroid_lon": 111.042283
+ },
+ "5311": {
+  "name": "Kabupaten Sumba Timur",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -9.878012,
+  "centroid_lon": 120.254856
+ },
+ "3278": {
+  "name": "Kota Tasikmalaya",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -7.360532,
+  "centroid_lon": 108.219123
+ },
+ "3373": {
+  "name": "Kota Salatiga",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.33768,
+  "centroid_lon": 110.498374
+ },
+ "9106": {
+  "name": "Kabupaten Biak Numfor",
+  "prov_code": 91,
+  "prov_name": "Papua",
+  "centroid_lat": -1.002852,
+  "centroid_lon": 135.844371
+ },
+ "7371": {
+  "name": "Kota Makassar",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -5.135614,
+  "centroid_lon": 119.463899
+ },
+ "1906": {
+  "name": "Kabupaten Belitung Timur",
+  "prov_code": 19,
+  "prov_name": "Kepulauan Bangka Belitung",
+  "centroid_lat": -2.908493,
+  "centroid_lon": 108.048178
+ },
+ "6106": {
+  "name": "Kabupaten Kapuas Hulu",
+  "prov_code": 61,
+  "prov_name": "Kalimantan Barat",
+  "centroid_lat": 0.825651,
+  "centroid_lon": 112.803564
+ },
+ "6304": {
+  "name": "Kabupaten Barito Kuala",
+  "prov_code": 63,
+  "prov_name": "Kalimantan Selatan",
+  "centroid_lat": -3.091263,
+  "centroid_lon": 114.630203
+ },
+ "3515": {
+  "name": "Kabupaten Sidoarjo",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.451485,
+  "centroid_lon": 112.700305
+ },
+ "6571": {
+  "name": "Kota Tarakan",
+  "prov_code": 65,
+  "prov_name": "Kalimantan Utara",
+  "centroid_lat": 3.359409,
+  "centroid_lon": 117.599511
+ },
+ "3506": {
+  "name": "Kabupaten Kediri",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.828722,
+  "centroid_lon": 112.089217
+ },
+ "6210": {
+  "name": "Kabupaten Gunung Mas",
+  "prov_code": 62,
+  "prov_name": "Kalimantan Tengah",
+  "centroid_lat": -1.025156,
+  "centroid_lon": 113.55878
+ },
+ "3316": {
+  "name": "Kabupaten Blora",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.074486,
+  "centroid_lon": 111.387439
+ },
+ "6171": {
+  "name": "Kota Pontianak",
+  "prov_code": 61,
+  "prov_name": "Kalimantan Barat",
+  "centroid_lat": -0.025781,
+  "centroid_lon": 109.331697
+ },
+ "1601": {
+  "name": "Kabupaten Ogan Komering Ulu",
+  "prov_code": 16,
+  "prov_name": "Sumatera Selatan",
+  "centroid_lat": -4.093787,
+  "centroid_lon": 104.105191
+ },
+ "6409": {
+  "name": "Kabupaten Penajam Paser Utara",
+  "prov_code": 64,
+  "prov_name": "Kalimantan Timur",
+  "centroid_lat": -1.158963,
+  "centroid_lon": 116.591139
+ },
+ "7211": {
+  "name": "Kabupaten Banggai Laut",
+  "prov_code": 72,
+  "prov_name": "Sulawesi Tengah",
+  "centroid_lat": -1.780137,
+  "centroid_lon": 123.529471
+ },
+ "1802": {
+  "name": "Kabupaten Lampung Tengah",
+  "prov_code": 18,
+  "prov_name": "Lampung",
+  "centroid_lat": -4.856389,
+  "centroid_lon": 105.272013
+ },
+ "3574": {
+  "name": "Kota Probolinggo",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.773812,
+  "centroid_lon": 113.205469
+ },
+ "3517": {
+  "name": "Kabupaten Jombang",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.544678,
+  "centroid_lon": 112.264096
+ },
+ "9208": {
+  "name": "Kabupaten Kaimana",
+  "prov_code": 92,
+  "prov_name": "Papua Barat",
+  "centroid_lat": -3.58549,
+  "centroid_lon": 134.056285
+ },
+ "7205": {
+  "name": "Kabupaten Buol",
+  "prov_code": 72,
+  "prov_name": "Sulawesi Tengah",
+  "centroid_lat": 0.978887,
+  "centroid_lon": 121.388453
+ },
+ "3376": {
+  "name": "Kota Tegal",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -6.869175,
+  "centroid_lon": 109.115747
+ },
+ "3174": {
+  "name": "Kota Administrasi Jakarta Selatan",
+  "prov_code": 31,
+  "prov_name": "Dki Jakarta",
+  "centroid_lat": -6.272609,
+  "centroid_lon": 106.81004
+ },
+ "1611": {
+  "name": "Kabupaten Empat Lawang",
+  "prov_code": 16,
+  "prov_name": "Sumatera Selatan",
+  "centroid_lat": -3.751525,
+  "centroid_lon": 102.947996
+ },
+ "9504": {
+  "name": "Kabupaten Tolikara",
+  "prov_code": 95,
+  "prov_name": "Papua Pegunungan",
+  "centroid_lat": -3.367626,
+  "centroid_lon": 138.420349
+ },
+ "9503": {
+  "name": "Kabupaten Yahukimo",
+  "prov_code": 95,
+  "prov_name": "Papua Pegunungan",
+  "centroid_lat": -4.472798,
+  "centroid_lon": 139.564807
+ },
+ "1216": {
+  "name": "Kabupaten Humbang Hasundutan",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 2.261174,
+  "centroid_lon": 98.577712
+ },
+ "7311": {
+  "name": "Kabupaten Barru",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -4.440071,
+  "centroid_lon": 119.694851
+ },
+ "5316": {
+  "name": "Kabupaten Nagekeo",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -8.689786,
+  "centroid_lon": 121.273201
+ },
+ "7318": {
+  "name": "Kabupaten Tana Toraja",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -3.115635,
+  "centroid_lon": 119.711633
+ },
+ "6112": {
+  "name": "Kabupaten Kubu Raya",
+  "prov_code": 61,
+  "prov_name": "Kalimantan Barat",
+  "centroid_lat": -0.391841,
+  "centroid_lon": 109.540375
+ },
+ "3576": {
+  "name": "Kota Mojokerto",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.47139,
+  "centroid_lon": 112.437508
+ },
+ "7411": {
+  "name": "Kabupaten Kolaka Timur",
+  "prov_code": 74,
+  "prov_name": "Sulawesi Tenggara",
+  "centroid_lat": -3.795652,
+  "centroid_lon": 121.608681
+ },
+ "1172": {
+  "name": "Kota Sabang",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 5.837764,
+  "centroid_lon": 95.305719
+ },
+ "1405": {
+  "name": "Kabupaten Pelalawan",
+  "prov_code": 14,
+  "prov_name": "Riau",
+  "centroid_lat": 0.217514,
+  "centroid_lon": 102.280392
+ },
+ "1902": {
+  "name": "Kabupaten Belitung",
+  "prov_code": 19,
+  "prov_name": "Kepulauan Bangka Belitung",
+  "centroid_lat": -2.867641,
+  "centroid_lon": 107.710175
+ },
+ "6308": {
+  "name": "Kabupaten Hulu Sungai Utara",
+  "prov_code": 63,
+  "prov_name": "Kalimantan Selatan",
+  "centroid_lat": -2.439266,
+  "centroid_lon": 115.15127
+ },
+ "7103": {
+  "name": "Kabupaten Kepulauan Sangihe",
+  "prov_code": 71,
+  "prov_name": "Sulawesi Utara",
+  "centroid_lat": 3.552719,
+  "centroid_lon": 125.540976
+ },
+ "1706": {
+  "name": "Kabupaten Mukomuko",
+  "prov_code": 17,
+  "prov_name": "Bengkulu",
+  "centroid_lat": -2.690361,
+  "centroid_lon": 101.481913
+ },
+ "3505": {
+  "name": "Kabupaten Blitar",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -8.131059,
+  "centroid_lon": 112.237211
+ },
+ "9401": {
+  "name": "Kabupaten Nabire",
+  "prov_code": 94,
+  "prov_name": "Papua Tengah",
+  "centroid_lat": -3.397686,
+  "centroid_lon": 135.618337
+ },
+ "7502": {
+  "name": "Kabupaten Boalemo",
+  "prov_code": 75,
+  "prov_name": "Gorontalo",
+  "centroid_lat": 0.65291,
+  "centroid_lon": 122.327084
+ },
+ "7324": {
+  "name": "Kabupaten Luwu Timur",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -2.556091,
+  "centroid_lon": 121.12837
+ },
+ "2101": {
+  "name": "Kabupaten Bintan",
+  "prov_code": 21,
+  "prov_name": "Kepulauan Riau",
+  "centroid_lat": 1.007633,
+  "centroid_lon": 104.703803
+ },
+ "1204": {
+  "name": "Kabupaten Nias",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 1.069869,
+  "centroid_lon": 97.72459
+ },
+ "5309": {
+  "name": "Kabupaten Ngada",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -8.66464,
+  "centroid_lon": 121.001564
+ },
+ "1108": {
+  "name": "Kabupaten Aceh Utara",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 5.015675,
+  "centroid_lon": 97.181892
+ },
+ "6205": {
+  "name": "Kabupaten Barito Utara",
+  "prov_code": 62,
+  "prov_name": "Kalimantan Tengah",
+  "centroid_lat": -0.928415,
+  "centroid_lon": 115.137624
+ },
+ "7415": {
+  "name": "Kabupaten Buton Selatan",
+  "prov_code": 74,
+  "prov_name": "Sulawesi Tenggara",
+  "centroid_lat": -5.604732,
+  "centroid_lon": 122.671559
+ },
+ "5312": {
+  "name": "Kabupaten Sumba Barat",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -9.641463,
+  "centroid_lon": 119.383375
+ },
+ "7404": {
+  "name": "Kabupaten Buton",
+  "prov_code": 74,
+  "prov_name": "Sulawesi Tenggara",
+  "centroid_lat": -5.316535,
+  "centroid_lon": 122.922933
+ },
+ "1175": {
+  "name": "Kota Subulussalam",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 2.730756,
+  "centroid_lon": 97.936016
+ },
+ "7408": {
+  "name": "Kabupaten Kolaka Utara",
+  "prov_code": 74,
+  "prov_name": "Sulawesi Tenggara",
+  "centroid_lat": -3.262802,
+  "centroid_lon": 121.134033
+ },
+ "1115": {
+  "name": "Kabupaten Nagan Raya",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 4.164314,
+  "centroid_lon": 96.50769
+ },
+ "3209": {
+  "name": "Kabupaten Cirebon",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -6.746261,
+  "centroid_lon": 108.552179
+ },
+ "1372": {
+  "name": "Kota Solok",
+  "prov_code": 13,
+  "prov_name": "Sumatera Barat",
+  "centroid_lat": -0.782867,
+  "centroid_lon": 100.629866
+ },
+ "1117": {
+  "name": "Kabupaten Bener Meriah",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 4.77007,
+  "centroid_lon": 97.004108
+ },
+ "8272": {
+  "name": "Kota Tidore Kepulauan",
+  "prov_code": 82,
+  "prov_name": "Maluku Utara",
+  "centroid_lat": 0.479284,
+  "centroid_lon": 127.67501
+ },
+ "8207": {
+  "name": "Kabupaten Pulau Morotai",
+  "prov_code": 82,
+  "prov_name": "Maluku Utara",
+  "centroid_lat": 2.316471,
+  "centroid_lon": 128.448382
+ },
+ "5308": {
+  "name": "Kabupaten Ende",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -8.676401,
+  "centroid_lon": 121.735429
+ },
+ "1278": {
+  "name": "Kota Gunungsitoli",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 1.268532,
+  "centroid_lon": 97.586684
+ },
+ "1603": {
+  "name": "Kabupaten Muara Enim",
+  "prov_code": 16,
+  "prov_name": "Sumatera Selatan",
+  "centroid_lat": -3.635232,
+  "centroid_lon": 103.997738
+ },
+ "3204": {
+  "name": "Kabupaten Bandung",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -7.097622,
+  "centroid_lon": 107.608715
+ },
+ "7606": {
+  "name": "Kabupaten Mamuju Tengah",
+  "prov_code": 76,
+  "prov_name": "Sulawesi Barat",
+  "centroid_lat": -2.002668,
+  "centroid_lon": 119.511083
+ },
+ "6271": {
+  "name": "Kota Palangkaraya",
+  "prov_code": 62,
+  "prov_name": "Kalimantan Tengah",
+  "centroid_lat": -2.007516,
+  "centroid_lon": 113.767488
+ },
+ "1672": {
+  "name": "Kota Pagar Alam",
+  "prov_code": 16,
+  "prov_name": "Sumatera Selatan",
+  "centroid_lat": -4.117612,
+  "centroid_lon": 103.266388
+ },
+ "7372": {
+  "name": "Kota Parepare",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -4.031644,
+  "centroid_lon": 119.663556
+ },
+ "2103": {
+  "name": "Kabupaten Natuna",
+  "prov_code": 21,
+  "prov_name": "Kepulauan Riau",
+  "centroid_lat": 3.782394,
+  "centroid_lon": 108.260259
+ },
+ "1302": {
+  "name": "Kabupaten Solok",
+  "prov_code": 13,
+  "prov_name": "Sumatera Barat",
+  "centroid_lat": -0.983585,
+  "centroid_lon": 100.841291
+ },
+ "7405": {
+  "name": "Kabupaten Konawe Selatan",
+  "prov_code": 74,
+  "prov_name": "Sulawesi Tenggara",
+  "centroid_lat": -4.262757,
+  "centroid_lon": 122.423307
+ },
+ "1222": {
+  "name": "Kabupaten Labuhanbatu Selatan",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 1.841964,
+  "centroid_lon": 100.140018
+ },
+ "7101": {
+  "name": "Kabupaten Bolaang Mongondow",
+  "prov_code": 71,
+  "prov_name": "Sulawesi Utara",
+  "centroid_lat": 0.708685,
+  "centroid_lon": 124.036982
+ },
+ "1605": {
+  "name": "Kabupaten Musi Rawas",
+  "prov_code": 16,
+  "prov_name": "Sumatera Selatan",
+  "centroid_lat": -3.165444,
+  "centroid_lon": 103.13656
+ },
+ "8103": {
+  "name": "Kabupaten Kepulauan Tanimbar",
+  "prov_code": 81,
+  "prov_name": "Maluku",
+  "centroid_lat": -7.58462,
+  "centroid_lon": 131.366517
+ },
+ "1403": {
+  "name": "Kabupaten Bengkalis",
+  "prov_code": 14,
+  "prov_name": "Riau",
+  "centroid_lat": 1.411957,
+  "centroid_lon": 101.642866
+ },
+ "8107": {
+  "name": "Kabupaten Kepulauan Aru",
+  "prov_code": 81,
+  "prov_name": "Maluku",
+  "centroid_lat": -6.196626,
+  "centroid_lon": 134.450935
+ },
+ "3404": {
+  "name": "Kabupaten Sleman",
+  "prov_code": 34,
+  "prov_name": "Di Yogyakarta",
+  "centroid_lat": -7.716478,
+  "centroid_lon": 110.383212
+ },
+ "1801": {
+  "name": "Kabupaten Lampung Selatan",
+  "prov_code": 18,
+  "prov_name": "Lampung",
+  "centroid_lat": -5.530026,
+  "centroid_lon": 105.501242
+ },
+ "3671": {
+  "name": "Kota Tangerang",
+  "prov_code": 36,
+  "prov_name": "Banten",
+  "centroid_lat": -6.184375,
+  "centroid_lon": 106.651995
+ },
+ "7406": {
+  "name": "Kabupaten Bombana",
+  "prov_code": 74,
+  "prov_name": "Sulawesi Tenggara",
+  "centroid_lat": -4.80105,
+  "centroid_lon": 121.852416
+ },
+ "1507": {
+  "name": "Kabupaten Tanjung Jabung Timur",
+  "prov_code": 15,
+  "prov_name": "Jambi",
+  "centroid_lat": -1.225387,
+  "centroid_lon": 103.965302
+ },
+ "1810": {
+  "name": "Kabupaten Pringsewu",
+  "prov_code": 18,
+  "prov_name": "Lampung",
+  "centroid_lat": -5.336381,
+  "centroid_lon": 104.933407
+ },
+ "6212": {
+  "name": "Kabupaten Murung Raya",
+  "prov_code": 62,
+  "prov_name": "Kalimantan Tengah",
+  "centroid_lat": -0.03179,
+  "centroid_lon": 114.262332
+ },
+ "6504": {
+  "name": "Kabupaten Tana Tidung",
+  "prov_code": 65,
+  "prov_name": "Kalimantan Utara",
+  "centroid_lat": 3.570499,
+  "centroid_lon": 117.157742
+ },
+ "1609": {
+  "name": "Kabupaten Ogan Komering Ulu Selatan",
+  "prov_code": 16,
+  "prov_name": "Sumatera Selatan",
+  "centroid_lat": -4.588997,
+  "centroid_lon": 103.910168
+ },
+ "8271": {
+  "name": "Kota Ternate",
+  "prov_code": 82,
+  "prov_name": "Maluku Utara",
+  "centroid_lat": 0.838505,
+  "centroid_lon": 127.172504
+ },
+ "1905": {
+  "name": "Kabupaten Bangka Barat",
+  "prov_code": 19,
+  "prov_name": "Kepulauan Bangka Belitung",
+  "centroid_lat": -1.88923,
+  "centroid_lon": 105.487626
+ },
+ "8202": {
+  "name": "Kabupaten Halmahera Tengah",
+  "prov_code": 82,
+  "prov_name": "Maluku Utara",
+  "centroid_lat": 0.401874,
+  "centroid_lon": 128.295304
+ },
+ "1812": {
+  "name": "Kabupaten Tulang Bawang Barat",
+  "prov_code": 18,
+  "prov_name": "Lampung",
+  "centroid_lat": -4.425748,
+  "centroid_lon": 105.08744
+ },
+ "1104": {
+  "name": "Kabupaten Aceh Tengah",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 4.519956,
+  "centroid_lon": 96.881259
+ },
+ "3575": {
+  "name": "Kota Pasuruan",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.649573,
+  "centroid_lon": 112.910005
+ },
+ "7317": {
+  "name": "Kabupaten Luwu",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -3.19931,
+  "centroid_lon": 120.183139
+ },
+ "7471": {
+  "name": "Kota Kendari",
+  "prov_code": 74,
+  "prov_name": "Sulawesi Tenggara",
+  "centroid_lat": -3.997711,
+  "centroid_lon": 122.532882
+ },
+ "7315": {
+  "name": "Kabupaten Pinrang",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -3.628142,
+  "centroid_lon": 119.602576
+ },
+ "7302": {
+  "name": "Kabupaten Bulukumba",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -5.431465,
+  "centroid_lon": 120.23433
+ },
+ "3319": {
+  "name": "Kabupaten Kudus",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -6.79028,
+  "centroid_lon": 110.869905
+ },
+ "3511": {
+  "name": "Kabupaten Bondowoso",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.943713,
+  "centroid_lon": 113.947707
+ },
+ "8201": {
+  "name": "Kabupaten Halmahera Barat",
+  "prov_code": 82,
+  "prov_name": "Maluku Utara",
+  "centroid_lat": 1.351775,
+  "centroid_lon": 127.590805
+ },
+ "3173": {
+  "name": "Kota Administrasi Jakarta Barat",
+  "prov_code": 31,
+  "prov_name": "Dki Jakarta",
+  "centroid_lat": -6.165335,
+  "centroid_lon": 106.748301
+ },
+ "9203": {
+  "name": "Kabupaten Fak Fak",
+  "prov_code": 92,
+  "prov_name": "Papua Barat",
+  "centroid_lat": -3.111791,
+  "centroid_lon": 132.842735
+ },
+ "1103": {
+  "name": "Kabupaten Aceh Timur",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 4.630559,
+  "centroid_lon": 97.626091
+ },
+ "3313": {
+  "name": "Kabupaten Karanganyar",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.614162,
+  "centroid_lon": 111.019255
+ },
+ "3602": {
+  "name": "Kabupaten Lebak",
+  "prov_code": 36,
+  "prov_name": "Banten",
+  "centroid_lat": -6.642105,
+  "centroid_lon": 106.212422
+ },
+ "3271": {
+  "name": "Kota Bogor",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -6.593494,
+  "centroid_lon": 106.799357
+ },
+ "1701": {
+  "name": "Kabupaten Bengkulu Selatan",
+  "prov_code": 17,
+  "prov_name": "Bengkulu",
+  "centroid_lat": -4.348412,
+  "centroid_lon": 103.021161
+ },
+ "5171": {
+  "name": "Kota Denpasar",
+  "prov_code": 51,
+  "prov_name": "Bali",
+  "centroid_lat": -8.668362,
+  "centroid_lon": 115.220816
+ },
+ "3520": {
+  "name": "Kabupaten Magetan",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.663395,
+  "centroid_lon": 111.357431
+ },
+ "1971": {
+  "name": "Kota Pangkal Pinang",
+  "prov_code": 19,
+  "prov_name": "Kepulauan Bangka Belitung",
+  "centroid_lat": -2.110514,
+  "centroid_lon": 106.11321
+ },
+ "5319": {
+  "name": "Kabupaten Manggarai Timur",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -8.572887,
+  "centroid_lon": 120.689308
+ },
+ "7312": {
+  "name": "Kabupaten Soppeng",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -4.337068,
+  "centroid_lon": 119.893382
+ },
+ "6104": {
+  "name": "Kabupaten Ketapang",
+  "prov_code": 61,
+  "prov_name": "Kalimantan Barat",
+  "centroid_lat": -1.633321,
+  "centroid_lon": 110.605439
+ },
+ "3321": {
+  "name": "Kabupaten Demak",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -6.910803,
+  "centroid_lon": 110.634
+ },
+ "1813": {
+  "name": "Kabupaten Pesisir Barat",
+  "prov_code": 18,
+  "prov_name": "Lampung",
+  "centroid_lat": -5.335741,
+  "centroid_lon": 104.162965
+ },
+ "3571": {
+  "name": "Kota Kediri",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.826372,
+  "centroid_lon": 112.016124
+ },
+ "3218": {
+  "name": "Kabupaten Pangandaran",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -7.635665,
+  "centroid_lon": 108.518583
+ },
+ "3172": {
+  "name": "Kota Administrasi Jakarta Utara",
+  "prov_code": 31,
+  "prov_name": "Dki Jakarta",
+  "centroid_lat": -6.127184,
+  "centroid_lon": 106.866615
+ },
+ "3305": {
+  "name": "Kabupaten Kebumen",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.654989,
+  "centroid_lon": 109.617356
+ },
+ "7212": {
+  "name": "Kabupaten Morowali Utara",
+  "prov_code": 72,
+  "prov_name": "Sulawesi Tengah",
+  "centroid_lat": -1.827089,
+  "centroid_lon": 121.396031
+ },
+ "1102": {
+  "name": "Kabupaten Aceh Tenggara",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 3.368997,
+  "centroid_lon": 97.697586
+ },
+ "6401": {
+  "name": "Kabupaten Paser",
+  "prov_code": 64,
+  "prov_name": "Kalimantan Timur",
+  "centroid_lat": -1.741167,
+  "centroid_lon": 116.092064
+ },
+ "9403": {
+  "name": "Kabupaten Paniai",
+  "prov_code": 94,
+  "prov_name": "Papua Tengah",
+  "centroid_lat": -3.797855,
+  "centroid_lon": 136.470847
+ },
+ "2172": {
+  "name": "Kota Tanjung Pinang",
+  "prov_code": 21,
+  "prov_name": "Kepulauan Riau",
+  "centroid_lat": 0.919582,
+  "centroid_lon": 104.487064
+ },
+ "9603": {
+  "name": "Kabupaten Raja Ampat",
+  "prov_code": 96,
+  "prov_name": "Papua Barat Daya",
+  "centroid_lat": -0.897482,
+  "centroid_lon": 130.569382
+ },
+ "1504": {
+  "name": "Kabupaten Batanghari",
+  "prov_code": 15,
+  "prov_name": "Jambi",
+  "centroid_lat": -1.749917,
+  "centroid_lon": 103.09431
+ },
+ "7313": {
+  "name": "Kabupaten Wajo",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -3.991874,
+  "centroid_lon": 120.172825
+ },
+ "1409": {
+  "name": "Kabupaten Kuantan Singingi",
+  "prov_code": 14,
+  "prov_name": "Riau",
+  "centroid_lat": -0.47418,
+  "centroid_lon": 101.50592
+ },
+ "9406": {
+  "name": "Kabupaten Dogiyai",
+  "prov_code": 94,
+  "prov_name": "Papua Tengah",
+  "centroid_lat": -4.047038,
+  "centroid_lon": 135.60713
+ },
+ "3206": {
+  "name": "Kabupaten Tasikmalaya",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -7.496844,
+  "centroid_lon": 108.141572
+ },
+ "3323": {
+  "name": "Kabupaten Temanggung",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.257715,
+  "centroid_lon": 110.136307
+ },
+ "9601": {
+  "name": "Kabupaten Sorong",
+  "prov_code": 96,
+  "prov_name": "Papua Barat Daya",
+  "centroid_lat": -0.866624,
+  "centroid_lon": 131.317811
+ },
+ "1704": {
+  "name": "Kabupaten Kaur",
+  "prov_code": 17,
+  "prov_name": "Bengkulu",
+  "centroid_lat": -4.611189,
+  "centroid_lon": 103.412345
+ },
+ "7201": {
+  "name": "Kabupaten Banggai",
+  "prov_code": 72,
+  "prov_name": "Sulawesi Tengah",
+  "centroid_lat": -1.018511,
+  "centroid_lon": 122.588288
+ },
+ "7172": {
+  "name": "Kota Bitung",
+  "prov_code": 71,
+  "prov_name": "Sulawesi Utara",
+  "centroid_lat": 1.489813,
+  "centroid_lon": 125.157974
+ },
+ "1901": {
+  "name": "Kabupaten Bangka",
+  "prov_code": 19,
+  "prov_name": "Kepulauan Bangka Belitung",
+  "centroid_lat": -1.904315,
+  "centroid_lon": 105.919635
+ },
+ "3301": {
+  "name": "Kabupaten Cilacap",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.489025,
+  "centroid_lon": 108.889889
+ },
+ "9211": {
+  "name": "Kabupaten Manokwari Selatan",
+  "prov_code": 92,
+  "prov_name": "Papua Barat",
+  "centroid_lat": -1.548018,
+  "centroid_lon": 134.017667
+ },
+ "1105": {
+  "name": "Kabupaten Aceh Barat",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 4.454514,
+  "centroid_lon": 96.180886
+ },
+ "6309": {
+  "name": "Kabupaten Tabalong",
+  "prov_code": 63,
+  "prov_name": "Kalimantan Selatan",
+  "centroid_lat": -1.862003,
+  "centroid_lon": 115.500056
+ },
+ "1771": {
+  "name": "Kota Bengkulu",
+  "prov_code": 17,
+  "prov_name": "Bengkulu",
+  "centroid_lat": -3.841403,
+  "centroid_lon": 102.308158
+ },
+ "6372": {
+  "name": "Kota Banjarbaru",
+  "prov_code": 63,
+  "prov_name": "Kalimantan Selatan",
+  "centroid_lat": -3.47477,
+  "centroid_lon": 114.791177
+ },
+ "9605": {
+  "name": "Kabupaten Maybrat",
+  "prov_code": 96,
+  "prov_name": "Papua Barat Daya",
+  "centroid_lat": -1.380041,
+  "centroid_lon": 132.512053
+ },
+ "5206": {
+  "name": "Kabupaten Bima",
+  "prov_code": 52,
+  "prov_name": "Nusa Tenggara Barat",
+  "centroid_lat": -8.474966,
+  "centroid_lon": 118.619117
+ },
+ "5271": {
+  "name": "Kota Mataram",
+  "prov_code": 52,
+  "prov_name": "Nusa Tenggara Barat",
+  "centroid_lat": -8.590156,
+  "centroid_lon": 116.110959
+ },
+ "6407": {
+  "name": "Kabupaten Kutai Barat",
+  "prov_code": 64,
+  "prov_name": "Kalimantan Timur",
+  "centroid_lat": -0.503342,
+  "centroid_lon": 115.826104
+ },
+ "1221": {
+  "name": "Kabupaten Padang Lawas",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 1.142268,
+  "centroid_lon": 99.851204
+ },
+ "5272": {
+  "name": "Kota Bima",
+  "prov_code": 52,
+  "prov_name": "Nusa Tenggara Barat",
+  "centroid_lat": -8.454874,
+  "centroid_lon": 118.782108
+ },
+ "1571": {
+  "name": "Kota Jambi",
+  "prov_code": 15,
+  "prov_name": "Jambi",
+  "centroid_lat": -1.618178,
+  "centroid_lon": 103.599789
+ },
+ "7207": {
+  "name": "Kabupaten Banggai Kepulauan",
+  "prov_code": 72,
+  "prov_name": "Sulawesi Tengah",
+  "centroid_lat": -1.371807,
+  "centroid_lon": 123.143292
+ },
+ "1114": {
+  "name": "Kabupaten Aceh Jaya",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 4.832515,
+  "centroid_lon": 95.678052
+ },
+ "1109": {
+  "name": "Kabupaten Simeulue",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 2.612862,
+  "centroid_lon": 96.086232
+ },
+ "3309": {
+  "name": "Kabupaten Boyolali",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.416567,
+  "centroid_lon": 110.652485
+ },
+ "8205": {
+  "name": "Kabupaten Kepulauan Sula",
+  "prov_code": 82,
+  "prov_name": "Maluku Utara",
+  "centroid_lat": -1.963828,
+  "centroid_lon": 125.839695
+ },
+ "7173": {
+  "name": "Kota Tomohon",
+  "prov_code": 71,
+  "prov_name": "Sulawesi Utara",
+  "centroid_lat": 1.330533,
+  "centroid_lon": 124.815047
+ },
+ "7206": {
+  "name": "Kabupaten Morowali",
+  "prov_code": 72,
+  "prov_name": "Sulawesi Tengah",
+  "centroid_lat": -2.716062,
+  "centroid_lon": 121.923739
+ },
+ "6208": {
+  "name": "Kabupaten Sukamara",
+  "prov_code": 62,
+  "prov_name": "Kalimantan Tengah",
+  "centroid_lat": -2.604461,
+  "centroid_lon": 111.159562
+ },
+ "9507": {
+  "name": "Kabupaten Lanny Jaya",
+  "prov_code": 95,
+  "prov_name": "Papua Pegunungan",
+  "centroid_lat": -3.962168,
+  "centroid_lon": 138.384407
+ },
+ "3306": {
+  "name": "Kabupaten Purworejo",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.700408,
+  "centroid_lon": 109.966127
+ },
+ "6503": {
+  "name": "Kabupaten Nunukan",
+  "prov_code": 65,
+  "prov_name": "Kalimantan Utara",
+  "centroid_lat": 4.009257,
+  "centroid_lon": 116.642882
+ },
+ "6310": {
+  "name": "Kabupaten Tanah Bumbu",
+  "prov_code": 63,
+  "prov_name": "Kalimantan Selatan",
+  "centroid_lat": -3.439769,
+  "centroid_lon": 115.647129
+ },
+ "3214": {
+  "name": "Kabupaten Purwakarta",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -6.595278,
+  "centroid_lon": 107.430776
+ },
+ "1375": {
+  "name": "Kota Bukittinggi",
+  "prov_code": 13,
+  "prov_name": "Sumatera Barat",
+  "centroid_lat": -0.299583,
+  "centroid_lon": 100.372537
+ },
+ "3320": {
+  "name": "Kabupaten Jepara",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -6.549104,
+  "centroid_lon": 110.768144
+ },
+ "5320": {
+  "name": "Kabupaten Sabu Raijua",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -10.535703,
+  "centroid_lon": 121.844454
+ },
+ "1673": {
+  "name": "Kota Lubuk Linggau",
+  "prov_code": 16,
+  "prov_name": "Sumatera Selatan",
+  "centroid_lat": -3.263007,
+  "centroid_lon": 102.87511
+ },
+ "8101": {
+  "name": "Kabupaten Maluku Tengah",
+  "prov_code": 81,
+  "prov_name": "Maluku",
+  "centroid_lat": -3.181407,
+  "centroid_lon": 129.295406
+ },
+ "1311": {
+  "name": "Kabupaten Solok Selatan",
+  "prov_code": 13,
+  "prov_name": "Sumatera Barat",
+  "centroid_lat": -1.423606,
+  "centroid_lon": 101.267678
+ },
+ "8109": {
+  "name": "Kabupaten Buru Selatan",
+  "prov_code": 81,
+  "prov_name": "Maluku",
+  "centroid_lat": -3.567643,
+  "centroid_lon": 126.524267
+ },
+ "3101": {
+  "name": "Kabupaten Administrasi Kepulauan Seribu",
+  "prov_code": 31,
+  "prov_name": "Dki Jakarta",
+  "centroid_lat": -5.700451,
+  "centroid_lon": 106.578971
+ },
+ "7314": {
+  "name": "Kabupaten Sidenreng Rappang",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -3.813155,
+  "centroid_lon": 119.958461
+ },
+ "3315": {
+  "name": "Kabupaten Grobogan",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.117657,
+  "centroid_lon": 110.92718
+ },
+ "3402": {
+  "name": "Kabupaten Bantul",
+  "prov_code": 34,
+  "prov_name": "Di Yogyakarta",
+  "centroid_lat": -7.901345,
+  "centroid_lon": 110.35488
+ },
+ "3273": {
+  "name": "Kota Bandung",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -6.919244,
+  "centroid_lon": 107.636601
+ },
+ "5321": {
+  "name": "Kabupaten Malaka",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -9.524303,
+  "centroid_lon": 124.888435
+ },
+ "1275": {
+  "name": "Kota Binjai",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 3.600229,
+  "centroid_lon": 98.48922
+ },
+ "7472": {
+  "name": "Kota Bau Bau",
+  "prov_code": 74,
+  "prov_name": "Sulawesi Tenggara",
+  "centroid_lat": -5.428776,
+  "centroid_lon": 122.675793
+ },
+ "9508": {
+  "name": "Kabupaten Nduga",
+  "prov_code": 95,
+  "prov_name": "Papua Pegunungan",
+  "centroid_lat": -4.415829,
+  "centroid_lon": 138.336731
+ },
+ "6371": {
+  "name": "Kota Banjarmasin",
+  "prov_code": 63,
+  "prov_name": "Kalimantan Selatan",
+  "centroid_lat": -3.329123,
+  "centroid_lon": 114.591798
+ },
+ "1572": {
+  "name": "Kota Sungai Penuh",
+  "prov_code": 15,
+  "prov_name": "Jambi",
+  "centroid_lat": -2.113293,
+  "centroid_lon": 101.339257
+ },
+ "1707": {
+  "name": "Kabupaten Lebong",
+  "prov_code": 17,
+  "prov_name": "Bengkulu",
+  "centroid_lat": -3.090044,
+  "centroid_lon": 102.247836
+ },
+ "3507": {
+  "name": "Kabupaten Malang",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -8.126033,
+  "centroid_lon": 112.640922
+ },
+ "5315": {
+  "name": "Kabupaten Manggarai Barat",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -8.602777,
+  "centroid_lon": 119.988528
+ },
+ "1209": {
+  "name": "Kabupaten Asahan",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 2.804952,
+  "centroid_lon": 99.559375
+ },
+ "3518": {
+  "name": "Kabupaten Nganjuk",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.597533,
+  "centroid_lon": 111.938534
+ },
+ "7208": {
+  "name": "Kabupaten Parigi Moutong",
+  "prov_code": 72,
+  "prov_name": "Sulawesi Tengah",
+  "centroid_lat": 0.016894,
+  "centroid_lon": 120.449058
+ },
+ "3217": {
+  "name": "Kabupaten Bandung Barat",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -6.890474,
+  "centroid_lon": 107.41497
+ },
+ "9602": {
+  "name": "Kabupaten Sorong Selatan",
+  "prov_code": 96,
+  "prov_name": "Papua Barat Daya",
+  "centroid_lat": -1.731972,
+  "centroid_lon": 132.196166
+ },
+ "1307": {
+  "name": "Kabupaten Lima Puluh Kota",
+  "prov_code": 13,
+  "prov_name": "Sumatera Barat",
+  "centroid_lat": 0.020345,
+  "centroid_lon": 100.569659
+ },
+ "1705": {
+  "name": "Kabupaten Seluma",
+  "prov_code": 17,
+  "prov_name": "Bengkulu",
+  "centroid_lat": -4.052034,
+  "centroid_lon": 102.659526
+ },
+ "7111": {
+  "name": "Kabupaten Bolaang Mongondow Selatan",
+  "prov_code": 71,
+  "prov_name": "Sulawesi Utara",
+  "centroid_lat": 0.444303,
+  "centroid_lon": 123.932498
+ },
+ "1301": {
+  "name": "Kabupaten Pesisir Selatan",
+  "prov_code": 13,
+  "prov_name": "Sumatera Barat",
+  "centroid_lat": -1.738398,
+  "centroid_lon": 100.87929
+ },
+ "7503": {
+  "name": "Kabupaten Bone Bolango",
+  "prov_code": 75,
+  "prov_name": "Gorontalo",
+  "centroid_lat": 0.532371,
+  "centroid_lon": 123.292312
+ },
+ "9304": {
+  "name": "Kabupaten Asmat",
+  "prov_code": 93,
+  "prov_name": "Papua Selatan",
+  "centroid_lat": -5.37305,
+  "centroid_lon": 138.657492
+ },
+ "9103": {
+  "name": "Kabupaten Jayapura",
+  "prov_code": 91,
+  "prov_name": "Papua",
+  "centroid_lat": -3.010199,
+  "centroid_lon": 139.988702
+ },
+ "1872": {
+  "name": "Kota Metro",
+  "prov_code": 18,
+  "prov_name": "Lampung",
+  "centroid_lat": -5.117297,
+  "centroid_lon": 105.307958
+ },
+ "1305": {
+  "name": "Kabupaten Padang Pariaman",
+  "prov_code": 13,
+  "prov_name": "Sumatera Barat",
+  "centroid_lat": -0.565001,
+  "centroid_lon": 100.227934
+ },
+ "3327": {
+  "name": "Kabupaten Pemalang",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.036849,
+  "centroid_lon": 109.39516
+ },
+ "3471": {
+  "name": "Kota Yogyakarta",
+  "prov_code": 34,
+  "prov_name": "Di Yogyakarta",
+  "centroid_lat": -7.803298,
+  "centroid_lon": 110.374358
+ },
+ "3375": {
+  "name": "Kota Pekalongan",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -6.89341,
+  "centroid_lon": 109.677155
+ },
+ "6472": {
+  "name": "Kota Samarinda",
+  "prov_code": 64,
+  "prov_name": "Kalimantan Timur",
+  "centroid_lat": -0.500282,
+  "centroid_lon": 117.177063
+ },
+ "9110": {
+  "name": "Kabupaten Sarmi",
+  "prov_code": 91,
+  "prov_name": "Papua",
+  "centroid_lat": -2.452065,
+  "centroid_lon": 139.013033
+ },
+ "7601": {
+  "name": "Kabupaten Pasangkayu",
+  "prov_code": 76,
+  "prov_name": "Sulawesi Barat",
+  "centroid_lat": -1.489692,
+  "centroid_lon": 119.507638
+ },
+ "1811": {
+  "name": "Kabupaten Mesuji",
+  "prov_code": 18,
+  "prov_name": "Lampung",
+  "centroid_lat": -4.024863,
+  "centroid_lon": 105.378375
+ },
+ "1304": {
+  "name": "Kabupaten Tanah Datar",
+  "prov_code": 13,
+  "prov_name": "Sumatera Barat",
+  "centroid_lat": -0.46765,
+  "centroid_lon": 100.584061
+ },
+ "1604": {
+  "name": "Kabupaten Lahat",
+  "prov_code": 16,
+  "prov_name": "Sumatera Selatan",
+  "centroid_lat": -3.828884,
+  "centroid_lon": 103.378935
+ },
+ "1274": {
+  "name": "Kota Tanjungbalai",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 2.963996,
+  "centroid_lon": 99.794725
+ },
+ "9303": {
+  "name": "Kabupaten Mappi",
+  "prov_code": 93,
+  "prov_name": "Papua Selatan",
+  "centroid_lat": -6.503169,
+  "centroid_lon": 139.378388
+ },
+ "3210": {
+  "name": "Kabupaten Majalengka",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -6.815147,
+  "centroid_lon": 108.257203
+ },
+ "8106": {
+  "name": "Kabupaten Seram Bagian Barat",
+  "prov_code": 81,
+  "prov_name": "Maluku",
+  "centroid_lat": -3.135937,
+  "centroid_lon": 128.355987
+ },
+ "5104": {
+  "name": "Kabupaten Gianyar",
+  "prov_code": 51,
+  "prov_name": "Bali",
+  "centroid_lat": -8.481003,
+  "centroid_lon": 115.287486
+ },
+ "3508": {
+  "name": "Kabupaten Lumajang",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -8.125481,
+  "centroid_lon": 113.138489
+ },
+ "9407": {
+  "name": "Kabupaten Intan Jaya",
+  "prov_code": 94,
+  "prov_name": "Papua Tengah",
+  "centroid_lat": -3.511792,
+  "centroid_lon": 136.811948
+ },
+ "6408": {
+  "name": "Kabupaten Kutai Timur",
+  "prov_code": 64,
+  "prov_name": "Kalimantan Timur",
+  "centroid_lat": 0.989933,
+  "centroid_lon": 117.129144
+ },
+ "6108": {
+  "name": "Kabupaten Landak",
+  "prov_code": 61,
+  "prov_name": "Kalimantan Barat",
+  "centroid_lat": 0.507695,
+  "centroid_lon": 109.764081
+ },
+ "8102": {
+  "name": "Kabupaten Maluku Tenggara",
+  "prov_code": 81,
+  "prov_name": "Maluku",
+  "centroid_lat": -5.677005,
+  "centroid_lon": 132.888067
+ },
+ "8172": {
+  "name": "Kota Tual",
+  "prov_code": 81,
+  "prov_name": "Maluku",
+  "centroid_lat": -5.556934,
+  "centroid_lon": 132.482671
+ },
+ "2105": {
+  "name": "Kabupaten Kepulauan Anambas",
+  "prov_code": 21,
+  "prov_name": "Kepulauan Riau",
+  "centroid_lat": 3.087683,
+  "centroid_lon": 106.064578
+ },
+ "9115": {
+  "name": "Kabupaten Waropen",
+  "prov_code": 91,
+  "prov_name": "Papua",
+  "centroid_lat": -2.754031,
+  "centroid_lon": 136.754731
+ },
+ "3372": {
+  "name": "Kota Surakarta",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.557895,
+  "centroid_lon": 110.823145
+ },
+ "9502": {
+  "name": "Kab Pegunungan Bintang",
+  "prov_code": 95,
+  "prov_name": "Papua Pegunungan",
+  "centroid_lat": -4.541301,
+  "centroid_lon": 140.535288
+ },
+ "6111": {
+  "name": "Kabupaten Kayong Utara",
+  "prov_code": 61,
+  "prov_name": "Kalimantan Barat",
+  "centroid_lat": -1.104449,
+  "centroid_lon": 109.875348
+ },
+ "1306": {
+  "name": "Kabupaten Agam",
+  "prov_code": 13,
+  "prov_name": "Sumatera Barat",
+  "centroid_lat": -0.251881,
+  "centroid_lon": 100.170884
+ },
+ "6301": {
+  "name": "Kabupaten Tanah Laut",
+  "prov_code": 63,
+  "prov_name": "Kalimantan Selatan",
+  "centroid_lat": -3.819265,
+  "centroid_lon": 114.905323
+ },
+ "1218": {
+  "name": "Kabupaten Serdang Bedagai",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 3.366286,
+  "centroid_lon": 99.05771
+ },
+ "1502": {
+  "name": "Kabupaten Merangin",
+  "prov_code": 15,
+  "prov_name": "Jambi",
+  "centroid_lat": -2.193182,
+  "centroid_lon": 102.068319
+ },
+ "6411": {
+  "name": "Kabupaten Mahakam Ulu",
+  "prov_code": 64,
+  "prov_name": "Kalimantan Timur",
+  "centroid_lat": 0.733877,
+  "centroid_lon": 114.833448
+ },
+ "7413": {
+  "name": "Kabupaten Muna Barat",
+  "prov_code": 74,
+  "prov_name": "Sulawesi Tenggara",
+  "centroid_lat": -4.81694,
+  "centroid_lon": 122.492552
+ },
+ "8108": {
+  "name": "Kabupaten Maluku Barat Daya",
+  "prov_code": 81,
+  "prov_name": "Maluku",
+  "centroid_lat": -7.833302,
+  "centroid_lon": 127.304256
+ },
+ "1110": {
+  "name": "Kabupaten Aceh Singkil",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 2.347986,
+  "centroid_lon": 97.845071
+ },
+ "3276": {
+  "name": "Kota Depok",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -6.396207,
+  "centroid_lon": 106.816837
+ },
+ "1612": {
+  "name": "Kabupaten Penukal Abab Lematang Ilir",
+  "prov_code": 16,
+  "prov_name": "Sumatera Selatan",
+  "centroid_lat": -3.20099,
+  "centroid_lon": 103.994971
+ },
+ "8206": {
+  "name": "Kabupaten Halmahera Timur",
+  "prov_code": 82,
+  "prov_name": "Maluku Utara",
+  "centroid_lat": 1.029517,
+  "centroid_lon": 128.308647
+ },
+ "3202": {
+  "name": "Kabupaten Sukabumi",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -7.076434,
+  "centroid_lon": 106.70756
+ },
+ "3526": {
+  "name": "Kabupaten Bangkalan",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.044358,
+  "centroid_lon": 112.929532
+ },
+ "9171": {
+  "name": "Kota Jayapura",
+  "prov_code": 91,
+  "prov_name": "Papua",
+  "centroid_lat": -2.664533,
+  "centroid_lon": 140.80014
+ },
+ "3604": {
+  "name": "Kabupaten Serang",
+  "prov_code": 36,
+  "prov_name": "Banten",
+  "centroid_lat": -6.141767,
+  "centroid_lon": 106.146077
+ },
+ "7174": {
+  "name": "Kota Kotamobagu",
+  "prov_code": 71,
+  "prov_name": "Sulawesi Utara",
+  "centroid_lat": 0.711078,
+  "centroid_lon": 124.318308
+ },
+ "1219": {
+  "name": "Kabupaten Batu Bara",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 3.235261,
+  "centroid_lon": 99.472552
+ },
+ "3317": {
+  "name": "Kabupaten Rembang",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -6.775146,
+  "centroid_lon": 111.461519
+ },
+ "1702": {
+  "name": "Kabupaten Rejang Lebong",
+  "prov_code": 17,
+  "prov_name": "Bengkulu",
+  "centroid_lat": -3.430462,
+  "centroid_lon": 102.702049
+ },
+ "1374": {
+  "name": "Kota Padang Panjang",
+  "prov_code": 13,
+  "prov_name": "Sumatera Barat",
+  "centroid_lat": -0.472454,
+  "centroid_lon": 100.402296
+ },
+ "1407": {
+  "name": "Kabupaten Rokan Hilir",
+  "prov_code": 14,
+  "prov_name": "Riau",
+  "centroid_lat": 1.77319,
+  "centroid_lon": 100.749184
+ },
+ "9501": {
+  "name": "Kabupaten Jayawijaya",
+  "prov_code": 95,
+  "prov_name": "Papua Pegunungan",
+  "centroid_lat": -4.093508,
+  "centroid_lon": 138.866754
+ },
+ "6302": {
+  "name": "Kabupaten Kotabaru",
+  "prov_code": 63,
+  "prov_name": "Kalimantan Selatan",
+  "centroid_lat": -2.985018,
+  "centroid_lon": 116.063181
+ },
+ "1806": {
+  "name": "Kabupaten Tanggamus",
+  "prov_code": 18,
+  "prov_name": "Lampung",
+  "centroid_lat": -5.428171,
+  "centroid_lon": 104.674088
+ },
+ "7306": {
+  "name": "Kabupaten Gowa",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -5.308929,
+  "centroid_lon": 119.71872
+ },
+ "3328": {
+  "name": "Kabupaten Tegal",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.028805,
+  "centroid_lon": 109.158508
+ },
+ "6103": {
+  "name": "Kabupaten Sanggau",
+  "prov_code": 61,
+  "prov_name": "Kalimantan Barat",
+  "centroid_lat": 0.268701,
+  "centroid_lon": 110.430728
+ },
+ "7604": {
+  "name": "Kabupaten Polewali Mandar",
+  "prov_code": 76,
+  "prov_name": "Sulawesi Barat",
+  "centroid_lat": -3.310111,
+  "centroid_lon": 119.147153
+ },
+ "1277": {
+  "name": "Kota Padangsidimpuan",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 1.390816,
+  "centroid_lon": 99.285694
+ },
+ "5101": {
+  "name": "Kabupaten Jembrana",
+  "prov_code": 51,
+  "prov_name": "Bali",
+  "centroid_lat": -8.313139,
+  "centroid_lon": 114.6829
+ },
+ "6307": {
+  "name": "Kabupaten Hulu Sungai Tengah",
+  "prov_code": 63,
+  "prov_name": "Kalimantan Selatan",
+  "centroid_lat": -2.609376,
+  "centroid_lon": 115.478658
+ },
+ "1212": {
+  "name": "Kabupaten Toba",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 2.388974,
+  "centroid_lon": 99.247563
+ },
+ "3272": {
+  "name": "Kota Sukabumi",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -6.93994,
+  "centroid_lon": 106.924357
+ },
+ "9302": {
+  "name": "Kabupaten Boven Digoel",
+  "prov_code": 93,
+  "prov_name": "Papua Selatan",
+  "centroid_lat": -6.015906,
+  "centroid_lon": 140.39118
+ },
+ "1373": {
+  "name": "Kota Sawahlunto",
+  "prov_code": 13,
+  "prov_name": "Sumatera Barat",
+  "centroid_lat": -0.652699,
+  "centroid_lon": 100.754406
+ },
+ "3322": {
+  "name": "Kabupaten Semarang",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.270928,
+  "centroid_lon": 110.473515
+ },
+ "1118": {
+  "name": "Kabupaten Pidie Jaya",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 5.124764,
+  "centroid_lon": 96.213325
+ },
+ "1112": {
+  "name": "Kabupaten Aceh Barat Daya",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 3.822648,
+  "centroid_lon": 96.880288
+ },
+ "1203": {
+  "name": "Kabupaten Tapanuli Selatan",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 1.50067,
+  "centroid_lon": 99.266968
+ },
+ "1220": {
+  "name": "Kabupaten Padang Lawas Utara",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 1.590924,
+  "centroid_lon": 99.762959
+ },
+ "6105": {
+  "name": "Kabupaten Sintang",
+  "prov_code": 61,
+  "prov_name": "Kalimantan Barat",
+  "centroid_lat": 0.092613,
+  "centroid_lon": 112.054379
+ },
+ "6306": {
+  "name": "Kabupaten Hulu Sungai Selatan",
+  "prov_code": 63,
+  "prov_name": "Kalimantan Selatan",
+  "centroid_lat": -2.72923,
+  "centroid_lon": 115.205518
+ },
+ "1508": {
+  "name": "Kabupaten Bungo",
+  "prov_code": 15,
+  "prov_name": "Jambi",
+  "centroid_lat": -1.591599,
+  "centroid_lon": 101.927113
+ },
+ "6501": {
+  "name": "Kabupaten Bulungan",
+  "prov_code": 65,
+  "prov_name": "Kalimantan Utara",
+  "centroid_lat": 2.797605,
+  "centroid_lon": 117.032025
+ },
+ "7373": {
+  "name": "Kota Palopo",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -2.97971,
+  "centroid_lon": 120.147766
+ },
+ "7271": {
+  "name": "Kota Palu",
+  "prov_code": 72,
+  "prov_name": "Sulawesi Tengah",
+  "centroid_lat": -0.836933,
+  "centroid_lon": 119.911966
+ },
+ "5304": {
+  "name": "Kabupaten Belu",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -9.154374,
+  "centroid_lon": 124.968067
+ },
+ "1309": {
+  "name": "Kabupaten Kepulauan Mentawai",
+  "prov_code": 13,
+  "prov_name": "Sumatera Barat",
+  "centroid_lat": -1.849515,
+  "centroid_lon": 99.336879
+ },
+ "1206": {
+  "name": "Kabupaten Karo",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 3.11845,
+  "centroid_lon": 98.301348
+ },
+ "7102": {
+  "name": "Kabupaten Minahasa",
+  "prov_code": 71,
+  "prov_name": "Sulawesi Utara",
+  "centroid_lat": 1.250037,
+  "centroid_lon": 124.858111
+ },
+ "5307": {
+  "name": "Kabupaten Sikka",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -8.609388,
+  "centroid_lon": 122.306639
+ },
+ "7414": {
+  "name": "Kabupaten Buton Tengah",
+  "prov_code": 74,
+  "prov_name": "Sulawesi Tenggara",
+  "centroid_lat": -5.317018,
+  "centroid_lon": 122.398661
+ },
+ "3502": {
+  "name": "Kabupaten Ponorogo",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.931363,
+  "centroid_lon": 111.499523
+ },
+ "6201": {
+  "name": "Kabupaten Kotawaringin Barat",
+  "prov_code": 62,
+  "prov_name": "Kalimantan Tengah",
+  "centroid_lat": -2.572352,
+  "centroid_lon": 111.774172
+ },
+ "7501": {
+  "name": "Kabupaten Gorontalo",
+  "prov_code": 75,
+  "prov_name": "Gorontalo",
+  "centroid_lat": 0.692903,
+  "centroid_lon": 122.712514
+ },
+ "7603": {
+  "name": "Kabupaten Mamasa",
+  "prov_code": 76,
+  "prov_name": "Sulawesi Barat",
+  "centroid_lat": -2.945747,
+  "centroid_lon": 119.314391
+ },
+ "1703": {
+  "name": "Kabupaten Bengkulu Utara",
+  "prov_code": 17,
+  "prov_name": "Bengkulu",
+  "centroid_lat": -3.419616,
+  "centroid_lon": 102.001961
+ },
+ "1674": {
+  "name": "Kota Prabumulih",
+  "prov_code": 16,
+  "prov_name": "Sumatera Selatan",
+  "centroid_lat": -3.447967,
+  "centroid_lon": 104.228876
+ },
+ "3672": {
+  "name": "Kota Cilegon",
+  "prov_code": 36,
+  "prov_name": "Banten",
+  "centroid_lat": -5.998901,
+  "centroid_lon": 106.018492
+ },
+ "3171": {
+  "name": "Kota Administrasi Jakarta Pusat",
+  "prov_code": 31,
+  "prov_name": "Dki Jakarta",
+  "centroid_lat": -6.181201,
+  "centroid_lon": 106.835124
+ },
+ "3203": {
+  "name": "Kabupaten Cianjur",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -7.131088,
+  "centroid_lon": 107.159209
+ },
+ "8208": {
+  "name": "Kabupaten Pulau Taliabu",
+  "prov_code": 82,
+  "prov_name": "Maluku Utara",
+  "centroid_lat": -1.819434,
+  "centroid_lon": 124.739396
+ },
+ "1116": {
+  "name": "Kabupaten Aceh Tamiang",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 4.224538,
+  "centroid_lon": 97.983005
+ },
+ "6109": {
+  "name": "Kabupaten Sekadau",
+  "prov_code": 61,
+  "prov_name": "Kalimantan Barat",
+  "centroid_lat": -0.017136,
+  "centroid_lon": 110.948927
+ },
+ "1106": {
+  "name": "Kabupaten Aceh Besar",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 5.380158,
+  "centroid_lon": 95.515151
+ },
+ "1602": {
+  "name": "Kabupaten Ogan Komering Ilir",
+  "prov_code": 16,
+  "prov_name": "Sumatera Selatan",
+  "centroid_lat": -3.363973,
+  "centroid_lon": 105.397277
+ },
+ "8203": {
+  "name": "Kabupaten Halmahera Utara",
+  "prov_code": 82,
+  "prov_name": "Maluku Utara",
+  "centroid_lat": 1.554444,
+  "centroid_lon": 127.834803
+ },
+ "1805": {
+  "name": "Kabupaten Tulang Bawang",
+  "prov_code": 18,
+  "prov_name": "Lampung",
+  "centroid_lat": -4.373196,
+  "centroid_lon": 105.527594
+ },
+ "6211": {
+  "name": "Kabupaten Pulang Pisau",
+  "prov_code": 62,
+  "prov_name": "Kalimantan Tengah",
+  "centroid_lat": -2.691117,
+  "centroid_lon": 113.967562
+ },
+ "1174": {
+  "name": "Kota Langsa",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 4.481822,
+  "centroid_lon": 97.980596
+ },
+ "6311": {
+  "name": "Kabupaten Balangan",
+  "prov_code": 63,
+  "prov_name": "Kalimantan Selatan",
+  "centroid_lat": -2.317847,
+  "centroid_lon": 115.622771
+ },
+ "6101": {
+  "name": "Kabupaten Sambas",
+  "prov_code": 61,
+  "prov_name": "Kalimantan Barat",
+  "centroid_lat": 1.423128,
+  "centroid_lon": 109.349578
+ },
+ "3674": {
+  "name": "Kota Tangerang Selatan",
+  "prov_code": 36,
+  "prov_name": "Banten",
+  "centroid_lat": -6.302124,
+  "centroid_lon": 106.707386
+ },
+ "1101": {
+  "name": "Kabupaten Aceh Selatan",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 3.162014,
+  "centroid_lon": 97.436455
+ },
+ "9212": {
+  "name": "Kabupaten Pegunungan Arfak",
+  "prov_code": 92,
+  "prov_name": "Papua Barat",
+  "centroid_lat": -1.283694,
+  "centroid_lon": 133.700961
+ },
+ "7105": {
+  "name": "Kabupaten Minahasa Selatan",
+  "prov_code": 71,
+  "prov_name": "Sulawesi Utara",
+  "centroid_lat": 1.084981,
+  "centroid_lon": 124.518903
+ },
+ "7316": {
+  "name": "Kabupaten Enrekang",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -3.503884,
+  "centroid_lon": 119.874578
+ },
+ "1312": {
+  "name": "Kabupaten Pasaman Barat",
+  "prov_code": 13,
+  "prov_name": "Sumatera Barat",
+  "centroid_lat": 0.203454,
+  "centroid_lon": 99.685502
+ },
+ "1271": {
+  "name": "Kota Medan",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 3.629053,
+  "centroid_lon": 98.667197
+ },
+ "5318": {
+  "name": "Kabupaten Sumba Barat Daya",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -9.534179,
+  "centroid_lon": 119.177336
+ },
+ "1404": {
+  "name": "Kabupaten Indragiri Hilir",
+  "prov_code": 14,
+  "prov_name": "Riau",
+  "centroid_lat": -0.233457,
+  "centroid_lon": 103.163806
+ },
+ "1111": {
+  "name": "Kabupaten Bireuen",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 5.093843,
+  "centroid_lon": 96.607041
+ },
+ "1201": {
+  "name": "Kabupaten Tapanuli Tengah",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 1.836025,
+  "centroid_lon": 98.653687
+ },
+ "3279": {
+  "name": "Kota Banjar",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -7.37699,
+  "centroid_lon": 108.567204
+ },
+ "3524": {
+  "name": "Kabupaten Lamongan",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.131469,
+  "centroid_lon": 112.300736
+ },
+ "7605": {
+  "name": "Kabupaten Majene",
+  "prov_code": 76,
+  "prov_name": "Sulawesi Barat",
+  "centroid_lat": -3.17321,
+  "centroid_lon": 118.918465
+ },
+ "5105": {
+  "name": "Kabupaten Klungkung",
+  "prov_code": 51,
+  "prov_name": "Bali",
+  "centroid_lat": -8.666993,
+  "centroid_lon": 115.493675
+ },
+ "7171": {
+  "name": "Kota Manado",
+  "prov_code": 71,
+  "prov_name": "Sulawesi Utara",
+  "centroid_lat": 1.524923,
+  "centroid_lon": 124.8479
+ },
+ "5108": {
+  "name": "Kabupaten Buleleng",
+  "prov_code": 51,
+  "prov_name": "Bali",
+  "centroid_lat": -8.200969,
+  "centroid_lon": 114.960905
+ },
+ "3201": {
+  "name": "Kabupaten Bogor",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -6.559832,
+  "centroid_lon": 106.767051
+ },
+ "5306": {
+  "name": "Kabupaten Flores Timur",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -8.365198,
+  "centroid_lon": 122.944464
+ },
+ "3304": {
+  "name": "Kabupaten Banjarnegara",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.351361,
+  "centroid_lon": 109.657036
+ },
+ "3529": {
+  "name": "Kabupaten Sumenep",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -6.966473,
+  "centroid_lon": 114.403111
+ },
+ "9404": {
+  "name": "Kabupaten Mimika",
+  "prov_code": 94,
+  "prov_name": "Papua Tengah",
+  "centroid_lat": -4.524248,
+  "centroid_lon": 136.844967
+ },
+ "1505": {
+  "name": "Kabupaten Muaro Jambi",
+  "prov_code": 15,
+  "prov_name": "Jambi",
+  "centroid_lat": -1.613329,
+  "centroid_lon": 103.737816
+ },
+ "5314": {
+  "name": "Kabupaten Rote Ndao",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -10.726023,
+  "centroid_lon": 123.124393
+ },
+ "1303": {
+  "name": "Kabupaten Sijunjung",
+  "prov_code": 13,
+  "prov_name": "Sumatera Barat",
+  "centroid_lat": -0.690521,
+  "centroid_lon": 101.096153
+ },
+ "7326": {
+  "name": "Kabupaten Toraja Utara",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -2.879641,
+  "centroid_lon": 119.864266
+ },
+ "5102": {
+  "name": "Kabupaten Tabanan",
+  "prov_code": 51,
+  "prov_name": "Bali",
+  "centroid_lat": -8.430258,
+  "centroid_lon": 115.078274
+ },
+ "7402": {
+  "name": "Kabupaten Konawe",
+  "prov_code": 74,
+  "prov_name": "Sulawesi Tenggara",
+  "centroid_lat": -3.53108,
+  "centroid_lon": 121.863399
+ },
+ "3325": {
+  "name": "Kabupaten Batang",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.021022,
+  "centroid_lon": 109.861594
+ },
+ "9120": {
+  "name": "Kabupaten Mamberamo Raya",
+  "prov_code": 91,
+  "prov_name": "Papua",
+  "centroid_lat": -2.434816,
+  "centroid_lon": 137.960962
+ },
+ "5313": {
+  "name": "Kabupaten Lembata",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -8.381219,
+  "centroid_lon": 123.540786
+ },
+ "3303": {
+  "name": "Kabupaten Purbalingga",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.323248,
+  "centroid_lon": 109.407206
+ },
+ "3514": {
+  "name": "Kabupaten Pasuruan",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.742461,
+  "centroid_lon": 112.831852
+ },
+ "3523": {
+  "name": "Kabupaten Tuban",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -6.953438,
+  "centroid_lon": 111.892251
+ },
+ "2171": {
+  "name": "Kota Batam",
+  "prov_code": 21,
+  "prov_name": "Kepulauan Riau",
+  "centroid_lat": 0.963011,
+  "centroid_lon": 104.063554
+ },
+ "3513": {
+  "name": "Kabupaten Probolinggo",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.866431,
+  "centroid_lon": 113.320232
+ },
+ "9402": {
+  "name": "Kabupaten Puncak Jaya",
+  "prov_code": 94,
+  "prov_name": "Papua Tengah",
+  "centroid_lat": -3.447171,
+  "centroid_lon": 137.86822
+ },
+ "1506": {
+  "name": "Kabupaten Tanjung Jabung Barat",
+  "prov_code": 15,
+  "prov_name": "Jambi",
+  "centroid_lat": -1.071305,
+  "centroid_lon": 103.11457
+ },
+ "3503": {
+  "name": "Kabupaten Trenggalek",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -8.160699,
+  "centroid_lon": 111.627312
+ },
+ "3521": {
+  "name": "Kabupaten Ngawi",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.438845,
+  "centroid_lon": 111.343415
+ },
+ "8204": {
+  "name": "Kabupaten Halmahera Selatan",
+  "prov_code": 82,
+  "prov_name": "Maluku Utara",
+  "centroid_lat": -0.827189,
+  "centroid_lon": 127.705184
+ },
+ "9671": {
+  "name": "Kota Sorong",
+  "prov_code": 96,
+  "prov_name": "Papua Barat Daya",
+  "centroid_lat": -1.123139,
+  "centroid_lon": 131.556678
+ },
+ "7107": {
+  "name": "Kabupaten Minahasa Tenggara",
+  "prov_code": 71,
+  "prov_name": "Sulawesi Utara",
+  "centroid_lat": 1.012201,
+  "centroid_lon": 124.716653
+ },
+ "8104": {
+  "name": "Kabupaten Buru",
+  "prov_code": 81,
+  "prov_name": "Maluku",
+  "centroid_lat": -3.329419,
+  "centroid_lon": 126.727023
+ },
+ "6303": {
+  "name": "Kabupaten Banjar",
+  "prov_code": 63,
+  "prov_name": "Kalimantan Selatan",
+  "centroid_lat": -3.320537,
+  "centroid_lon": 115.079894
+ },
+ "9119": {
+  "name": "Kabupaten Supiori",
+  "prov_code": 91,
+  "prov_name": "Papua",
+  "centroid_lat": -0.736585,
+  "centroid_lon": 135.564269
+ },
+ "3307": {
+  "name": "Kabupaten Wonosobo",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.416334,
+  "centroid_lon": 109.907352
+ },
+ "8171": {
+  "name": "Kota Ambon",
+  "prov_code": 81,
+  "prov_name": "Maluku",
+  "centroid_lat": -3.68536,
+  "centroid_lon": 128.194976
+ },
+ "7209": {
+  "name": "Kabupaten Tojo Una Una",
+  "prov_code": 72,
+  "prov_name": "Sulawesi Tengah",
+  "centroid_lat": -1.124153,
+  "centroid_lon": 121.572438
+ },
+ "7410": {
+  "name": "Kabupaten Buton Utara",
+  "prov_code": 74,
+  "prov_name": "Sulawesi Tenggara",
+  "centroid_lat": -4.703832,
+  "centroid_lon": 123.012374
+ },
+ "6305": {
+  "name": "Kabupaten Tapin",
+  "prov_code": 63,
+  "prov_name": "Kalimantan Selatan",
+  "centroid_lat": -2.921645,
+  "centroid_lon": 115.045137
+ },
+ "1709": {
+  "name": "Kabupaten Bengkulu Tengah",
+  "prov_code": 17,
+  "prov_name": "Bengkulu",
+  "centroid_lat": -3.685235,
+  "centroid_lon": 102.40436
+ },
+ "1471": {
+  "name": "Kota Pekanbaru",
+  "prov_code": 14,
+  "prov_name": "Riau",
+  "centroid_lat": 0.551278,
+  "centroid_lon": 101.465726
+ },
+ "9301": {
+  "name": "Kabupaten Merauke",
+  "prov_code": 93,
+  "prov_name": "Papua Selatan",
+  "centroid_lat": -7.829901,
+  "centroid_lon": 139.69242
+ },
+ "6172": {
+  "name": "Kota Singkawang",
+  "prov_code": 61,
+  "prov_name": "Kalimantan Barat",
+  "centroid_lat": 0.886652,
+  "centroid_lon": 109.032278
+ },
+ "7104": {
+  "name": "Kabupaten Kepulauan Talaud",
+  "prov_code": 71,
+  "prov_name": "Sulawesi Utara",
+  "centroid_lat": 4.225834,
+  "centroid_lon": 126.781086
+ },
+ "3510": {
+  "name": "Kabupaten Banyuwangi",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -8.364828,
+  "centroid_lon": 114.205901
+ },
+ "3504": {
+  "name": "Kabupaten Tulungagung",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -8.113517,
+  "centroid_lon": 111.88773
+ },
+ "3572": {
+  "name": "Kota Blitar",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -8.094768,
+  "centroid_lon": 112.166971
+ },
+ "6403": {
+  "name": "Kabupaten Berau",
+  "prov_code": 64,
+  "prov_name": "Kalimantan Timur",
+  "centroid_lat": 1.912599,
+  "centroid_lon": 117.34012
+ },
+ "3603": {
+  "name": "Kabupaten Tangerang",
+  "prov_code": 36,
+  "prov_name": "Banten",
+  "centroid_lat": -6.174491,
+  "centroid_lon": 106.518928
+ },
+ "1671": {
+  "name": "Kota Palembang",
+  "prov_code": 16,
+  "prov_name": "Sumatera Selatan",
+  "centroid_lat": -2.97172,
+  "centroid_lon": 104.741325
+ },
+ "7602": {
+  "name": "Kabupaten Mamuju",
+  "prov_code": 76,
+  "prov_name": "Sulawesi Barat",
+  "centroid_lat": -2.519739,
+  "centroid_lon": 119.344556
+ },
+ "1509": {
+  "name": "Kabupaten Tebo",
+  "prov_code": 15,
+  "prov_name": "Jambi",
+  "centroid_lat": -1.307595,
+  "centroid_lon": 102.364307
+ },
+ "3310": {
+  "name": "Kabupaten Klaten",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.685831,
+  "centroid_lon": 110.619453
+ },
+ "1205": {
+  "name": "Kabupaten Langkat",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 3.708863,
+  "centroid_lon": 98.22367
+ },
+ "3277": {
+  "name": "Kota Cimahi",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -6.886321,
+  "centroid_lon": 107.542896
+ },
+ "3601": {
+  "name": "Kabupaten Pandeglang",
+  "prov_code": 36,
+  "prov_name": "Banten",
+  "centroid_lat": -6.590328,
+  "centroid_lon": 105.742917
+ },
+ "3374": {
+  "name": "Kota Semarang",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.023904,
+  "centroid_lon": 110.391522
+ },
+ "1613": {
+  "name": "Kabupaten Musi Rawas Utara",
+  "prov_code": 16,
+  "prov_name": "Sumatera Selatan",
+  "centroid_lat": -2.740205,
+  "centroid_lon": 102.743727
+ },
+ "9506": {
+  "name": "Kabupaten Yalimo",
+  "prov_code": 95,
+  "prov_name": "Papua Pegunungan",
+  "centroid_lat": -3.827734,
+  "centroid_lon": 139.467019
+ },
+ "3213": {
+  "name": "Kabupaten Subang",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -6.484719,
+  "centroid_lon": 107.731829
+ },
+ "1210": {
+  "name": "Kabupaten Labuhanbatu",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 2.28567,
+  "centroid_lon": 100.061604
+ },
+ "3401": {
+  "name": "Kabupaten Kulon Progo",
+  "prov_code": 34,
+  "prov_name": "Di Yogyakarta",
+  "centroid_lat": -7.818737,
+  "centroid_lon": 110.167113
+ },
+ "5302": {
+  "name": "Kab Timor Tengah Selatan",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -9.829343,
+  "centroid_lon": 124.397087
+ },
+ "3519": {
+  "name": "Kabupaten Madiun",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.623649,
+  "centroid_lon": 111.64585
+ },
+ "3578": {
+  "name": "Kota Surabaya",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.274328,
+  "centroid_lon": 112.723586
+ },
+ "3512": {
+  "name": "Kabupaten Situbondo",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.801459,
+  "centroid_lon": 114.051375
+ },
+ "7109": {
+  "name": "Kabupaten Kep. Siau Tagulandang Biaro",
+  "prov_code": 71,
+  "prov_name": "Sulawesi Utara",
+  "centroid_lat": 2.539182,
+  "centroid_lon": 125.396936
+ },
+ "7203": {
+  "name": "Kabupaten Donggala",
+  "prov_code": 72,
+  "prov_name": "Sulawesi Tengah",
+  "centroid_lat": -0.436108,
+  "centroid_lon": 119.830643
+ },
+ "3525": {
+  "name": "Kabupaten Gresik",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -6.927041,
+  "centroid_lon": 112.558604
+ },
+ "3302": {
+  "name": "Kabupaten Banyumas",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.455538,
+  "centroid_lon": 109.175798
+ },
+ "1211": {
+  "name": "Kabupaten Dairi",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 2.840526,
+  "centroid_lon": 98.279199
+ },
+ "9207": {
+  "name": "Kabupaten Teluk Wondama",
+  "prov_code": 92,
+  "prov_name": "Papua Barat",
+  "centroid_lat": -2.850106,
+  "centroid_lon": 134.404156
+ },
+ "1804": {
+  "name": "Kabupaten Lampung Barat",
+  "prov_code": 18,
+  "prov_name": "Lampung",
+  "centroid_lat": -5.050596,
+  "centroid_lon": 104.252983
+ },
+ "1310": {
+  "name": "Kabupaten Dharmasraya",
+  "prov_code": 13,
+  "prov_name": "Sumatera Barat",
+  "centroid_lat": -1.13125,
+  "centroid_lon": 101.557223
+ },
+ "7571": {
+  "name": "Kota Gorontalo",
+  "prov_code": 75,
+  "prov_name": "Gorontalo",
+  "centroid_lat": 0.538409,
+  "centroid_lon": 123.055301
+ },
+ "5204": {
+  "name": "Kabupaten Sumbawa",
+  "prov_code": 52,
+  "prov_name": "Nusa Tenggara Barat",
+  "centroid_lat": -8.703446,
+  "centroid_lon": 117.484278
+ },
+ "1808": {
+  "name": "Kabupaten Way Kanan",
+  "prov_code": 18,
+  "prov_name": "Lampung",
+  "centroid_lat": -4.514348,
+  "centroid_lon": 104.606137
+ },
+ "6502": {
+  "name": "Kabupaten Malinau",
+  "prov_code": 65,
+  "prov_name": "Kalimantan Utara",
+  "centroid_lat": 2.513631,
+  "centroid_lon": 115.735636
+ },
+ "9604": {
+  "name": "Kabupaten Tambrauw",
+  "prov_code": 96,
+  "prov_name": "Papua Barat Daya",
+  "centroid_lat": -0.80118,
+  "centroid_lon": 132.762806
+ },
+ "3175": {
+  "name": "Kota Administrasi Jakarta Timur",
+  "prov_code": 31,
+  "prov_name": "Dki Jakarta",
+  "centroid_lat": -6.254976,
+  "centroid_lon": 106.900689
+ },
+ "7322": {
+  "name": "Kabupaten Luwu Utara",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -2.395989,
+  "centroid_lon": 120.164442
+ },
+ "3207": {
+  "name": "Kabupaten Ciamis",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -7.290309,
+  "centroid_lon": 108.42867
+ },
+ "3509": {
+  "name": "Kabupaten Jember",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -8.235204,
+  "centroid_lon": 113.655951
+ },
+ "6202": {
+  "name": "Kabupaten Kotawaringin Timur",
+  "prov_code": 62,
+  "prov_name": "Kalimantan Tengah",
+  "centroid_lat": -2.086043,
+  "centroid_lon": 112.715235
+ },
+ "1217": {
+  "name": "Kabupaten Samosir",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 2.562295,
+  "centroid_lon": 98.728959
+ },
+ "3215": {
+  "name": "Kabupaten Karawang",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -6.252353,
+  "centroid_lon": 107.354296
+ },
+ "5305": {
+  "name": "Kabupaten Alor",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -8.303945,
+  "centroid_lon": 124.56841
+ },
+ "9405": {
+  "name": "Kabupaten Puncak",
+  "prov_code": 94,
+  "prov_name": "Papua Tengah",
+  "centroid_lat": -3.70601,
+  "centroid_lon": 137.501697
+ },
+ "5201": {
+  "name": "Kabupaten Lombok Barat",
+  "prov_code": 52,
+  "prov_name": "Nusa Tenggara Barat",
+  "centroid_lat": -8.665539,
+  "centroid_lon": 116.093427
+ },
+ "3324": {
+  "name": "Kabupaten Kendal",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.038719,
+  "centroid_lon": 110.157338
+ },
+ "7108": {
+  "name": "Kabupaten Bolaang Mongondow Utara",
+  "prov_code": 71,
+  "prov_name": "Sulawesi Utara",
+  "centroid_lat": 0.767638,
+  "centroid_lon": 123.476476
+ },
+ "6209": {
+  "name": "Kabupaten Lamandau",
+  "prov_code": 62,
+  "prov_name": "Kalimantan Tengah",
+  "centroid_lat": -1.77143,
+  "centroid_lon": 111.417851
+ },
+ "9111": {
+  "name": "Kabupaten Keerom",
+  "prov_code": 91,
+  "prov_name": "Papua",
+  "centroid_lat": -3.353364,
+  "centroid_lon": 140.692386
+ },
+ "5107": {
+  "name": "Kabupaten Karangasem",
+  "prov_code": 51,
+  "prov_name": "Bali",
+  "centroid_lat": -8.374293,
+  "centroid_lon": 115.529893
+ },
+ "7505": {
+  "name": "Kabupaten Gorontalo Utara",
+  "prov_code": 75,
+  "prov_name": "Gorontalo",
+  "centroid_lat": 0.885573,
+  "centroid_lon": 122.664541
+ },
+ "5103": {
+  "name": "Kabupaten Badung",
+  "prov_code": 51,
+  "prov_name": "Bali",
+  "centroid_lat": -8.582975,
+  "centroid_lon": 115.18837
+ },
+ "6402": {
+  "name": "Kabupaten Kutai Kartanegara",
+  "prov_code": 64,
+  "prov_name": "Kalimantan Timur",
+  "centroid_lat": 0.107997,
+  "centroid_lon": 116.480098
+ },
+ "3573": {
+  "name": "Kota Malang",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.978304,
+  "centroid_lon": 112.635907
+ },
+ "1207": {
+  "name": "Kabupaten Deli Serdang",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 3.480393,
+  "centroid_lon": 98.694834
+ },
+ "5202": {
+  "name": "Kabupaten Lombok Tengah",
+  "prov_code": 52,
+  "prov_name": "Nusa Tenggara Barat",
+  "centroid_lat": -8.722209,
+  "centroid_lon": 116.289831
+ },
+ "9206": {
+  "name": "Kabupaten Teluk Bintuni",
+  "prov_code": 92,
+  "prov_name": "Papua Barat",
+  "centroid_lat": -2.154595,
+  "centroid_lon": 133.453739
+ },
+ "1208": {
+  "name": "Kabupaten Simalungun",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 2.969726,
+  "centroid_lon": 99.021565
+ },
+ "3208": {
+  "name": "Kabupaten Kuningan",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -7.003405,
+  "centroid_lon": 108.559819
+ },
+ "3314": {
+  "name": "Kabupaten Sragen",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.385353,
+  "centroid_lon": 110.974145
+ },
+ "1225": {
+  "name": "Kabupaten Nias Barat",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 1.030685,
+  "centroid_lon": 97.491193
+ },
+ "1408": {
+  "name": "Kabupaten Siak",
+  "prov_code": 14,
+  "prov_name": "Riau",
+  "centroid_lat": 0.817025,
+  "centroid_lon": 101.875422
+ },
+ "5310": {
+  "name": "Kabupaten Manggarai",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -8.568922,
+  "centroid_lon": 120.401064
+ },
+ "7309": {
+  "name": "Kabupaten Maros",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -4.999703,
+  "centroid_lon": 119.7263
+ },
+ "1308": {
+  "name": "Kabupaten Pasaman",
+  "prov_code": 13,
+  "prov_name": "Sumatera Barat",
+  "centroid_lat": 0.392629,
+  "centroid_lon": 100.087219
+ },
+ "1406": {
+  "name": "Kabupaten Rokan Hulu",
+  "prov_code": 14,
+  "prov_name": "Riau",
+  "centroid_lat": 0.943056,
+  "centroid_lon": 100.505356
+ },
+ "5203": {
+  "name": "Kabupaten Lombok Timur",
+  "prov_code": 52,
+  "prov_name": "Nusa Tenggara Barat",
+  "centroid_lat": -8.532427,
+  "centroid_lon": 116.530799
+ },
+ "1276": {
+  "name": "Kota Tebing Tinggi",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 3.32827,
+  "centroid_lon": 99.156031
+ },
+ "9105": {
+  "name": "Kabupaten Kepulauan Yapen",
+  "prov_code": 91,
+  "prov_name": "Papua",
+  "centroid_lat": -1.745485,
+  "centroid_lon": 136.174156
+ },
+ "5301": {
+  "name": "Kabupaten Kupang",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -9.916414,
+  "centroid_lon": 123.861392
+ },
+ "6203": {
+  "name": "Kabupaten Kapuas",
+  "prov_code": 62,
+  "prov_name": "Kalimantan Tengah",
+  "centroid_lat": -1.763863,
+  "centroid_lon": 114.302776
+ },
+ "3311": {
+  "name": "Kabupaten Sukoharjo",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.68086,
+  "centroid_lon": 110.834837
+ },
+ "1224": {
+  "name": "Kabupaten Nias Utara",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 1.314967,
+  "centroid_lon": 97.355402
+ },
+ "7204": {
+  "name": "Kabupaten Toli-toli",
+  "prov_code": 72,
+  "prov_name": "Sulawesi Tengah",
+  "centroid_lat": 0.927345,
+  "centroid_lon": 120.730014
+ },
+ "3403": {
+  "name": "Kabupaten Gunungkidul",
+  "prov_code": 34,
+  "prov_name": "Di Yogyakarta",
+  "centroid_lat": -7.993949,
+  "centroid_lon": 110.611799
+ },
+ "3326": {
+  "name": "Kabupaten Pekalongan",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.057032,
+  "centroid_lon": 109.620502
+ },
+ "5106": {
+  "name": "Kabupaten Bangli",
+  "prov_code": 51,
+  "prov_name": "Bali",
+  "centroid_lat": -8.293155,
+  "centroid_lon": 115.347294
+ },
+ "3577": {
+  "name": "Kota Madiun",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -7.629455,
+  "centroid_lon": 111.527267
+ },
+ "1903": {
+  "name": "Kabupaten Bangka Selatan",
+  "prov_code": 19,
+  "prov_name": "Kepulauan Bangka Belitung",
+  "centroid_lat": -2.778634,
+  "centroid_lon": 106.349165
+ },
+ "1904": {
+  "name": "Kabupaten Bangka Tengah",
+  "prov_code": 19,
+  "prov_name": "Kepulauan Bangka Belitung",
+  "centroid_lat": -2.432445,
+  "centroid_lon": 106.233928
+ },
+ "3501": {
+  "name": "Kabupaten Pacitan",
+  "prov_code": 35,
+  "prov_name": "Jawa Timur",
+  "centroid_lat": -8.12498,
+  "centroid_lon": 111.178082
+ },
+ "1213": {
+  "name": "Kabupaten Mandailing Natal",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 0.776416,
+  "centroid_lon": 99.368665
+ },
+ "1202": {
+  "name": "Kabupaten Tapanuli Utara",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 2.001215,
+  "centroid_lon": 99.065075
+ },
+ "1401": {
+  "name": "Kabupaten Kampar",
+  "prov_code": 14,
+  "prov_name": "Riau",
+  "centroid_lat": 0.321409,
+  "centroid_lon": 101.065753
+ },
+ "1410": {
+  "name": "Kabupaten Kepulauan Meranti",
+  "prov_code": 14,
+  "prov_name": "Riau",
+  "centroid_lat": 1.003272,
+  "centroid_lon": 102.649332
+ },
+ "3308": {
+  "name": "Kabupaten Magelang",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.501759,
+  "centroid_lon": 110.247212
+ },
+ "9408": {
+  "name": "Kabupaten Deiyai",
+  "prov_code": 94,
+  "prov_name": "Papua Tengah",
+  "centroid_lat": -4.189883,
+  "centroid_lon": 136.39486
+ },
+ "1871": {
+  "name": "Kota Bandar Lampung",
+  "prov_code": 18,
+  "prov_name": "Lampung",
+  "centroid_lat": -5.4142,
+  "centroid_lon": 105.262132
+ },
+ "3212": {
+  "name": "Kabupaten Indramayu",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -6.447514,
+  "centroid_lon": 108.169025
+ },
+ "3329": {
+  "name": "Kabupaten Brebes",
+  "prov_code": 33,
+  "prov_name": "Jawa Tengah",
+  "centroid_lat": -7.062845,
+  "centroid_lon": 108.929531
+ },
+ "6110": {
+  "name": "Kabupaten Melawi",
+  "prov_code": 61,
+  "prov_name": "Kalimantan Barat",
+  "centroid_lat": -0.630458,
+  "centroid_lon": 111.724588
+ },
+ "3673": {
+  "name": "Kota Serang",
+  "prov_code": 36,
+  "prov_name": "Banten",
+  "centroid_lat": -6.12333,
+  "centroid_lon": 106.16675
+ },
+ "1610": {
+  "name": "Kabupaten Ogan Ilir",
+  "prov_code": 16,
+  "prov_name": "Sumatera Selatan",
+  "centroid_lat": -3.415352,
+  "centroid_lon": 104.605299
+ },
+ "9505": {
+  "name": "Kabupaten Mamberamo Tengah",
+  "prov_code": 95,
+  "prov_name": "Papua Pegunungan",
+  "centroid_lat": -3.586679,
+  "centroid_lon": 139.019825
+ },
+ "1402": {
+  "name": "Kabupaten Indragiri Hulu",
+  "prov_code": 14,
+  "prov_name": "Riau",
+  "centroid_lat": -0.541448,
+  "centroid_lon": 102.331883
+ },
+ "1708": {
+  "name": "Kabupaten Kepahiang",
+  "prov_code": 17,
+  "prov_name": "Bengkulu",
+  "centroid_lat": -3.628943,
+  "centroid_lon": 102.644453
+ },
+ "7106": {
+  "name": "Kabupaten Minahasa Utara",
+  "prov_code": 71,
+  "prov_name": "Sulawesi Utara",
+  "centroid_lat": 1.548104,
+  "centroid_lon": 125.005295
+ },
+ "2102": {
+  "name": "Kabupaten Karimun",
+  "prov_code": 21,
+  "prov_name": "Kepulauan Riau",
+  "centroid_lat": 0.825541,
+  "centroid_lon": 103.531072
+ },
+ "1113": {
+  "name": "Kabupaten Gayo Lues",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 3.982732,
+  "centroid_lon": 97.360069
+ },
+ "1809": {
+  "name": "Kabupaten Pesawaran",
+  "prov_code": 18,
+  "prov_name": "Lampung",
+  "centroid_lat": -5.473553,
+  "centroid_lon": 105.115195
+ },
+ "1501": {
+  "name": "Kabupaten Kerinci",
+  "prov_code": 15,
+  "prov_name": "Jambi",
+  "centroid_lat": -2.03235,
+  "centroid_lon": 101.465334
+ },
+ "7403": {
+  "name": "Kabupaten Muna",
+  "prov_code": 74,
+  "prov_name": "Sulawesi Tenggara",
+  "centroid_lat": -4.944718,
+  "centroid_lon": 122.629581
+ },
+ "1371": {
+  "name": "Kota Padang",
+  "prov_code": 13,
+  "prov_name": "Sumatera Barat",
+  "centroid_lat": -0.898875,
+  "centroid_lon": 100.437644
+ },
+ "1607": {
+  "name": "Kabupaten Banyuasin",
+  "prov_code": 16,
+  "prov_name": "Sumatera Selatan",
+  "centroid_lat": -2.519511,
+  "centroid_lon": 104.687423
+ },
+ "7407": {
+  "name": "Kabupaten Wakatobi",
+  "prov_code": 74,
+  "prov_name": "Sulawesi Tenggara",
+  "centroid_lat": -5.571417,
+  "centroid_lon": 123.785493
+ },
+ "1807": {
+  "name": "Kabupaten Lampung Timur",
+  "prov_code": 18,
+  "prov_name": "Lampung",
+  "centroid_lat": -5.131438,
+  "centroid_lon": 105.648988
+ },
+ "5371": {
+  "name": "Kota Kupang",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -10.204513,
+  "centroid_lon": 123.604543
+ },
+ "1377": {
+  "name": "Kota Pariaman",
+  "prov_code": 13,
+  "prov_name": "Sumatera Barat",
+  "centroid_lat": -0.608597,
+  "centroid_lon": 100.138101
+ },
+ "1215": {
+  "name": "Kabupaten Pakpak Bharat",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 2.549426,
+  "centroid_lon": 98.243056
+ },
+ "6206": {
+  "name": "Kabupaten Katingan",
+  "prov_code": 62,
+  "prov_name": "Kalimantan Tengah",
+  "centroid_lat": -1.686379,
+  "centroid_lon": 113.070953
+ },
+ "6204": {
+  "name": "Kabupaten Barito Selatan",
+  "prov_code": 62,
+  "prov_name": "Kalimantan Tengah",
+  "centroid_lat": -1.774429,
+  "centroid_lon": 114.911059
+ },
+ "1472": {
+  "name": "Kota Dumai",
+  "prov_code": 14,
+  "prov_name": "Riau",
+  "centroid_lat": 1.82079,
+  "centroid_lon": 101.282273
+ },
+ "1606": {
+  "name": "Kabupaten Musi Banyuasin",
+  "prov_code": 16,
+  "prov_name": "Sumatera Selatan",
+  "centroid_lat": -2.450436,
+  "centroid_lon": 103.827815
+ },
+ "1173": {
+  "name": "Kota Lhokseumawe",
+  "prov_code": 11,
+  "prov_name": "Aceh",
+  "centroid_lat": 5.165259,
+  "centroid_lon": 97.110678
+ },
+ "7307": {
+  "name": "Kabupaten Sinjai",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -5.209295,
+  "centroid_lon": 120.135413
+ },
+ "7210": {
+  "name": "Kabupaten Sigi",
+  "prov_code": 72,
+  "prov_name": "Sulawesi Tengah",
+  "centroid_lat": -1.408787,
+  "centroid_lon": 119.974226
+ },
+ "6471": {
+  "name": "Kota Balikpapan",
+  "prov_code": 64,
+  "prov_name": "Kalimantan Timur",
+  "centroid_lat": -1.156668,
+  "centroid_lon": 116.872291
+ },
+ "1273": {
+  "name": "Kota Sibolga",
+  "prov_code": 12,
+  "prov_name": "Sumatera Utara",
+  "centroid_lat": 1.74255,
+  "centroid_lon": 98.789304
+ },
+ "7301": {
+  "name": "Kabupaten Kepulauan Selayar",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -6.558895,
+  "centroid_lon": 120.718223
+ },
+ "7202": {
+  "name": "Kabupaten Poso",
+  "prov_code": 72,
+  "prov_name": "Sulawesi Tengah",
+  "centroid_lat": -1.678423,
+  "centroid_lon": 120.533728
+ },
+ "5303": {
+  "name": "Kabupaten Timor Tengah Utara",
+  "prov_code": 53,
+  "prov_name": "Nusa Tenggara Timur",
+  "centroid_lat": -9.377788,
+  "centroid_lon": 124.569793
+ },
+ "6207": {
+  "name": "Kabupaten Seruyan",
+  "prov_code": 62,
+  "prov_name": "Kalimantan Tengah",
+  "centroid_lat": -2.257896,
+  "centroid_lon": 112.198763
+ },
+ "3211": {
+  "name": "Kabupaten Sumedang",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -6.824779,
+  "centroid_lon": 107.981276
+ },
+ "9202": {
+  "name": "Kabupaten Manokwari",
+  "prov_code": 92,
+  "prov_name": "Papua Barat",
+  "centroid_lat": -0.933564,
+  "centroid_lon": 133.801078
+ },
+ "6213": {
+  "name": "Kabupaten Barito Timur",
+  "prov_code": 62,
+  "prov_name": "Kalimantan Tengah",
+  "centroid_lat": -1.982359,
+  "centroid_lon": 115.143951
+ },
+ "7310": {
+  "name": "Kabupaten Pangkajene Dan Kepulauan",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -4.939355,
+  "centroid_lon": 119.479301
+ },
+ "3205": {
+  "name": "Kabupaten Garut",
+  "prov_code": 32,
+  "prov_name": "Jawa Barat",
+  "centroid_lat": -7.359563,
+  "centroid_lon": 107.787908
+ },
+ "7308": {
+  "name": "Kabupaten Bone",
+  "prov_code": 73,
+  "prov_name": "Sulawesi Selatan",
+  "centroid_lat": -4.695102,
+  "centroid_lon": 120.130034
+ },
+ "8105": {
+  "name": "Kabupaten Seram Bagian Timur",
+  "prov_code": 81,
+  "prov_name": "Maluku",
+  "centroid_lat": -3.419963,
+  "centroid_lon": 130.442702
+ },
+ "7504": {
+  "name": "Kabupaten Pohuwato",
+  "prov_code": 75,
+  "prov_name": "Gorontalo",
+  "centroid_lat": 0.68829,
+  "centroid_lon": 121.709782
+ },
+ "7110": {
+  "name": "Kabupaten Bolaang Mongondow Timur",
+  "prov_code": 71,
+  "prov_name": "Sulawesi Utara",
+  "centroid_lat": 0.716316,
+  "centroid_lon": 124.509519
+ }
+}

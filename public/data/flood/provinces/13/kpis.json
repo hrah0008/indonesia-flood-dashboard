@@ -1,0 +1,20 @@
+{
+ "prov_code": 13,
+ "prov_name": "Sumatera Barat",
+ "n_regencies": 19,
+ "total_events": 470,
+ "total_deaths": 379,
+ "total_missing": 98,
+ "total_injured": 5550,
+ "total_houses": 258505,
+ "avg_fsi_percent": 55.09,
+ "n_hot_spots": 9,
+ "n_hot_99": 6,
+ "n_hot_95": 2,
+ "n_hot_90": 1,
+ "n_catastrophic": 2,
+ "n_mk_sig_freq": 0,
+ "avg_freq_annual": 47.0,
+ "avg_hci_annual": 13.93,
+ "avg_pdi_annual": 126.7
+}

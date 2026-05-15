@@ -1,0 +1,20 @@
+{
+ "prov_code": 73,
+ "prov_name": "Sulawesi Selatan",
+ "n_regencies": 24,
+ "total_events": 530,
+ "total_deaths": 169,
+ "total_missing": 17,
+ "total_injured": 305,
+ "total_houses": 353868,
+ "avg_fsi_percent": 41.46,
+ "n_hot_spots": 0,
+ "n_hot_99": 0,
+ "n_hot_95": 0,
+ "n_hot_90": 0,
+ "n_catastrophic": 2,
+ "n_mk_sig_freq": 0,
+ "avg_freq_annual": 53.0,
+ "avg_hci_annual": 7.71,
+ "avg_pdi_annual": 110.41
+}
