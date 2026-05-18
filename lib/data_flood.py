@@ -77,7 +77,7 @@ def load_national_kpis() -> dict:
     Expected fields include:
         n_regencies, n_provinces, total_events, total_deaths,
         total_missing, total_injured, total_houses,
-        avg_fsi_percent, avg_freq_annual, avg_hci_annual, avg_pdi_annual,
+        avg_FSI_index, avg_freq_annual, avg_hci_annual, avg_pdi_annual,
         morans_i, morans_p, knn_k,
         n_hot_spots, n_mk_sig_freq,
         trend_direction, mk_tau, mk_p_hr, mk_slope_pct,
@@ -91,7 +91,7 @@ def load_national_annual() -> dict:
 
     Expected keys: years, events, deaths, missing, injured,
                     houses_flooded, houses_damaged,
-                    fsi_percent, hci_total, pdi_total
+                    FSI_index, hci_total, pdi_total
     """
     return _read_json(str(_FLOOD_DIR / "national" / "annual_series.json"))
 
@@ -104,9 +104,9 @@ def load_national_regency_table() -> pd.DataFrame:
         kemendagri_prov_code, kemendagri_prov_name,
         event_count, deaths, missing, injured,
         house_flooded, house_damaged,
-        FSI, FSI_percent, FSI_tier,
+        FSI, FSI_index, FSI_tier,
         gi_cat_FSI, confirmed_hot_FSI,
-        mk_sig_event_count, mk_sig_HCI, mk_sig_PDI,
+        mk_sig_FSI, mk_sig_HCI, mk_sig_PDI,
         centroid_lat, centroid_lon
     """
     return _read_parquet(str(_FLOOD_DIR / "national" / "regency_table.parquet"))
@@ -168,3 +168,106 @@ def assert_data_present() -> tuple[bool, list[str]]:
 # Province- and regency-level loaders REMOVED — National view only.
 # Re-add later if Province/Regency drill-down pages are built.
 # ─────────────────────────────────────────────────────────────────────
+
+# ─────────────────────────────────────────────────────────────────────
+# Province-level loaders (Stage 1 — Province tab)
+# ─────────────────────────────────────────────────────────────────────
+def _province_dir(prov_code: str) -> Path:
+    return _FLOOD_DIR / "provinces" / str(prov_code)
+
+
+@st.cache_data(show_spinner=False)
+def load_province_kpis(prov_code: str) -> dict:
+    """Read provinces/{prov_code}/kpis.json — dict with prov_code, prov_name,
+    n_regencies, total_events, total_deaths, avg_FSI_index, n_hot_spots,
+    n_catastrophic, n_mk_sig_freq, year_min, year_max, etc.
+    """
+    return _read_json(str(_province_dir(prov_code) / "kpis.json"))
+
+
+@st.cache_data(show_spinner=False)
+def load_province_annual(prov_code: str) -> dict:
+    """Read provinces/{prov_code}/annual_series.json — raw-count time series
+    (events, deaths, houses_flooded, FSI_index) by year.
+    """
+    return _read_json(str(_province_dir(prov_code) / "annual_series.json"))
+
+
+@st.cache_data(show_spinner=False)
+def load_province_regency_table(prov_code: str) -> pd.DataFrame:
+    """Read provinces/{prov_code}/regency_table.parquet — one row per regency
+    in the province with FSI, FSI_index, FSI_tier, gi_cat_FSI, etc.
+    """
+    return _read_parquet(str(_province_dir(prov_code) / "regency_table.parquet"))
+
+@st.cache_data(show_spinner=False)
+def load_province_scatter(prov_code: str) -> pd.DataFrame:
+    """Read provinces/{prov_code}/scatter.parquet — one row per regency with
+    FSI_index (x), gi_z_FSI (y), category (URGENT/EMERGING/CONFIRMED/STABLE),
+    mk_sig_FSI (bool). Built by nb12 cell 5 section 4d."""
+    return _read_parquet(str(_province_dir(prov_code) / "scatter.parquet"))
+
+@st.cache_data(show_spinner=False)
+def load_province_insight(prov_code: str) -> dict:
+    """Read provinces/{prov_code}/insight.json. Returns {} if missing."""
+    path = _province_dir(prov_code) / "insight.json"
+    if not path.exists():
+        return {}
+    return _read_json(str(path))
+
+
+@st.cache_data(show_spinner=False)
+def list_available_provinces() -> list[dict]:
+    """Return list of {code, name} for available provinces, sorted by name.
+    Fast path reads provinces/_index.json (one file).
+    Fallback scans 38 sub-folders.
+    """
+    prov_dir = _FLOOD_DIR / "provinces"
+    if not prov_dir.exists():
+        return []
+
+    index_path = prov_dir / "_index.json"
+    if index_path.exists():
+        try:
+            with open(index_path, encoding="utf-8") as f:
+                data = json.load(f)
+            entries = data.get("provinces") if isinstance(data, dict) else data
+            if isinstance(entries, list):
+                out = [
+                    {"code": str(e.get("code", e.get("prov_code", ""))),
+                     "name": e.get("name", e.get("prov_name", ""))}
+                    for e in entries
+                    if e.get("code") or e.get("prov_code")
+                ]
+                out.sort(key=lambda d: d["code"])
+                return out
+        except Exception:
+            pass
+
+    out = []
+    for p in sorted(prov_dir.iterdir()):
+        if not p.is_dir():
+            continue
+        try:
+            with open(p / "kpis.json", encoding="utf-8") as f:
+                k = json.load(f)
+            out.append({"code": str(k.get("prov_code", p.name)),
+                         "name": k.get("prov_name", p.name)})
+        except Exception:
+            continue
+    out.sort(key=lambda d: d["code"])
+    return out
+
+# ─────────────────────────────────────────────────────────────────────
+# Regency-level loader (single JSON per regency)
+# ─────────────────────────────────────────────────────────────────────
+@st.cache_data(show_spinner=False)
+def load_regency_bundle(kab_code: str) -> dict:
+    """Read regencies/{kab_code}.json — a single bundle containing:
+        kpis            : dict with totals, FSI, Gi*, MK flags
+        annual          : per-year time series
+        monthly_heatmap : 10y × 12m FSI grid
+        avg_monthly     : 12-month seasonal profile
+    Built by nb12 Step 5.
+    """
+    return _read_json(str(_FLOOD_DIR / "regencies" / f"{kab_code}.json"))

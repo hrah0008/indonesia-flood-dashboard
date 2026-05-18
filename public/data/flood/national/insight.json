@@ -1,6 +1,6 @@
 {
  "headline": "Indonesia recorded 13,030 flood events affecting 514 regencies between 2016 and 2025, with 3,044 fatalities and 8,614,478 houses impacted.",
  "top3_severity": "The three most flood-impacted regencies by FSI are: Kabupaten Aceh Utara, Kabupaten Jayapura, Kabupaten Agam.",
- "hot_spot_summary": "60 regencies are statistically significant flood hot spots under the Getis-Ord Gi* test (p < 0.10), comprising 21 at p < 0.01, 16 at p < 0.05, and 23 at p < 0.10. Separately, 19 regencies fall in the top-tier FSI severity class (FSI_percent ≥ 75).",
- "trend_summary": "7 of 514 regencies show a statistically significant rising trend in integrated FSI Score over the study period (Mann-Kendall on FSI_temporal_pct, Hamed-Rao corrected, BH-FDR α = 0.05)."
+ "hot_spot_summary": "60 regencies are statistically significant flood hot spots under the Getis-Ord Gi* test (p < 0.10), comprising 21 at p < 0.01, 16 at p < 0.05, and 23 at p < 0.10. Separately, 19 regencies fall in the top-tier FSI severity class (FSI_index ≥ 75).",
+ "trend_summary": "7 of 514 regencies show a statistically significant rising trend in integrated FSI Score over the study period (Mann-Kendall on FSI_index, Hamed-Rao corrected, BH-FDR α = 0.05)."
 }

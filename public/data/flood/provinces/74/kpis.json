@@ -7,7 +7,7 @@
  "total_missing": 1,
  "total_injured": 7,
  "total_houses": 40130,
- "avg_fsi_percent": 25.77,
+ "avg_fsi_index": 25.77,
  "n_hot_spots": 0,
  "n_hot_99": 0,
  "n_hot_95": 0,

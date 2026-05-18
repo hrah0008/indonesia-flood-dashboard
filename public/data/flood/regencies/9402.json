@@ -12,7 +12,7 @@
   "total_injured": 2,
   "total_houses": 0,
   "fsi": -1.4186,
-  "fsi_percent": 10.77,
+  "fsi_index": 10.77,
   "fsi_tier": "Low",
   "gi_cat_fsi": "Cold 99%",
   "gi_z_fsi": -3.099,
@@ -71,7 +71,7 @@
    0,
    0
   ],
-  "fsi_percent": [
+  "fsi_index": [
    0.0,
    0.0,
    0.0,
@@ -249,7 +249,7 @@
     0.0
    ],
    [
-    14.45,
+    13.77,
     0.0,
     0.0,
     0.0,
@@ -279,7 +279,7 @@
   ]
  },
  "avg_monthly": [
-  1.44,
+  1.38,
   0.0,
   0.0,
   0.0,

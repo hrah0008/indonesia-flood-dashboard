@@ -91,7 +91,7 @@ hero_desc = (
 st.markdown(
     f'<div style="margin:8px 0 24px 0;">'
     f'<div style="{hero_kicker}">Indonesia &middot; 2016&ndash;2025</div>'
-    f'<h1 style="{hero_title}">Regional Socioeconomic Impacts of Flooding in Indonesia: A Spatiotemporal Analysis.</h1>'
+    f'<h1 style="{hero_title}">Regional Socioeconomic Impacts of Flooding in Indonesia: A Spatiotemporal Analysis Using Administrative Disaster Records, 2016–2025.</h1>'
     f'<div style="{hero_desc}">A spatial and temporal analysis of Indonesia’s flood exposure, highlighting '
     f'where flooding impacts are most severe and how these patterns evolve over time. '
     f'Insights are presented at the national, provincial, and regency levels using '
@@ -154,62 +154,6 @@ menu_title = (
     f"font-family:{FONT_DISPLAY};font-size:22px;font-weight:600;"
     f"color:{INK};margin:4px 0 16px 0;"
 )
-
-st.markdown(
-    f'<div style="{menu_kicker}">Dashboard menu</div>'
-    f'<h2 style="{menu_title}">Six analytical layers</h2>',
-    unsafe_allow_html=True,
-)
-
-# Row 1 — Analysis pages
-c1, c2, c3 = st.columns(3, gap="medium")
-with c1:
-    st.markdown(_menu_card(
-        "Menu 1", "Flood",
-        "Spatial concentration and temporal shifts in flood frequency, "
-        "human cost, and property damage. Moran's I, Gi*, and Mann-Kendall.",
-        "live"
-    ), unsafe_allow_html=True)
-with c2:
-    st.markdown(_menu_card(
-        "Menu 2", "Economic Impact",
-        "Where flood severity meets local growth: drain, resilient, "
-        "structural-lag, and baseline economic typologies.",
-        "soon"
-    ), unsafe_allow_html=True)
-with c3:
-    st.markdown(_menu_card(
-        "Menu 3", "Social Impact",
-        "Compound vulnerability where flood meets poverty, education, "
-        "and unemployment.",
-        "soon"
-    ), unsafe_allow_html=True)
-
-st.markdown('<div style="height:14px;"></div>', unsafe_allow_html=True)
-
-# Row 2 — Evidence pages
-c4, c5, c6 = st.columns(3, gap="medium")
-with c4:
-    st.markdown(_menu_card(
-        "Menu 4", "Analytical Framework",
-        "Methodological transparency: indicator construction, weighting, "
-        "spatial weights, and statistical tests.",
-        "live"
-    ), unsafe_allow_html=True)
-with c5:
-    st.markdown(_menu_card(
-        "Menu 5", "Predictive Outlook",
-        "Theil-Sen projections to 2030 for regencies with significant "
-        "Mann-Kendall trends.",
-        "soon"
-    ), unsafe_allow_html=True)
-with c6:
-    st.markdown(_menu_card(
-        "Menu 6", "Policy Brief",
-        "Synthesised evidence and recommended interventions for "
-        "national and sub-national disaster authorities.",
-        "soon"
-    ), unsafe_allow_html=True)
 
 
 # Footer

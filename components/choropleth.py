@@ -75,7 +75,7 @@ def render_fsi_choropleth(
     Parameters
     ----------
     reg_df : pd.DataFrame
-        Regency rows with at least: kemendagri_kab_code, FSI_tier, FSI_percent,
+        Regency rows with at least: kemendagri_kab_code, FSI_tier, FSI_index,
         event_count, deaths, missing, injured, house_flooded. Other columns
         (Z_freq, Z_HCI, Z_PDI, kemendagri_prov_name, house_damaged) are
         used in hover if present; gracefully filled with defaults otherwise.
@@ -113,14 +113,14 @@ def render_fsi_choropleth(
 
     # Customdata layout (3-tier hover — see module docstring):
     #   0: kab_name           1: prov_name
-    #   2: FSI_percent        3: FSI_tier
+    #   2: FSI_index        3: FSI_tier
     #   4: Z_freq             5: Z_HCI            6: Z_PDI
     #   7: event_count        8: deaths           9: missing
     #  10: injured           11: house_flooded   12: house_damaged
     #  13: kab_code           ← appended for click handler payload
     customdata = df[
         ["kemendagri_kab_name", "kemendagri_prov_name",
-         "FSI_percent", "FSI_tier",
+         "FSI_index", "FSI_tier",
          "Z_freq", "Z_HCI", "Z_PDI",
          "event_count", "deaths", "missing", "injured",
          "house_flooded", "house_damaged",
@@ -250,16 +250,16 @@ def compute_province_view(
         gtype = geom.get("type", "")
         if gtype == "Polygon":
             for ring in coords:
-                for lon, lat in ring:
-                    lats.append(lat)
-                    lons.append(lon)
+                for pt in ring:
+                    # Handle both [lon, lat] and [lon, lat, z] points
+                    lons.append(pt[0])
+                    lats.append(pt[1])
         elif gtype == "MultiPolygon":
             for poly in coords:
                 for ring in poly:
-                    for lon, lat in ring:
-                        lats.append(lat)
-                        lons.append(lon)
-
+                    for pt in ring:
+                        lons.append(pt[0])
+                        lats.append(pt[1])
     if not lats:
         # Fallback to Indonesia-wide
         return {"lat": -2.5, "lon": 117.5}, 4.0
@@ -280,3 +280,5 @@ def compute_province_view(
     zoom = max(4.0, min(9.0, math.log2(30.0 / max_span) + 4.0))
 
     return {"lat": lat_center, "lon": lon_center}, zoom
+
+    

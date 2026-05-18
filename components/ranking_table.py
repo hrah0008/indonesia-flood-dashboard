@@ -18,7 +18,7 @@ Definitions (each table answers a different policy question):
 
 DISPLAY NOTE — FSI Score, NOT percentage
 ----------------------------------------
-The `FSI_percent` column from nb12 is a 0-100 MIN-MAX RESCALE of the
+The `FSI_index` column from nb12 is a 0-100 MIN-MAX RESCALE of the
 Z-score composite. It is NOT a percentage (no denominator). Displays here
 use `fmt_score` to render values as "89.65 / 100" rather than "89.65%",
 matching the academic critique that "%" without a denominator is
@@ -58,9 +58,9 @@ def _filter_hot(reg_df: pd.DataFrame) -> pd.DataFrame:
 
 def _filter_mk_increasing(reg_df: pd.DataFrame) -> pd.DataFrame:
     """Keep only regencies with significantly INCREASING event-count trend."""
-    if "mk_tau_event" not in reg_df.columns or "mk_sig_event_count" not in reg_df.columns:
+    if "mk_tau_FSI" not in reg_df.columns or "mk_sig_FSI" not in reg_df.columns:
         return reg_df.iloc[0:0]
-    mask = (reg_df["mk_sig_event_count"].astype(bool)) & (reg_df["mk_tau_event"] > 0)
+    mask = (reg_df["mk_sig_FSI"].astype(bool)) & (reg_df["mk_tau_FSI"] > 0)
     return reg_df[mask].copy()
 
 
@@ -193,7 +193,7 @@ def _empty_state(message: str) -> str:
 # ─────────────────────────────────────────────────────────────────────
 def render_top10_fsi(reg_df: pd.DataFrame, top_n: int = 10) -> None:
     total = len(reg_df)
-    df = reg_df.sort_values("FSI_percent", ascending=False).head(top_n).reset_index(drop=True)
+    df = reg_df.sort_values("FSI_index", ascending=False).head(top_n).reset_index(drop=True)
     shown = len(df)
     count_caption = f"Showing {shown} of {total} regencies"
 
@@ -201,7 +201,7 @@ def render_top10_fsi(reg_df: pd.DataFrame, top_n: int = 10) -> None:
     for i, r in df.iterrows():
         score_html = (
             f'<div style="font-family:{FONT_DISPLAY};font-size:13px;'
-            f'font-weight:600;color:{INK};">{fmt_score(r.get("FSI_percent"), 2)}</div>'
+            f'font-weight:600;color:{INK};">{fmt_score(r.get("FSI_index"), 2)}</div>'
             f'<div style="margin-top:3px;">{_fsi_tier_chip(r.get("FSI_tier", "-"))}</div>'
         )
         context = (
@@ -258,7 +258,7 @@ def render_top10_hotspots(reg_df: pd.DataFrame, top_n: int = 10) -> None:
         # Context line: events + FSI score (compact "X.X" not "X.X%")
         context = (
             f'{fmt_int(r.get("event_count"))} events &middot; '
-            f'FSI {fmt_score_only(r.get("FSI_percent"), 1)}'
+            f'FSI {fmt_score_only(r.get("FSI_index"), 1)}'
         )
         rows_html.append(_mini_row(
             rank=i + 1,
@@ -288,7 +288,7 @@ def render_top10_hotspots(reg_df: pd.DataFrame, top_n: int = 10) -> None:
 # 3) Top 10 by MK — filtered to significantly INCREASING only
 # ─────────────────────────────────────────────────────────────────────
 def render_top10_mk(reg_df: pd.DataFrame, top_n: int = 10) -> None:
-    if "mk_tau_event" not in reg_df.columns or "mk_sig_event_count" not in reg_df.columns:
+    if "mk_tau_FSI" not in reg_df.columns or "mk_sig_FSI" not in reg_df.columns:
         st.info(
             "MK τ column missing from data. Re-run nb12 with the τ-export "
             "patch (cell 4 STEP 3c)."
@@ -297,7 +297,7 @@ def render_top10_mk(reg_df: pd.DataFrame, top_n: int = 10) -> None:
 
     worsening = _filter_mk_increasing(reg_df)
     total_worsen = len(worsening)
-    df = worsening.sort_values("mk_tau_event", ascending=False).head(top_n).reset_index(drop=True)
+    df = worsening.sort_values("mk_tau_FSI", ascending=False).head(top_n).reset_index(drop=True)
     shown = len(df)
 
     if total_worsen == 0:
@@ -307,8 +307,8 @@ def render_top10_mk(reg_df: pd.DataFrame, top_n: int = 10) -> None:
 
     rows_html = []
     for i, r in df.iterrows():
-        tau = r.get("mk_tau_event")
-        slope = r.get("mk_slope_event")
+        tau = r.get("mk_tau_FSI")
+        slope = r.get("mk_slope_FSI")
         tau_label = (f"↑ τ = {tau:+.2f}"
                      if tau is not None and not pd.isna(tau)
                      else "—")
@@ -323,9 +323,9 @@ def render_top10_mk(reg_df: pd.DataFrame, top_n: int = 10) -> None:
         )
         # Context: slope %/yr · FSI score (NOT percentage)
         context = (
-            f'{slope_label} &middot; FSI {fmt_score_only(r.get("FSI_percent"), 1)}'
+            f'{slope_label} &middot; FSI {fmt_score_only(r.get("FSI_index"), 1)}'
             if slope_label
-            else f'FSI {fmt_score_only(r.get("FSI_percent"), 1)}'
+            else f'FSI {fmt_score_only(r.get("FSI_index"), 1)}'
         )
         rows_html.append(_mini_row(
             rank=i + 1,
@@ -359,7 +359,7 @@ def compute_top10_overlaps(reg_df: pd.DataFrame, top_n: int = 10) -> dict:
     """Returns set intersections between the three Top-N lists, using the
     SAME filters that the renderers apply. So 'X regencies in all 3 lists'
     matches exactly what's visible in the tables."""
-    fsi_top = reg_df.nlargest(top_n, "FSI_percent")
+    fsi_top = reg_df.nlargest(top_n, "FSI_index")
     fsi_set = set(fsi_top["kemendagri_kab_code"])
 
     if "gi_z_FSI" in reg_df.columns:
@@ -369,9 +369,9 @@ def compute_top10_overlaps(reg_df: pd.DataFrame, top_n: int = 10) -> dict:
     else:
         hot_set = set()
 
-    if "mk_tau_event" in reg_df.columns:
+    if "mk_tau_FSI" in reg_df.columns:
         worsen = _filter_mk_increasing(reg_df)
-        mk_top = worsen.nlargest(top_n, "mk_tau_event")
+        mk_top = worsen.nlargest(top_n, "mk_tau_FSI")
         mk_set = set(mk_top["kemendagri_kab_code"])
     else:
         mk_set = set()
@@ -412,7 +412,7 @@ def render_ranking_table(rows_df: pd.DataFrame, top_n: int = 10) -> None:
         st.info("No ranking data available.")
         return
 
-    df = rows_df.sort_values("FSI_percent", ascending=False).head(top_n).reset_index(drop=True)
+    df = rows_df.sort_values("FSI_index", ascending=False).head(top_n).reset_index(drop=True)
 
     rank_style = (
         f"padding:10px 8px;font-family:{FONT_MONO};font-size:11px;"
@@ -436,8 +436,8 @@ def render_ranking_table(rows_df: pd.DataFrame, top_n: int = 10) -> None:
 
     rows_html = []
     for i, r in df.iterrows():
-        mk_sig = bool(r.get("mk_sig_event_count", False))
-        tau = r.get("mk_tau_event")
+        mk_sig = bool(r.get("mk_sig_FSI", False))
+        tau = r.get("mk_tau_FSI")
         mk_chip_html = (
             _mk_up_chip() if (mk_sig and tau is not None and not pd.isna(tau) and tau > 0)
             else _chip(MK_BADGE["no_trend"]["label"],
@@ -451,7 +451,7 @@ def render_ranking_table(rows_df: pd.DataFrame, top_n: int = 10) -> None:
             f'<div style="{name_style}">{r.get("kemendagri_kab_name", "-")}</div>'
             f'<div style="{prov_style}">{r.get("kemendagri_prov_name", "-")}</div>'
             f'</td>'
-            f'<td style="{fsi_cell_style}">{fmt_score(r.get("FSI_percent"), 2)}</td>'
+            f'<td style="{fsi_cell_style}">{fmt_score(r.get("FSI_index"), 2)}</td>'
             f'<td style="{cell_style}">{_fsi_tier_chip(r.get("FSI_tier", "-"))}</td>'
             f'<td style="{cell_style}">{_gi_chip(r.get("gi_cat_FSI", "Not significant"))}</td>'
             f'<td style="{cell_style}">{mk_chip_html}</td>'

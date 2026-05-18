@@ -5,11 +5,11 @@ Centralised design tokens.
 
 FSI TIER NOTE
 -------------
-nb6 assigns 4 tiers on the min-max scaled FSI_percent:
-    Catastrophic   FSI_percent >= 75
-    High           50 <= FSI_percent < 75
-    Moderate       25 <= FSI_percent < 50
-    Low            FSI_percent < 25
+nb6 assigns 4 tiers on the min-max scaled FSI_index:
+    Catastrophic   FSI_index >= 75
+    High           50 <= FSI_index < 75
+    Moderate       25 <= FSI_index < 50
+    Low            FSI_index < 25
 """
 
 # ── Brand neutrals ────────────────────────────────────────────────────
@@ -99,7 +99,7 @@ SERIES_COLORS = {
     "houses_flooded": "#185fa5",
     "houses_damaged": "#6b21a8",
     "fasum_damaged":  "#0e7490",
-    "fsi_percent":    "#0f1419",
+    "FSI_index":    "#0f1419",
     "hci_total":      "#dc2626",
     "pdi_total":      "#f59e0b",
 }
@@ -118,7 +118,7 @@ SERIES_LABELS = {
     "houses_flooded": "Houses flooded",
     "houses_damaged": "Houses damaged",
     "fasum_damaged":  "Public facilities damaged",
-    "fsi_percent":    "FSI Score",
+    "FSI_index":    "FSI Score",
     "hci_total":      "HCI total",
     "pdi_total":      "PDI total",
 }

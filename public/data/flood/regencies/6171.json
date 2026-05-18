@@ -12,7 +12,7 @@
   "total_injured": 0,
   "total_houses": 0,
   "fsi": -1.9311,
-  "fsi_percent": 0.0,
+  "fsi_index": 0.0,
   "fsi_tier": "Low",
   "gi_cat_fsi": "Not sig.",
   "gi_z_fsi": -0.119,
@@ -71,7 +71,7 @@
    0,
    0
   ],
-  "fsi_percent": [
+  "fsi_index": [
    0.0,
    0.0,
    0.0,
