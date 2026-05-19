@@ -21,8 +21,10 @@ Reads from nb12 output:
 """
 
 import traceback
+from io import BytesIO
 
 import streamlit as st
+import pandas as pd
 
 from lib.data_flood import (
     load_national_kpis,
@@ -767,6 +769,110 @@ with tab_province:
         import traceback
         with st.expander("Traceback"):
             st.code(traceback.format_exc(), language="python")
+    
+    # ── Regency data table (downloadable) ──────────────────────────
+    st.divider()
+    render_section_header(
+        kicker="Tabular data",
+        title=f"Regency-level data — {prov_name}",
+        description=(
+            f"Cumulative flood data (2016&ndash;2025) for all "
+            f"<strong>{fmt_int(k_p.get('n_regencies'))} regencies</strong> in "
+            f"{prov_name}. Click a column header to sort. Download as CSV "
+            f"or Excel for further analysis."
+        ),
+    )
+
+    # Build user-friendly display dataframe
+    # Mix format: raw counts for event/HCI/PDI components + FSI_index 0-100
+    display_df = pd.DataFrame({
+        "Regency":           reg_df_p["kemendagri_kab_name"].values,
+        "Events":            reg_df_p["event_count"].astype(int).values,
+        "Deaths":            reg_df_p["deaths"].astype(int).values,
+        "Missing":           reg_df_p["missing"].astype(int).values,
+        "Injured":           reg_df_p["injured"].astype(int).values,
+        "Houses flooded":    reg_df_p["house_flooded"].astype(int).values,
+        "Houses damaged":    reg_df_p.get("house_damaged", 0).astype(int).values
+                              if "house_damaged" in reg_df_p.columns
+                              else [0] * len(reg_df_p),
+        "Public facilities": reg_df_p.get("fasum_damaged", 0).astype(int).values
+                              if "fasum_damaged" in reg_df_p.columns
+                              else [0] * len(reg_df_p),
+        "FSI (0–100)":       reg_df_p["FSI_index"].round(1).values,
+        "FSI tier":          reg_df_p["FSI_tier"].values,
+    })
+
+    # Display table — sorted by FSI desc (already sorted in nb12)
+    st.dataframe(
+        display_df,
+        width="stretch",
+        hide_index=True,
+        height=min(420, 45 + 36 * len(display_df)),
+    )
+
+    # Build clean download dataframe — separate numeric columns
+    download_df = pd.DataFrame({
+        "regency_code":        reg_df_p["kemendagri_kab_code"].values,
+        "regency_name":        reg_df_p["kemendagri_kab_name"].values,
+        "event_count":         reg_df_p["event_count"].astype(int).values,
+        "deaths":              reg_df_p["deaths"].astype(int).values,
+        "missing":             reg_df_p["missing"].astype(int).values,
+        "injured":             reg_df_p["injured"].astype(int).values,
+        "houses_flooded":      reg_df_p["house_flooded"].astype(int).values,
+        "houses_damaged":      reg_df_p.get("house_damaged", 0).astype(int).values
+                                if "house_damaged" in reg_df_p.columns
+                                else [0] * len(reg_df_p),
+        "public_facilities_damaged": reg_df_p.get("fasum_damaged", 0).astype(int).values
+                                      if "fasum_damaged" in reg_df_p.columns
+                                      else [0] * len(reg_df_p),
+        "FSI_index":           reg_df_p["FSI_index"].round(2).values,
+        "FSI_tier":            reg_df_p["FSI_tier"].values,
+    })
+
+    # Sanitise province name for filename
+    safe_prov_name = (
+        prov_name.replace(" ", "_")
+                 .replace("/", "_")
+                 .replace("\\", "_")
+    )
+
+    # Download buttons — side by side
+    col_csv, col_xlsx, _spacer = st.columns([1.2, 1.2, 3.6])
+
+    with col_csv:
+        csv_bytes = download_df.to_csv(index=False).encode("utf-8")
+        st.download_button(
+            label="⬇  Download CSV",
+            data=csv_bytes,
+            file_name=f"flood_data_{safe_prov_name}.csv",
+            mime="text/csv",
+            key=f"dl_csv_{prov_code}",
+            width="stretch",
+        )
+
+    with col_xlsx:
+        xlsx_buf = BytesIO()
+        with pd.ExcelWriter(xlsx_buf, engine="openpyxl") as writer:
+            download_df.to_excel(writer, sheet_name="Regency Data", index=False)
+            worksheet = writer.sheets["Regency Data"]
+            for col_idx, col_name in enumerate(download_df.columns, start=1):
+                max_len = max(
+                    len(str(col_name)),
+                    download_df[col_name].astype(str).str.len().max()
+                    if len(download_df) else 0,
+                )
+                worksheet.column_dimensions[
+                    worksheet.cell(row=1, column=col_idx).column_letter
+                ].width = min(max_len + 2, 30)
+        st.download_button(
+            label="⬇  Download Excel",
+            data=xlsx_buf.getvalue(),
+            file_name=f"flood_data_{safe_prov_name}.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            key=f"dl_xlsx_{prov_code}",
+            width="stretch",
+        )
+
     
 # ═════════════════════════════════════════════════════════════════════
 # TAB 3 — REGENCY  (single regency, zoomed)

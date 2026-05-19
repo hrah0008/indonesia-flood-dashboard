@@ -290,7 +290,7 @@ with tab_spatial:
             "Z-standardisation step to preserve year-over-year magnitude "
             "that Mann-Kendall is designed to detect."
         ),
-        reference="Cutter et al. (2003). Social Vulnerability to Environmental Hazards. SSQ 84(2): 242&ndash;261.",
+        reference="Reference :",
     )
 
     # ── Card 2: Global Moran's I ─────────────────────────────────────
@@ -419,38 +419,7 @@ with tab_temporal:
     )
 
     # ── Card 5: Theil-Sen slope estimator ────────────────────────────
-    render_method_card(
-        phase="Phase 5 · Trend slope",
-        title="Theil-Sen slope estimator",
-        rq_tag="RQ1",
-        narrative=(
-            "Estimates the annual rate of change as the median of all "
-            "pairwise slopes between observations. Pairs naturally with "
-            "Mann-Kendall &mdash; same monotonic-trend assumption, robust to "
-            "outliers, no Gaussian-residuals requirement."
-        ),
-        stats_html=(
-            "<strong>Estimator</strong><br>"
-            "slope<sub>ij</sub> = (y<sub>j</sub> &minus; y<sub>i</sub>) / "
-            "(t<sub>j</sub> &minus; t<sub>i</sub>),&nbsp;&nbsp;for all i&lt;j<br>"
-            "Theil-Sen = <strong>median</strong>(slope<sub>ij</sub>)<br>"
-            "<br>"
-            "<strong>Pair count</strong>&nbsp;&nbsp;&nbsp; "
-            "n(n&minus;1)/2 = 45 pairwise slopes per regency (n=10 years)<br>"
-            "<strong>Confidence interval</strong>&nbsp; 95% Mood (1950) bracket on the median slope<br>"
-            "<br>"
-            "<strong>Reporting unit</strong><br>"
-            "&nbsp;&nbsp;slope_pct = (theil_slope / value<sub>2025</sub>) &times; 100<br>"
-            "&nbsp;&nbsp;Interpretation: % change per year, relative to 2025 baseline<br>"
-            "<br>"
-            "<strong>Used for</strong><br>"
-            "&nbsp;&nbsp;Projection: 2027, 2030 values where MK is FDR-significant<br>"
-            "&nbsp;&nbsp;Ranking: dashboard &ldquo;Top 10 by rising FSI&rdquo; "
-            "sorts by &tau;, displays slope_pct"
-        ),
-        reference="Sen, P. K. (1968). Estimates of the Regression Coefficient Based on Kendall&rsquo;s Tau. JASA 63(324): 1379&ndash;1389.",
-    )
-
+    
 
 # ═════════════════════════════════════════════════════════════════════
 # TAB 3 — CAUSAL & PREDICTIVE  (placeholder for RQ2 work)
@@ -467,157 +436,7 @@ with tab_causal:
         unsafe_allow_html=True,
     )
 
-    # ── Card 6: Panel regression ─────────────────────────────────────
-    render_method_card(
-        phase="Step 1 · Specification",
-        title="Panel regression formula",
-        rq_tag="RQ2",
-        placeholder=True,
-        narrative=(
-            "Two-way fixed-effects panel regression linking flood indicators "
-            "(FSI, event_count) to socioeconomic outcomes (GRDP growth, "
-            "poverty rate, unemployment rate / TPT)."
-        ),
-        stats_html=(
-            "<strong>Planned specification (placeholder)</strong><br>"
-            "Y<sub>it</sub> = &alpha;<sub>i</sub> + &lambda;<sub>t</sub> + "
-            "&beta;<sub>1</sub>&middot;FSI<sub>it</sub> + "
-            "&beta;<sub>2</sub>&middot;X<sub>it</sub> + &epsilon;<sub>it</sub><br>"
-            "<br>"
-            "Where Y<sub>it</sub> = socioeconomic outcome for regency i in year t,<br>"
-            "&alpha;<sub>i</sub> = regency fixed effect, "
-            "&lambda;<sub>t</sub> = year fixed effect,<br>"
-            "&beta;<sub>1</sub> = flood-impact coefficient (parameter of interest)<br>"
-            "<br>"
-            "<em>To be detailed: regressor list, lag structure, clustered SE, sample, robustness.</em>"
-        ),
-    )
-
-    # ── Card 7: Assumption tests ─────────────────────────────────────
-    render_method_card(
-        phase="Step 2 · Diagnostics",
-        title="Assumption diagnostics (7 tests)",
-        rq_tag="RQ2",
-        placeholder=True,
-        narrative=(
-            "Panel-data assumption checks: multicollinearity, model "
-            "specification, autocorrelation, heteroskedasticity, "
-            "cross-sectional dependence, unit roots, coefficient stability."
-        ),
-        stats_html=(
-            "<strong>Planned diagnostic suite (placeholder)</strong><br>"
-            "&nbsp;1. Variance Inflation Factor (VIF) &mdash; multicollinearity<br>"
-            "&nbsp;2. Hausman test &mdash; fixed vs random effects<br>"
-            "&nbsp;3. Wooldridge test &mdash; first-order serial correlation<br>"
-            "&nbsp;4. Pesaran CD test &mdash; cross-sectional dependence<br>"
-            "&nbsp;5. Breusch-Pagan &mdash; heteroskedasticity<br>"
-            "&nbsp;6. Im-Pesaran-Shin &mdash; panel unit root<br>"
-            "&nbsp;7. CUSUM &mdash; coefficient stability<br>"
-            "<br>"
-            "<em>To be filled with real test statistics when RQ2 regression runs.</em>"
-        ),
-    )
-
-    # ── Card 8: XGBoost ──────────────────────────────────────────────
-    render_method_card(
-        phase="Step 3 · ML",
-        title="XGBoost &mdash; function approximator",
-        rq_tag="RQ2",
-        placeholder=True,
-        narrative=(
-            "Gradient-boosted regression trees for non-linear prediction of "
-            "socioeconomic outcomes. Captures interaction and threshold effects "
-            "that linear panel regression cannot."
-        ),
-        stats_html=(
-            "<strong>Planned model (placeholder)</strong><br>"
-            "XGBoost (Chen &amp; Guestrin 2016) &mdash; gradient boosting on "
-            "regression trees.<br>"
-            "<br>"
-            "<strong>Configuration (TBD)</strong><br>"
-            "&nbsp;&nbsp;Hyperparameter grid: max_depth, eta, n_estimators<br>"
-            "&nbsp;&nbsp;Train/validation/test split: 70/15/15<br>"
-            "&nbsp;&nbsp;Cross-validation: 5-fold on the train set<br>"
-            "&nbsp;&nbsp;Targets: GRDP growth, poverty rate, TPT<br>"
-            "<br>"
-            "<em>To be filled with real model details when RQ2 ML pipeline runs.</em>"
-        ),
-    )
-
-    # ── Card 9: Performance metrics ──────────────────────────────────
-    render_method_card(
-        phase="Step 3 · Metrics",
-        title="Performance metrics",
-        rq_tag="RQ2",
-        placeholder=True,
-        narrative=(
-            "Out-of-sample evaluation: variance explained (R&sup2;), "
-            "absolute error magnitude (RMSE, MAE), and prediction interval "
-            "coverage."
-        ),
-        stats_html=(
-            "<strong>Planned metrics (placeholder)</strong><br>"
-            "&nbsp;&nbsp;R&sup2; (out-of-sample) &mdash; variance explained<br>"
-            "&nbsp;&nbsp;RMSE &mdash; root mean squared error<br>"
-            "&nbsp;&nbsp;MAE&nbsp;&nbsp;&nbsp; &mdash; mean absolute error<br>"
-            "&nbsp;&nbsp;Coverage &mdash; % of test obs within prediction intervals<br>"
-            "<br>"
-            "<em>To be filled with real metric values when RQ2 ML pipeline runs.</em>"
-        ),
-    )
-
-    # ── Card 10: SHAP ────────────────────────────────────────────────
-    render_method_card(
-        phase="Step 4 · Attribution",
-        title="SHAP attribution",
-        rq_tag="RQ2",
-        placeholder=True,
-        narrative=(
-            "Shapley-value decomposition: each model prediction is "
-            "decomposed into per-feature contributions, providing locally "
-            "faithful additive explanations for black-box ML predictions."
-        ),
-        stats_html=(
-            "<strong>Decomposition (placeholder)</strong><br>"
-            "f(x) = &phi;<sub>0</sub> + "
-            "&Sigma;<sub>j</sub> &phi;<sub>j</sub>(x)<br>"
-            "<br>"
-            "Where &phi;<sub>j</sub>(x) is the Shapley contribution of "
-            "feature j for input x.<br>"
-            "<br>"
-            "<strong>Why SHAP for this thesis</strong>: bridges XGBoost prediction "
-            "with causal interpretation by quantifying which flood indicators "
-            "drive predictions per regency.<br>"
-            "<br>"
-            "<em>To be filled with real SHAP outputs when RQ2 ML pipeline runs.</em>"
-        ),
-        reference="Lundberg &amp; Lee (2017). A Unified Approach to Interpreting Model Predictions. NeurIPS.",
-    )
-
-    # ── Card 11: Feature importance ──────────────────────────────────
-    render_method_card(
-        phase="Step 4 · Bar chart",
-        title="Feature importance bars",
-        rq_tag="RQ2",
-        placeholder=True,
-        narrative=(
-            "Global ranking of feature importance using mean absolute SHAP "
-            "values. Identifies which flood indicators most influence the "
-            "predictive model overall."
-        ),
-        stats_html=(
-            "<strong>Metric (placeholder)</strong><br>"
-            "importance<sub>j</sub> = (1/N) &middot; "
-            "&Sigma;<sub>i=1..N</sub> |&phi;<sub>j</sub>(x<sub>i</sub>)|<br>"
-            "<br>"
-            "Bar chart sorted descending by mean |SHAP|. Identifies whether "
-            "FSI, event_count, HCI, PDI, or specific sub-components carry the "
-            "most predictive weight.<br>"
-            "<br>"
-            "<em>To be filled with real importance rankings when RQ2 ML pipeline runs.</em>"
-        ),
-    )
-
+    
     # ── Synthesis card (placeholder) ─────────────────────────────────
     st.markdown('<div style="margin-top:16px;"></div>', unsafe_allow_html=True)
     placeholder_card_style = (
