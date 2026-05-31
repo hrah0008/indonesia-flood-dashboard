@@ -77,27 +77,10 @@ CLUSTER_DESCRIPTIONS = {
     "Frequent-Contained": "High frequency, contained casualty per event",
 }
 
-# ── FSI 4-tier scale (matches nb6) ────────────────────────────────────
-FSI_COLORS = {
-    "Catastrophic": "#7f1d1d",
-    "High":         "#dc2626",
-    "Moderate":     "#f59e0b",
-    "Low":          "#84cc16",
-}
-
-FSI_LABELS = {
-    "Catastrophic": "Catastrophic",
-    "High":         "High",
-    "Moderate":     "Moderate",
-    "Low":          "Low",
-}
-
-FSI_TIER_ORDER = ["Catastrophic", "High", "Moderate", "Low"]
-
-
-def fsi_color(tier: str) -> str:
-    return FSI_COLORS.get(tier, "#cccccc")
-
+# NOTE: The FSI 4-tier scale (FSI_COLORS / FSI_LABELS / FSI_TIER_ORDER /
+# fsi_color) was removed — the dashboard now classifies regencies by K-means
+# cluster typology (CLUSTER_* above), not FSI tiers. FSI is shown as the
+# continuous 0–100 FSI_index instead of a categorical tier.
 
 # ── Gi* palette ───────────────────────────────────────────────────────
 GI_COLORS = {
@@ -127,12 +110,12 @@ MK_BADGE = {
 #   RAW      — original-units counts kept for users who want absolute
 #              numbers (events, deaths, houses_flooded, etc).
 SERIES_COLORS = {
-    # Headline indexed (0-100) series — the FSI building blocks
+    # Headline indexed (0-100) series — the FSI building blocks (default shown)
     "event_index":    "#0c447c",   # deep blue   — frequency
     "hci_index":      "#dc2626",   # red          — human cost
     "pdi_index":      "#f59e0b",   # amber        — property damage
     "fsi_index":      "#0f1419",   # ink          — composite
-    # Raw count series — legacy / absolute view
+    # Raw count series (absolute units) — toggleable
     "events":         "#0c447c",
     "deaths":         "#a32d2d",
     "missing":        "#9a3412",
@@ -140,28 +123,22 @@ SERIES_COLORS = {
     "houses_flooded": "#185fa5",
     "houses_damaged": "#6b21a8",
     "fasum_damaged":  "#0e7490",
-    "FSI_index":    "#0f1419",
-    "hci_total":      "#dc2626",
-    "pdi_total":      "#f59e0b",
 }
 
 SERIES_LABELS = {
-    # Headline indexed series — the three FSI dimensions + composite
+    # Headline indexed series — the three FSI dimensions + composite (default)
     "event_index":    "Event frequency",
-    "hci_index":      "Human Cost Index",
-    "pdi_index":      "Property Damage Index",
-    "fsi_index":      "FSI Score (composite)",
-    # Raw count series
+    "hci_index":      "HCI",
+    "pdi_index":      "PDI",
+    "fsi_index":      "FSI",
+    # Raw count series (absolute units) — toggleable
     "events":         "Events (raw)",
     "deaths":         "Deaths",
     "missing":        "Missing",
     "injured":        "Injured",
-    "houses_flooded": "Houses flooded",
-    "houses_damaged": "Houses damaged",
-    "fasum_damaged":  "Public facilities damaged",
-    "FSI_index":    "FSI Score",
-    "hci_total":      "HCI total",
-    "pdi_total":      "PDI total",
+    "houses_flooded": "House flooded",
+    "houses_damaged": "House damaged",
+    "fasum_damaged":  "Public facility damage",
 }
 
 # Default series shown when the line chart first loads — the four

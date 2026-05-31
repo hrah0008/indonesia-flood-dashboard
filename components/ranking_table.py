@@ -36,7 +36,7 @@ import pandas as pd
 import streamlit as st
 
 from lib.colors import (
-    FSI_COLORS, GI_COLORS, MK_BADGE,
+    GI_COLORS, MK_BADGE,
     INK, MUTED, HAIRLINE, INDIGO,
     FONT_DISPLAY, FONT_BODY, FONT_MONO,
     CLUSTER_COLORS, CLUSTER_BORDERS, CLUSTER_CHIP_BG,
@@ -75,17 +75,6 @@ def _chip(label: str, fg: str, bg: str, font_size: int = 10) -> str:
         f"letter-spacing:0.04em;color:{fg};background:{bg};white-space:nowrap;"
     )
     return f'<span style="{style}">{label}</span>'
-
-
-def _fsi_tier_chip(tier: str) -> str:
-    color = FSI_COLORS.get(tier, "#888888")
-    bg = {
-        "Catastrophic": "#fee2e2",
-        "High":         "#fee2e2",
-        "Moderate":     "#fef3c7",
-        "Low":          "#dcfce7",
-    }.get(tier, "#f3f4f6")
-    return _chip(tier, color, bg)
 
 
 # ── K-means A3 cluster typology chip ──────────────────────────────────

@@ -12,7 +12,7 @@ Dual-layer flood severity map using Plotly Mapbox:
   Layer 2 — FSI severity (dot overlay, sqrt-scale size)
     Encoding:
       • Position: regency centroid (lat, lon)
-      • Size:     sqrt(FSI_index / 100) * 20 + 2  (range: 2-22 px radius)
+      • Size:     sqrt scaling, radius range ~1.5-13 px
       • Color:    solid blue #185FA5 with opacity 0.75
 
 Both layers are independently toggleable via the `show_cluster` and
@@ -54,7 +54,7 @@ import streamlit as st
 
 # Defensive import — fall back to hardcoded values if lib.colors lacks them
 from lib.colors import (
-    FSI_COLORS, FSI_TIER_ORDER, MUTED, FONT_BODY,
+    MUTED, FONT_BODY,
     CLUSTER_COLORS, CLUSTER_BORDERS, CLUSTER_ORDER, CLUSTER_DESCRIPTIONS,
 )
 
@@ -64,9 +64,9 @@ from lib.colors import (
 
 # ── FSI dot encoding ──────────────────────────────────────────────────────
 FSI_DOT_COLOR   = "#185FA5"  # solid blue, contrasts with all 3 cluster colors
-FSI_DOT_OPACITY = 0.75
-FSI_DOT_MIN_R   = 2          # minimum radius (px) for FSI=0
-FSI_DOT_MAX_R   = 22         # maximum radius (px) for FSI=100
+FSI_DOT_OPACITY = 0.6
+FSI_DOT_MIN_R   = 1.5        # minimum radius (px) for FSI=0
+FSI_DOT_MAX_R   = 13         # maximum radius (px) for FSI=100 (was 22 — too large at national zoom)
 
 
 # ═════════════════════════════════════════════════════════════════════════
@@ -384,17 +384,17 @@ def render_legend(
                          if cluster_counts and lbl in cluster_counts else "")
             desc = CLUSTER_DESCRIPTIONS.get(lbl, "")
             cluster_cells.append(
-                f"<div style='margin-bottom:8px;'>"
-                f"  <div style='display:flex;align-items:center;gap:8px;margin-bottom:3px;'>"
-                f"    <span style='display:inline-block;width:14px;height:14px;"
+                f"<div style='margin-bottom:5px;'>"
+                f"  <div style='display:flex;align-items:center;gap:7px;margin-bottom:1px;'>"
+                f"    <span style='display:inline-block;width:13px;height:13px;"
                 f"border-radius:3px;background:{CLUSTER_COLORS[lbl]};"
                 f"border:0.5px solid {CLUSTER_BORDERS[lbl]};flex-shrink:0;'></span>"
-                f"    <span style='font-family:{FONT_BODY};font-size:12.5px;"
+                f"    <span style='font-family:{FONT_BODY};font-size:12px;"
                 f"font-weight:500;color:#1f2937;'>{lbl}</span>"
                 f"    {count_str}"
                 f"  </div>"
-                f"  <div style='font-family:{FONT_BODY};font-size:11px;"
-                f"color:{MUTED};padding-left:22px;line-height:1.4;'>{desc}</div>"
+                f"  <div style='font-family:{FONT_BODY};font-size:10.5px;"
+                f"color:{MUTED};padding-left:20px;line-height:1.3;'>{desc}</div>"
                 f"</div>"
             )
 
@@ -437,8 +437,20 @@ def render_legend(
         )
 
     if sections_html:
+        # Vertical layout (narrow side column) can be taller than the map and
+        # get clipped — cap height and allow internal scroll so every cluster
+        # (incl. Low Impact) and the dot scale stay reachable. Horizontal
+        # layout (full-width, below map) needs no constraint.
+        if layout == "vertical":
+            wrapper_style = (
+                "margin-top:8px;max-height:460px;overflow-y:auto;"
+                "padding-right:4px;"
+            )
+        else:
+            wrapper_style = "margin-top:8px;"
+
         st.markdown(
-            f"<div style='margin-top:8px;'>"
+            f"<div style='{wrapper_style}'>"
             + "".join(sections_html)
             + "</div>",
             unsafe_allow_html=True,
