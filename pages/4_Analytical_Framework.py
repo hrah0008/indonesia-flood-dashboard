@@ -194,8 +194,8 @@ render_section_header(
     kicker="Method index",
     title="Statistical and ML methods",
     description=(
-        "Pipeline: FSI &rarr; Moran's I &rarr; Gi* &rarr; Mann-Kendall &rarr; "
-        "Theil-Sen &rarr; Panel FE &rarr; XGBoost &rarr; SHAP. "
+        "Pipeline: K-means &rarr; FSI &rarr; Moran's I &rarr; Gi* &rarr; "
+        "Mann-Kendall &rarr; Theil-Sen &rarr; Panel FE &rarr; XGBoost &rarr; SHAP. "
         "Three tabs organise the cards by analytical question."
     ),
 )
@@ -209,7 +209,7 @@ st.markdown(
     f'</div>'
     f'<div style="font-family:{FONT_DISPLAY};font-size:15px;font-weight:600;'
     f'color:{INK};margin-top:4px;line-height:1.4;">'
-    f'FSI &nbsp;&rarr;&nbsp; Moran\'s I &nbsp;&rarr;&nbsp; Gi* &nbsp;&rarr;&nbsp; '
+    f'K-means &nbsp;&rarr;&nbsp; FSI &nbsp;&rarr;&nbsp; Moran\'s I &nbsp;&rarr;&nbsp; Gi* &nbsp;&rarr;&nbsp; '
     f'Mann-Kendall &nbsp;&rarr;&nbsp; Theil-Sen &nbsp;&rarr;&nbsp; '
     f'Panel FE &nbsp;&rarr;&nbsp; XGBoost &nbsp;&rarr;&nbsp; SHAP'
     f'</div>'
@@ -236,15 +236,73 @@ with tab_spatial:
         f'<div style="font-family:{FONT_BODY};font-size:12.5px;color:{MUTED};'
         f'line-height:1.55;margin-bottom:14px;max-width:760px;">'
         f'How is flood severity distributed across the 514 regencies? '
-        f'The FSI composite is constructed first, then spatial autocorrelation '
-        f'(Moran\'s I) and local clustering (Gi*) are tested on the cumulative FSI.'
+        f'K-means clustering first identifies typological groups and derives the '
+        f'FSI dimension weights. The FSI composite is then constructed, and '
+        f'spatial autocorrelation (Moran\'s I) and local clustering (Gi*) '
+        f'are tested on the cumulative FSI.'
         f'</div>',
         unsafe_allow_html=True,
     )
 
-    # ── Card 1: FSI construction (foundation) ────────────────────────
+    # ── Card 1: K-means clustering typology (NEW) ───────────────────
     render_method_card(
-        phase="Phase 1 · Foundation",
+        phase="Phase 0 · Foundation",
+        title="K-means cluster typology (k=3)",
+        rq_tag="RQ1",
+        narrative=(
+            "Groups 514 regencies into k=3 K-means clusters based on "
+            "standardised flood-burden dimensions (frequency, casualty, damage). "
+            "Two outputs feed the rest of the pipeline: (1) cluster labels — used "
+            "as the primary categorical typology in the dashboard map, and "
+            "(2) &eta;&sup2; (eta-squared) of each dimension across clusters — "
+            "normalised to produce the FSI weights below."
+        ),
+        stats_html=(
+            "<strong>Algorithm</strong>&nbsp;&nbsp; K-means++ (scikit-learn), "
+            "k=3, n_init=20, random_state fixed for reproducibility<br>"
+            "<strong>Input</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "
+            "Z-standardised (log_event, HCI, PDI) matrix, n=514<br>"
+            "<strong>Validation</strong>&nbsp; Silhouette score, "
+            "bootstrap cluster stability (BCV)<br>"
+            "<br>"
+            "<strong>Cluster profile</strong> (raw composite-dimension means)<br>"
+            "&nbsp;&nbsp;<span style='color:#0F6E56;font-weight:600;'>&#9646;</span> "
+            "<strong>Low Impact</strong>&nbsp; (n=170)<br>"
+            "&nbsp;&nbsp;&nbsp;&nbsp; <em style='color:#6b7280;'>Low across all dimensions</em><br>"
+            "&nbsp;&nbsp;&nbsp;&nbsp; log_event=1.76 &middot; HCI=0.67 &middot; PDI=7.95<br>"
+            "&nbsp;&nbsp;<span style='color:#A32D2D;font-weight:600;'>&#9646;</span> "
+            "<strong>Catastrophic</strong>&nbsp; (n=68)<br>"
+            "&nbsp;&nbsp;&nbsp;&nbsp; <em style='color:#6b7280;'>Extreme casualty (HCI), high damage</em><br>"
+            "&nbsp;&nbsp;&nbsp;&nbsp; log_event=3.28 &middot; HCI=7.60 &middot; PDI=20.23<br>"
+            "&nbsp;&nbsp;<span style='color:#854F0B;font-weight:600;'>&#9646;</span> "
+            "<strong>Frequent-Contained</strong>&nbsp; (n=276)<br>"
+            "&nbsp;&nbsp;&nbsp;&nbsp; <em style='color:#6b7280;'>High frequency, contained casualty, moderate damage</em><br>"
+            "&nbsp;&nbsp;&nbsp;&nbsp; log_event=3.39 &middot; HCI=1.65 &middot; PDI=15.87<br>"
+            "<br>"
+            "<strong>Derived FSI weights</strong> (&eta;&sup2;-normalised)<br>"
+            "&nbsp;&nbsp;w<sub>freq</sub> = <span style='color:#3730a3;font-weight:600;'>0.3062</span> "
+            "(frequency)<br>"
+            "&nbsp;&nbsp;w<sub>HCI</sub>&nbsp;&nbsp; = <span style='color:#3730a3;font-weight:600;'>0.3697</span> "
+            "(casualty &mdash; strongest discriminator)<br>"
+            "&nbsp;&nbsp;w<sub>PDI</sub>&nbsp;&nbsp; = <span style='color:#3730a3;font-weight:600;'>0.3241</span> "
+            "(property damage)<br>"
+            "<br>"
+            "<strong>Naming convention</strong>&nbsp; The label "
+            "&lsquo;Catastrophic&rsquo; refers to the cluster (extreme casualty "
+            "profile), NOT a severity threshold. The earlier 4-tier FSI "
+            "classification (Catastrophic/High/Moderate/Low) has been retired "
+            "to eliminate semantic conflict."
+        ),
+        reference=(
+            "Hartigan &amp; Wong (1979). A K-Means Clustering Algorithm. "
+            "<em>JRSS Series C (Applied Statistics)</em> 28(1): 100&ndash;108. "
+            "&middot; Rousseeuw (1987) <em>J. Comp. Applied Math.</em> 20: 53&ndash;65 (silhouette)."
+        ),
+    )
+
+    # ── Card 2: FSI construction (foundation) ────────────────────────
+    render_method_card(
+        phase="Phase 1 · Composite",
         title="FSI construction (cluster-weighted composite)",
         rq_tag="RQ1",
         narrative=(
@@ -269,16 +327,14 @@ with tab_spatial:
             "&nbsp;&nbsp;Z<sub>HCI</sub>&nbsp;&nbsp; = pooled_zscore(HCI)<br>"
             "&nbsp;&nbsp;Z<sub>PDI</sub>&nbsp;&nbsp; = pooled_zscore(PDI)<br>"
             "<br>"
-            "<strong>Weights</strong> (k-means &eta;&sup2;-normalised, k=3)<br>"
-            "&nbsp;&nbsp;w<sub>freq</sub> = 0.302 &middot; "
-            "w<sub>HCI</sub> = 0.360 &middot; "
-            "w<sub>PDI</sub> = 0.338<br>"
+            "<strong>Weights</strong> (k-means &eta;&sup2;-normalised, k=3 &mdash; from Card 1)<br>"
+            "&nbsp;&nbsp;w<sub>freq</sub> = <span style='color:#3730a3;font-weight:600;'>0.3062</span> &middot; "
+            "w<sub>HCI</sub> = <span style='color:#3730a3;font-weight:600;'>0.3697</span> &middot; "
+            "w<sub>PDI</sub> = <span style='color:#3730a3;font-weight:600;'>0.3241</span><br>"
             "<br>"
-            "<strong>Display</strong>&nbsp;&nbsp; FSI_index = min-max(FSI) &times; 100, "
-            "range [0, 100]<br>"
-            "<strong>Tiers</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "
-            "Catastrophic &ge;75 &middot; High 50&ndash;75 &middot; "
-            "Moderate 25&ndash;50 &middot; Low &lt;25<br>"
+            "<strong>Display scale</strong>&nbsp;&nbsp; FSI_index = min-max(FSI) &times; 100, "
+            "range [0, 100]&nbsp;&nbsp;<em style='color:#6b7280;'>"
+            "(visualisation only &mdash; preserves rank order)</em><br>"
             "<br>"
             "<strong>Two forms (dual-FSI design)</strong><br>"
             "&nbsp;&nbsp;<strong>Form 1</strong> &mdash; Z-weighted FSI = w &middot; Z(log_x)<br>"
@@ -290,7 +346,11 @@ with tab_spatial:
             "Z-standardisation step to preserve year-over-year magnitude "
             "that Mann-Kendall is designed to detect."
         ),
-        reference="Reference :",
+        reference=(
+            "Cutter, Boruff &amp; Shirley (2003). Social Vulnerability to Environmental Hazards. <em>Social Science Quarterly</em> 84(2): 242&ndash;261. "
+            "&middot; OECD (2008). <em>Handbook on Constructing Composite Indicators</em>. "
+            "&middot; FEMA NRI methodology (&eta;&sup2;-weighted composite design)."
+        ),
     )
 
     # ── Card 2: Global Moran's I ─────────────────────────────────────
@@ -314,7 +374,7 @@ with tab_spatial:
             "<strong>Significance</strong>&nbsp; Permutation test, 999 random shuffles<br>"
             "<br>"
             "<strong>Result</strong><br>"
-            "&nbsp;&nbsp;I&nbsp;&nbsp;&nbsp;&nbsp;= <span style='color:#3730a3;font-weight:600;'>0.335</span><br>"
+            "&nbsp;&nbsp;I&nbsp;&nbsp;&nbsp;&nbsp;= <span style='color:#3730a3;font-weight:600;'>0.3347</span><br>"
             "&nbsp;&nbsp;p-value = <span style='color:#3730a3;font-weight:600;'>&lt; 0.001</span> "
             "(999 permutations)<br>"
             "&nbsp;&nbsp;&rarr; Strong positive spatial autocorrelation confirmed."
@@ -478,7 +538,7 @@ st.markdown(
     f'Study period &middot; 2016&ndash;2025 (10 years) &middot; '
     f'N regencies &middot; 514 &middot; '
     f'Spatial weights &middot; KNN k=5 &middot; '
-    f'FSI weights &middot; w_freq=0.302, w_HCI=0.360, w_PDI=0.338 (k-means &eta;&sup2;) &middot; '
+    f'FSI weights &middot; w_freq=0.3062, w_HCI=0.3697, w_PDI=0.3241 (k-means &eta;&sup2;) &middot; '
     f'Significance &middot; BH-FDR &alpha;=0.05'
     f'</div>',
     unsafe_allow_html=True,

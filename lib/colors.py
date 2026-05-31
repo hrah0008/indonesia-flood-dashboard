@@ -36,6 +36,47 @@ GREEN_LIGHT  = "#ecf6e3"
 PLUM         = "#6b21a8"
 RUST         = "#9a3412"
 
+# ─── Cluster typology palette (K-means A3 from nb5) ─────────────────────────
+# Pale fill colors for choropleth polygons + solid borders for accessibility.
+# Used by components/choropleth.py to render cluster typology layer.
+#
+# Color rationale:
+#   • Low Impact          → teal   (cool, calm, "safe" zone)
+#   • Catastrophic        → red    (warning, danger, high impact)
+#   • Frequent-Contained  → amber  (caution, frequent but managed)
+CLUSTER_COLORS = {
+    "Low Impact":         "#84cc16",   # teal-100  — pale fill
+    "Catastrophic":       "#dc2626",   # red-100   — pale fill
+    "Frequent-Contained": "#f59e0b",   # amber-100 — pale fill
+}
+ 
+CLUSTER_BORDERS = {
+    "Low Impact":         "#0F6E56",   # teal-600  — solid border (accessible contrast)
+    "Catastrophic":       "#7f1d1d",   # red-600   — solid border
+    "Frequent-Contained": "#854F0B",   # amber-600 — solid border
+}
+ 
+CLUSTER_ORDER = ["Low Impact", "Catastrophic", "Frequent-Contained"]
+
+# Soft tint backgrounds for inline CHIPS (ranking table, badges). The
+# saturated CLUSTER_COLORS above are map-polygon fills — too strong behind
+# dark text. These pale fills pair with CLUSTER_BORDERS as text colour for
+# legible chips (dark-on-pale). Map keeps CLUSTER_COLORS; chips use these.
+CLUSTER_CHIP_BG = {
+    "Low Impact":         "#dcfce7",   # pale green
+    "Catastrophic":       "#fee2e2",   # pale red
+    "Frequent-Contained": "#fef3c7",   # pale amber
+}
+
+# Short narrative tags for each K-means A3 cluster (derived from nb5 profile
+# vs national mean). Single source of truth — imported by choropleth legend
+# and ranking-table chips so the wording can't drift between components.
+CLUSTER_DESCRIPTIONS = {
+    "Low Impact":         "Low frequency, low casualty, low damage",
+    "Catastrophic":       "Extreme casualty per event, high damage",
+    "Frequent-Contained": "High frequency, contained casualty per event",
+}
+
 # ── FSI 4-tier scale (matches nb6) ────────────────────────────────────
 FSI_COLORS = {
     "Catastrophic": "#7f1d1d",

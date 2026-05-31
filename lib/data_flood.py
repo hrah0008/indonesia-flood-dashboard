@@ -104,7 +104,7 @@ def load_national_regency_table() -> pd.DataFrame:
         kemendagri_prov_code, kemendagri_prov_name,
         event_count, deaths, missing, injured,
         house_flooded, house_damaged,
-        FSI, FSI_index, FSI_tier,
+        FSI, FSI_index,
         gi_cat_FSI, confirmed_hot_FSI,
         mk_sig_FSI, mk_sig_HCI, mk_sig_PDI,
         centroid_lat, centroid_lon
@@ -196,7 +196,7 @@ def load_province_annual(prov_code: str) -> dict:
 @st.cache_data(show_spinner=False)
 def load_province_regency_table(prov_code: str) -> pd.DataFrame:
     """Read provinces/{prov_code}/regency_table.parquet — one row per regency
-    in the province with FSI, FSI_index, FSI_tier, gi_cat_FSI, etc.
+    in the province with FSI, FSI_index, gi_cat_FSI, etc.
     """
     return _read_parquet(str(_province_dir(prov_code) / "regency_table.parquet"))
 

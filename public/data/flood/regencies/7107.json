@@ -13,11 +13,10 @@
   "total_houses": 2890,
   "fsi": -0.5516,
   "fsi_index": 28.98,
-  "fsi_tier": "Moderate",
   "gi_cat_fsi": "Cold 90%",
   "gi_z_fsi": -1.884,
   "gi_hot_significant": false,
-  "is_catastrophic": false,
+  "is_extreme_severity": false,
   "mk_sig_event_count": false,
   "mk_sig_HCI": false,
   "mk_sig_PDI": false
@@ -34,6 +33,54 @@
    2023,
    2024,
    2025
+  ],
+  "event_index": [
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   66.67,
+   100.0,
+   0.0,
+   0.0,
+   33.33
+  ],
+  "hci_index": [
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   100.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0
+  ],
+  "pdi_index": [
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   95.96,
+   100.0,
+   0.0,
+   0.0,
+   0.0
+  ],
+  "fsi_index": [
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   100.0,
+   91.23,
+   0.0,
+   0.0,
+   19.27
   ],
   "events": [
    0,
@@ -70,18 +117,6 @@
    0,
    0,
    0
-  ],
-  "fsi_index": [
-   0.0,
-   0.0,
-   0.0,
-   0.0,
-   0.0,
-   17.4,
-   15.87,
-   0.0,
-   0.0,
-   3.35
   ],
   "hci": [
    0.0,

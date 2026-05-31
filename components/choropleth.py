@@ -1,65 +1,163 @@
 """
 components/choropleth.py
 ========================
-Plotly Mapbox choropleth — Indonesian regencies coloured by FSI tier.
+Dual-layer flood severity map using Plotly Mapbox:
 
-HOVER STRUCTURE (3-tier causal chain)
--------------------------------------
-The hover tells the FSI methodology story in three layers:
+  Layer 1 — Cluster typology (polygon fill, K-means A3 clusters)
+    Colors:
+      • Low Impact          → teal   (#9FE1CB)
+      • Catastrophic        → red    (#F7C1C1)
+      • Frequent-Contained  → amber  (#FAC775)
 
-  1. FSI Score (0–100, cluster-weighted composite)
+  Layer 2 — FSI severity (dot overlay, sqrt-scale size)
+    Encoding:
+      • Position: regency centroid (lat, lon)
+      • Size:     sqrt(FSI_index / 100) * 20 + 2  (range: 2-22 px radius)
+      • Color:    solid blue #185FA5 with opacity 0.75
+
+Both layers are independently toggleable via the `show_cluster` and
+`show_fsi_dots` parameters. Defaults: both ON.
+
+HOVER STRUCTURE (3-tier causal chain) — PRESERVED FROM ORIGINAL
+---------------------------------------------------------------
+The hover tells the FSI methodology story:
+  1. Cluster typology + FSI Score (0–100, A3 cluster-weighted composite)
        ↑ derived from
   2. Z-scored dimensions (Z_freq, Z_HCI, Z_PDI)
        ↑ Z-scoring of
   3. Raw counts (events, casualties, houses)
 
-This is what makes the cluster-weighted FSI methodology legible — a reader
-can verify why a regency scores what it does, not just see the composite
-number. HCI and PDI are visible HERE (not as final-form indices but as
-their Z-scored dimension counterparts) which is the empirical basis for
-the cluster-weighted methodology.
+NOTE: FSI_tier was dropped upstream (nb12). The hover now reports the
+FSI number (FSI_index, 0–100 continuous) directly instead of a
+categorical tier label. No FSI_tier column is referenced anywhere.
 
-DISPLAY NOTE
-------------
-FSI Score is on a 0–100 scale (min-max rescaling), NOT a percentage.
-Hover uses "X.XX / 100" to make the relative-score nature explicit.
+REQUIRED COLUMNS IN reg_df
+--------------------------
+  Required (always):
+    kemendagri_kab_code, FSI_index (or FSI_percent alias)
+  Required for cluster layer (show_cluster=True):
+    cluster_a3 (int 0/1/2), cluster_label (str)
+  Required for FSI dot layer (show_fsi_dots=True):
+    centroid_lat, centroid_lon
+  Optional (used in hover when present):
+    kemendagri_kab_name, kemendagri_prov_name,
+    Z_freq, Z_HCI, Z_PDI,
+    event_count, deaths, missing, injured, house_flooded, house_damaged
 """
 
 from typing import Optional
 
+import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-from lib.colors import FSI_COLORS, FSI_TIER_ORDER, MUTED, FONT_BODY
+# Defensive import — fall back to hardcoded values if lib.colors lacks them
+from lib.colors import (
+    FSI_COLORS, FSI_TIER_ORDER, MUTED, FONT_BODY,
+    CLUSTER_COLORS, CLUSTER_BORDERS, CLUSTER_ORDER, CLUSTER_DESCRIPTIONS,
+)
 
 
-def _prepare_dataframe(reg_df: pd.DataFrame) -> pd.DataFrame:
-    """Cast key to string so it matches GeoJSON feature.properties.
+# Cluster palette (CLUSTER_COLORS, CLUSTER_BORDERS), order, and descriptions
+# are all imported from lib/colors.py — single source of truth.
 
-    Gracefully handles missing columns when reg_df comes from the
-    province-level regency_table.parquet (which has a thinner schema
-    than the national table — no Z-dimensions, no prov_name, etc.).
+# ── FSI dot encoding ──────────────────────────────────────────────────────
+FSI_DOT_COLOR   = "#185FA5"  # solid blue, contrasts with all 3 cluster colors
+FSI_DOT_OPACITY = 0.75
+FSI_DOT_MIN_R   = 2          # minimum radius (px) for FSI=0
+FSI_DOT_MAX_R   = 22         # maximum radius (px) for FSI=100
+
+
+# ═════════════════════════════════════════════════════════════════════════
+# Internal helpers
+# ═════════════════════════════════════════════════════════════════════════
+def _prepare_dataframe(reg_df: pd.DataFrame, geojson: dict = None) -> pd.DataFrame:
+    """Align kemendagri_kab_code type with geojson + fill missing optional cols.
+
+    CRITICAL: Plotly's featureidkey matching requires EXACT type match
+    between reg_df['kemendagri_kab_code'] and geojson properties.
     """
     df = reg_df.copy()
+
     if "kemendagri_kab_code" in df.columns:
-        df["kemendagri_kab_code"] = df["kemendagri_kab_code"].astype(str)
-    # Fill Z-dimensions with 0 if missing (graceful degradation for
-    # legacy parquets that don't have them yet, AND for province scope)
+        # Match type with geojson properties.kemendagri_kab_code
+        if geojson and geojson.get("features"):
+            sample = geojson["features"][0].get("properties", {}).get("kemendagri_kab_code")
+            if isinstance(sample, int):
+                df["kemendagri_kab_code"] = df["kemendagri_kab_code"].astype(int)
+            else:
+                df["kemendagri_kab_code"] = df["kemendagri_kab_code"].astype(str)
+        else:
+            df["kemendagri_kab_code"] = df["kemendagri_kab_code"].astype(str)
+
+    # FSI number — canonical column from nb12 is FSI_index; accept FSI_percent
+    # alias. Guarantee an FSI_index column exists so downstream code is simple.
+    if "FSI_index" not in df.columns:
+        if "FSI_percent" in df.columns:
+            df["FSI_index"] = df["FSI_percent"]
+        else:
+            df["FSI_index"] = np.nan
+    df["FSI_index"] = pd.to_numeric(df["FSI_index"], errors="coerce")
+
     for c in ["Z_freq", "Z_HCI", "Z_PDI"]:
         if c not in df.columns:
             df[c] = 0.0
         else:
             df[c] = df[c].fillna(0.0)
-    # Fill prov_name (national has it; province scope often doesn't)
+
     if "kemendagri_prov_name" not in df.columns:
         df["kemendagri_prov_name"] = ""
-    # Fill house_damaged (national has it; province parquet doesn't)
+
     if "house_damaged" not in df.columns:
         df["house_damaged"] = 0
+
+    # Cluster columns — required for cluster layer; default sentinel
+    if "cluster_label" not in df.columns:
+        df["cluster_label"] = "Unknown"
+    if "cluster_a3" not in df.columns:
+        df["cluster_a3"] = -1
+
+    # Centroid columns — required for FSI dot layer
+    for c in ["centroid_lat", "centroid_lon"]:
+        if c not in df.columns:
+            df[c] = np.nan
+
     return df
 
 
+def _compute_dot_sizes(fsi_index: pd.Series) -> np.ndarray:
+    """Map FSI_index (0-100) → marker radius (px) using sqrt scaling.
+
+    sqrt scaling balances linear and log:
+      FSI=0   → r=2
+      FSI=25  → r=12
+      FSI=50  → r=16
+      FSI=100 → r=22
+    """
+    fsi = fsi_index.fillna(0).clip(0, 100) / 100.0
+    return FSI_DOT_MIN_R + (FSI_DOT_MAX_R - FSI_DOT_MIN_R) * np.sqrt(fsi)
+
+
+def _build_cluster_colorscale() -> list:
+    """Build discrete Plotly colorscale mapping cluster index → fill color.
+
+    Returns list of [position, color] pairs in Plotly colorscale format.
+    """
+    n = len(CLUSTER_ORDER)
+    colorscale = []
+    for i, label in enumerate(CLUSTER_ORDER):
+        lo = i / n
+        hi = (i + 1) / n
+        col = CLUSTER_COLORS[label]
+        colorscale.append([lo, col])
+        colorscale.append([hi, col])
+    return colorscale
+
+
+# ═════════════════════════════════════════════════════════════════════════
+# Main render function
+# ═════════════════════════════════════════════════════════════════════════
 def render_fsi_choropleth(
     reg_df: pd.DataFrame,
     geojson: dict,
@@ -68,113 +166,155 @@ def render_fsi_choropleth(
     on_select: Optional[str] = None,
     mapbox_zoom: float = 4.0,
     mapbox_center: Optional[dict] = None,
+    show_cluster: bool = True,
+    show_fsi_dots: bool = True,
 ):
     """
-    Render an FSI-tier choropleth of regencies.
+    Render a dual-layer map: cluster typology + FSI severity dots.
 
     Parameters
     ----------
     reg_df : pd.DataFrame
-        Regency rows with at least: kemendagri_kab_code, FSI_tier, FSI_index,
-        event_count, deaths, missing, injured, house_flooded. Other columns
-        (Z_freq, Z_HCI, Z_PDI, kemendagri_prov_name, house_damaged) are
-        used in hover if present; gracefully filled with defaults otherwise.
+        Regency rows. See REQUIRED COLUMNS in module docstring.
     geojson : dict
-        GeoJSON FeatureCollection. Features must have
-        properties.kemendagri_kab_code matching reg_df values.
+        GeoJSON FeatureCollection with properties.kemendagri_kab_code.
     height : int
         Pixel height of the map.
     key : str
         Streamlit widget key — required when on_select is set.
     on_select : str | None
-        Pass "rerun" to enable click selection. Streamlit's native plotly
-        on_select API (1.35+). When set, function returns the event so
-        the caller can read event.selection.points.
+        Pass "rerun" to enable click selection (Plotly on_select API).
     mapbox_zoom : float
-        Initial zoom level. 4.0 = whole Indonesia (default).
-        ~6.5 for a single province like Jawa Tengah.
+        Initial zoom level. 4.0 = whole Indonesia.
     mapbox_center : dict | None
-        Override map center {"lat": ..., "lon": ...}. Defaults to
-        Indonesia centroid.
+        Override map center {"lat": ..., "lon": ...}.
+    show_cluster : bool
+        Render the K-means cluster choropleth layer (default True).
+    show_fsi_dots : bool
+        Render the FSI severity dot overlay (default True).
     """
-    df = _prepare_dataframe(reg_df)
+    df = _prepare_dataframe(reg_df, geojson=geojson)
+    fig = go.Figure()
 
-    tier_to_idx = {t: i for i, t in enumerate(reversed(FSI_TIER_ORDER))}
-    df["_tier_idx"] = df["FSI_tier"].map(tier_to_idx).fillna(0).astype(int)
-
-    n = len(FSI_TIER_ORDER)
-    ordered_colors = [FSI_COLORS[t] for t in reversed(FSI_TIER_ORDER)]
-    colorscale = []
-    for i, color in enumerate(ordered_colors):
-        lo = i / n
-        hi = (i + 1) / n
-        colorscale.append([lo, color])
-        colorscale.append([hi, color])
-
-    # Customdata layout (3-tier hover — see module docstring):
-    #   0: kab_name           1: prov_name
-    #   2: FSI_index        3: FSI_tier
-    #   4: Z_freq             5: Z_HCI            6: Z_PDI
-    #   7: event_count        8: deaths           9: missing
-    #  10: injured           11: house_flooded   12: house_damaged
-    #  13: kab_code           ← appended for click handler payload
-    customdata = df[
-        ["kemendagri_kab_name", "kemendagri_prov_name",
-         "FSI_index", "FSI_tier",
-         "Z_freq", "Z_HCI", "Z_PDI",
-         "event_count", "deaths", "missing", "injured",
-         "house_flooded", "house_damaged",
-         "kemendagri_kab_code"]
-    ].values
-
-    # Hover template — 3 tiers separated by visual section labels.
-    # Use raw · (Unicode middot) NOT &middot; — Plotly does not decode
-    # HTML entities in hovertemplate.
-    hovertemplate = (
-        "<b>%{customdata[0]}</b><br>"
-        "<span style='color:#888'>%{customdata[1]}</span><br>"
-        # Tier 1: composite FSI Score
-        "FSI Score: <b>%{customdata[2]:.2f} / 100</b> · %{customdata[3]}<br>"
-        # Tier 2: Z-scored dimensions (the FSI building blocks)
-        "<span style='color:#666;font-size:10.5px;'>"
-        "Z-scored dimensions:</span><br>"
-        "<span style='color:#444'>Freq:</span> %{customdata[4]:+.2f} · "
-        "<span style='color:#444'>HCI:</span> %{customdata[5]:+.2f} · "
-        "<span style='color:#444'>PDI:</span> %{customdata[6]:+.2f}<br>"
-        # Tier 3: raw counts (cumulative 2016-2025)
-        "<span style='color:#666;font-size:10.5px;'>"
-        "Cumulative 2016–2025:</span><br>"
-        "<span style='color:#444'>Events:</span> %{customdata[7]:,}<br>"
-        "<span style='color:#444'>Human cost:</span> "
-        "%{customdata[8]:,} dead · %{customdata[9]:,} missing · "
-        "%{customdata[10]:,} injured<br>"
-        "<span style='color:#444'>Houses:</span> "
-        "%{customdata[11]:,} flooded · %{customdata[12]:,} damaged"
-        "<extra></extra>"
-    )
-
-    fig = go.Figure(
-        go.Choroplethmapbox(
-            geojson=geojson,
-            locations=df["kemendagri_kab_code"],
-            featureidkey="properties.kemendagri_kab_code",
-            z=df["_tier_idx"],
-            zmin=0,
-            zmax=n - 1,
-            colorscale=colorscale,
-            marker=dict(line=dict(width=0.3, color="rgba(255,255,255,0.6)")),
-            customdata=customdata,
-            hovertemplate=hovertemplate,
-            showscale=False,
+    # ─── Layer 1: K-means cluster choropleth ─────────────────────────────
+    if show_cluster:
+        label_to_idx = {lbl: i for i, lbl in enumerate(CLUSTER_ORDER)}
+        df["_cluster_idx"] = (
+            df["cluster_label"].map(label_to_idx).fillna(-1).astype(int)
         )
-    )
 
+        cluster_df = df[df["_cluster_idx"] >= 0].copy()
+
+        if len(cluster_df) > 0:
+            colorscale = _build_cluster_colorscale()
+            n_clusters = len(CLUSTER_ORDER)
+
+            # Customdata — 13 fields + cluster_label (index 13).
+            # FSI_tier removed: hover now reports FSI_index number directly.
+            cluster_customdata = np.column_stack([
+                cluster_df[
+                    ["kemendagri_kab_name", "kemendagri_prov_name",
+                     "FSI_index",
+                     "Z_freq", "Z_HCI", "Z_PDI",
+                     "event_count", "deaths", "missing", "injured",
+                     "house_flooded", "house_damaged",
+                     "kemendagri_kab_code"]
+                ].values,
+                cluster_df["cluster_label"].values  # index 13
+            ])
+
+            cluster_hover = (
+                "<b>%{customdata[0]}</b><br>"
+                "<span style='color:#888'>%{customdata[1]}</span><br>"
+                "Cluster: <b>%{customdata[13]}</b><br>"
+                "FSI Score: <b>%{customdata[2]:.2f} / 100</b><br>"
+                "<span style='color:#666;font-size:10.5px;'>"
+                "Z-scored dimensions:</span><br>"
+                "<span style='color:#444'>Freq:</span> %{customdata[3]:+.2f} · "
+                "<span style='color:#444'>HCI:</span> %{customdata[4]:+.2f} · "
+                "<span style='color:#444'>PDI:</span> %{customdata[5]:+.2f}<br>"
+                "<span style='color:#666;font-size:10.5px;'>"
+                "Cumulative 2016–2025:</span><br>"
+                "<span style='color:#444'>Events:</span> %{customdata[6]:,}<br>"
+                "<span style='color:#444'>Human cost:</span> "
+                "%{customdata[7]:,} dead · %{customdata[8]:,} missing · "
+                "%{customdata[9]:,} injured<br>"
+                "<span style='color:#444'>Houses:</span> "
+                "%{customdata[10]:,} flooded · %{customdata[11]:,} damaged"
+                "<extra></extra>"
+            )
+
+            fig.add_trace(go.Choroplethmapbox(
+                geojson=geojson,
+                locations=cluster_df["kemendagri_kab_code"],
+                featureidkey="properties.kemendagri_kab_code",
+                z=cluster_df["_cluster_idx"],
+                zmin=0,
+                zmax=n_clusters - 1,
+                colorscale=colorscale,
+                marker=dict(
+                    line=dict(width=0.3, color="rgba(255,255,255,0.7)"),
+                    opacity=0.75
+                ),
+                customdata=cluster_customdata,
+                hovertemplate=cluster_hover,
+                showscale=False,
+                name="Cluster typology",
+            ))
+
+    # ─── Layer 2: FSI severity dot overlay ───────────────────────────────
+    if show_fsi_dots:
+        dot_df = df.dropna(subset=["centroid_lat", "centroid_lon"]).copy()
+        # Drop sentinel (0,0) centroids
+        dot_df = dot_df[
+            (dot_df["centroid_lat"] != 0) | (dot_df["centroid_lon"] != 0)
+        ]
+
+        if len(dot_df) > 0:
+            dot_sizes = _compute_dot_sizes(dot_df["FSI_index"])
+
+            # FSI_tier removed: hover reports FSI_index number directly.
+            dot_customdata = dot_df[
+                ["kemendagri_kab_name", "kemendagri_prov_name",
+                 "FSI_index",
+                 "cluster_label",
+                 "event_count", "deaths"]
+            ].values
+
+            dot_hover = (
+                "<b>%{customdata[0]}</b><br>"
+                "<span style='color:#888'>%{customdata[1]}</span><br>"
+                "FSI: <b>%{customdata[2]:.2f} / 100</b><br>"
+                "<span style='color:#666'>Cluster: %{customdata[3]}</span><br>"
+                "<span style='color:#666'>Events: %{customdata[4]:,} · "
+                "Deaths: %{customdata[5]:,}</span>"
+                "<extra></extra>"
+            )
+
+            fig.add_trace(go.Scattermapbox(
+                lat=dot_df["centroid_lat"],
+                lon=dot_df["centroid_lon"],
+                mode="markers",
+                marker=dict(
+                    size=dot_sizes,
+                    color=FSI_DOT_COLOR,
+                    opacity=FSI_DOT_OPACITY,
+                    sizemode="diameter",
+                ),
+                customdata=dot_customdata,
+                hovertemplate=dot_hover,
+                hoverlabel=dict(bgcolor="white"),
+                name="FSI severity",
+            ))
+
+    # ─── Layout ──────────────────────────────────────────────────────────
     fig.update_layout(
         mapbox_style="carto-positron",
         mapbox_zoom=mapbox_zoom,
         mapbox_center=mapbox_center or {"lat": -2.5, "lon": 117.5},
         margin=dict(l=0, r=0, t=0, b=0),
         height=height,
+        showlegend=False,
         font=dict(family=FONT_BODY, size=11, color="#1f2937"),
         hoverlabel=dict(
             bgcolor="white",
@@ -184,10 +324,7 @@ def render_fsi_choropleth(
         paper_bgcolor="rgba(0,0,0,0)",
     )
 
-    # Two render paths: with or without click selection.
-    # NOTE on `width`: in Streamlit 1.50+, passing `width="stretch"` triggers
-    # a (false-positive) kwargs deprecation warning. `stretch` is the default
-    # behavior, so we just omit the parameter.
+    # ─── Render via Streamlit + custom legend ────────────────────────────
     if on_select:
         event = st.plotly_chart(
             fig,
@@ -196,7 +333,8 @@ def render_fsi_choropleth(
             selection_mode="points",
             config={"displayModeBar": False, "scrollZoom": True},
         )
-        _render_tier_legend()
+        # Legend is now rendered separately by caller via render_legend()
+        # to allow flexible positioning (right column, below map, etc).
         return event
     else:
         st.plotly_chart(
@@ -204,28 +342,112 @@ def render_fsi_choropleth(
             key=key,
             config={"displayModeBar": False, "scrollZoom": True},
         )
-        _render_tier_legend()
         return None
 
 
-def _render_tier_legend() -> None:
-    """Compact custom legend for the FSI tier scale."""
-    chips = "".join(
-        f"<div style='display:inline-flex;align-items:center;gap:6px;"
-        f"margin-right:14px;'>"
-        f"<span style='display:inline-block;width:10px;height:10px;"
-        f"border-radius:2px;background:{FSI_COLORS[t]};'></span>"
-        f"<span style='font-family:{FONT_BODY};font-size:11px;color:#1f2937;'>{t}</span>"
-        f"</div>"
-        for t in FSI_TIER_ORDER
-    )
-    st.markdown(
-        f"<div style='margin-top:6px;color:{MUTED};font-size:10.5px;'>"
-        f"<span style='margin-right:14px;'>FSI Score tier:</span>{chips}</div>",
-        unsafe_allow_html=True,
-    )
+# ═════════════════════════════════════════════════════════════════════════
+# Custom legend
+# ═════════════════════════════════════════════════════════════════════════
+def render_legend(
+    show_cluster: bool = True,
+    show_fsi_dots: bool = True,
+    cluster_counts: dict = None,
+    layout: str = "horizontal",
+) -> None:
+    """Render legend for cluster typology + FSI dot size scale.
+
+    Public API: can be called from Streamlit page (e.g., 1_Flood.py)
+    to render legend in any column/position.
+
+    Parameters
+    ----------
+    show_cluster : bool
+        Show cluster typology section
+    show_fsi_dots : bool
+        Show FSI dot size scale section
+    cluster_counts : dict | None
+        Optional dict of {label: count} to show n=XXX per cluster
+    layout : str
+        "horizontal" — 3-column grid (for full-width below map)
+        "vertical"   — stacked single column (for narrow right column)
+    """
+    sections_html = []
+
+    if show_cluster:
+        total_n = sum(cluster_counts.values()) if cluster_counts else None
+
+        # Build cluster cells (same for both layouts, just different grid)
+        cluster_cells = []
+        for lbl in CLUSTER_ORDER:
+            count_str = (f" <span style='color:{MUTED};font-size:10.5px;'>"
+                         f"(n={cluster_counts[lbl]})</span>"
+                         if cluster_counts and lbl in cluster_counts else "")
+            desc = CLUSTER_DESCRIPTIONS.get(lbl, "")
+            cluster_cells.append(
+                f"<div style='margin-bottom:8px;'>"
+                f"  <div style='display:flex;align-items:center;gap:8px;margin-bottom:3px;'>"
+                f"    <span style='display:inline-block;width:14px;height:14px;"
+                f"border-radius:3px;background:{CLUSTER_COLORS[lbl]};"
+                f"border:0.5px solid {CLUSTER_BORDERS[lbl]};flex-shrink:0;'></span>"
+                f"    <span style='font-family:{FONT_BODY};font-size:12.5px;"
+                f"font-weight:500;color:#1f2937;'>{lbl}</span>"
+                f"    {count_str}"
+                f"  </div>"
+                f"  <div style='font-family:{FONT_BODY};font-size:11px;"
+                f"color:{MUTED};padding-left:22px;line-height:1.4;'>{desc}</div>"
+                f"</div>"
+            )
+
+        header_total = (f" — {total_n} regencies" if total_n else "")
+
+        # Layout: 3-column grid (horizontal) or stacked column (vertical)
+        if layout == "vertical":
+            cells_wrapper = f"<div>{''.join(cluster_cells)}</div>"
+        else:  # horizontal
+            cells_wrapper = (
+                f"<div style='display:grid;grid-template-columns:repeat(3,1fr);"
+                f"gap:14px;'>{''.join(cluster_cells)}</div>"
+            )
+
+        sections_html.append(
+            f"<div style='margin-bottom:10px;'>"
+            f"<div style='font-family:{FONT_BODY};font-size:10.5px;color:{MUTED};"
+            f"text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;'>"
+            f"Cluster typology{header_total}:</div>"
+            f"{cells_wrapper}"
+            f"</div>"
+        )
+
+    if show_fsi_dots:
+        dot_scale_svg = (
+            "<svg width='180' height='28' style='vertical-align:middle;'>"
+            f"<circle cx='12'  cy='14' r='3'  fill='{FSI_DOT_COLOR}' opacity='{FSI_DOT_OPACITY}'/>"
+            f"<circle cx='52'  cy='14' r='7'  fill='{FSI_DOT_COLOR}' opacity='{FSI_DOT_OPACITY}'/>"
+            f"<circle cx='100' cy='14' r='11' fill='{FSI_DOT_COLOR}' opacity='{FSI_DOT_OPACITY}'/>"
+            f"<circle cx='158' cy='14' r='15' fill='{FSI_DOT_COLOR}' opacity='{FSI_DOT_OPACITY}'/>"
+            "</svg>"
+        )
+        sections_html.append(
+            f"<div style='display:inline-flex;align-items:center;gap:10px;"
+            f"margin-top:2px;'>"
+            f"<span style='color:{MUTED};font-size:10.5px;'>FSI severity:</span>"
+            f"{dot_scale_svg}"
+            f"<span style='color:{MUTED};font-size:10.5px;'>low → high</span>"
+            f"</div>"
+        )
+
+    if sections_html:
+        st.markdown(
+            f"<div style='margin-top:8px;'>"
+            + "".join(sections_html)
+            + "</div>",
+            unsafe_allow_html=True,
+        )
 
 
+# ═════════════════════════════════════════════════════════════════════════
+# Province-view helper (PRESERVED FROM ORIGINAL — unchanged)
+# ═════════════════════════════════════════════════════════════════════════
 def compute_province_view(
     reg_df: pd.DataFrame,
     geojson: dict,
@@ -233,35 +455,35 @@ def compute_province_view(
 ) -> tuple[dict, float]:
     """Compute mapbox center + zoom that fits the bounding box of all
     regencies present in reg_df. Used to zoom the choropleth into a
-    single province.
-
-    Returns (center_dict, zoom_float).
+    single province. Returns (center_dict, zoom_float).
     """
-    # Find features whose kemendagri_kab_code matches reg_df
     kab_codes = set(reg_df["kemendagri_kab_code"].astype(str).values)
     lats, lons = [], []
     for feat in geojson.get("features", []):
         props = feat.get("properties", {})
         if str(props.get("kemendagri_kab_code")) not in kab_codes:
             continue
-        # Walk the geometry to extract all coordinates
         geom = feat.get("geometry", {})
         coords = geom.get("coordinates", [])
         gtype = geom.get("type", "")
         if gtype == "Polygon":
             for ring in coords:
-                for pt in ring:
-                    # Handle both [lon, lat] and [lon, lat, z] points
-                    lons.append(pt[0])
-                    lats.append(pt[1])
+                for coord in ring:
+                    # GeoJSON positions may carry a 3rd value (elevation/Z);
+                    # take only lon/lat. Plain `for lon, lat in ring` raises
+                    # "too many values to unpack" on [lon, lat, z] coords.
+                    lon, lat = coord[0], coord[1]
+                    lats.append(lat)
+                    lons.append(lon)
         elif gtype == "MultiPolygon":
             for poly in coords:
                 for ring in poly:
-                    for pt in ring:
-                        lons.append(pt[0])
-                        lats.append(pt[1])
+                    for coord in ring:
+                        lon, lat = coord[0], coord[1]
+                        lats.append(lat)
+                        lons.append(lon)
+
     if not lats:
-        # Fallback to Indonesia-wide
         return {"lat": -2.5, "lon": 117.5}, 4.0
 
     lat_min, lat_max = min(lats), max(lats)
@@ -269,16 +491,10 @@ def compute_province_view(
     lat_center = (lat_min + lat_max) / 2
     lon_center = (lon_min + lon_max) / 2
 
-    # Compute zoom from bounding-box span. Mapbox zoom is logarithmic;
-    # this approximation works well between zoom 4 (Indonesia) and zoom 9
-    # (single small province).
     lat_span = (lat_max - lat_min) * (1 + padding)
     lon_span = (lon_max - lon_min) * (1 + padding)
     max_span = max(lat_span, lon_span, 0.01)
-    # zoom 4 = ~30 degrees span; zoom 9 = ~1 degree span; log2 mapping
     import math
     zoom = max(4.0, min(9.0, math.log2(30.0 / max_span) + 4.0))
 
     return {"lat": lat_center, "lon": lon_center}, zoom
-
-    

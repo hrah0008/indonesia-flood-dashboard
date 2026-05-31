@@ -39,6 +39,7 @@ from lib.colors import (
     FSI_COLORS, GI_COLORS, MK_BADGE,
     INK, MUTED, HAIRLINE, INDIGO,
     FONT_DISPLAY, FONT_BODY, FONT_MONO,
+    CLUSTER_COLORS, CLUSTER_BORDERS, CLUSTER_CHIP_BG,
 )
 from lib.format import fmt_int, fmt_decimal, fmt_score, fmt_score_only
 
@@ -85,6 +86,28 @@ def _fsi_tier_chip(tier: str) -> str:
         "Low":          "#dcfce7",
     }.get(tier, "#f3f4f6")
     return _chip(tier, color, bg)
+
+
+# ── K-means A3 cluster typology chip ──────────────────────────────────
+# FSI_tier was dropped upstream (nb12). The severity ranking shows the
+# K-means A3 cluster category (cluster_label from nb5). Colors come from
+# lib/colors.py (CLUSTER_BORDERS = text, CLUSTER_COLORS = fill) so the map
+# and the table chips share one palette — no duplicate definitions.
+
+
+def _cluster_chip(label: str) -> str:
+    """Chip for the K-means A3 cluster typology (Low Impact / Catastrophic /
+    Frequent-Contained). Unknown / missing labels fall back to a grey chip.
+
+    Text = CLUSTER_BORDERS (dark), background = CLUSTER_CHIP_BG (pale tint)
+    for legible dark-on-pale contrast. The map uses the saturated
+    CLUSTER_COLORS fills; chips need the softer background.
+    """
+    if not isinstance(label, str) or label in ("", "-", "Unknown"):
+        return _chip("—", MUTED, "#f3f4f6")
+    fg = CLUSTER_BORDERS.get(label, "#666666")
+    bg = CLUSTER_CHIP_BG.get(label, "#f3f4f6")
+    return _chip(label, fg, bg)
 
 
 def _gi_chip(gi_cat: str) -> str:
@@ -202,7 +225,7 @@ def render_top10_fsi(reg_df: pd.DataFrame, top_n: int = 10) -> None:
         score_html = (
             f'<div style="font-family:{FONT_DISPLAY};font-size:13px;'
             f'font-weight:600;color:{INK};">{fmt_score(r.get("FSI_index"), 2)}</div>'
-            f'<div style="margin-top:3px;">{_fsi_tier_chip(r.get("FSI_tier", "-"))}</div>'
+            f'<div style="margin-top:3px;">{_cluster_chip(r.get("cluster_label", "-"))}</div>'
         )
         context = (
             f'{fmt_int(r.get("event_count"))} events &middot; '
@@ -452,7 +475,7 @@ def render_ranking_table(rows_df: pd.DataFrame, top_n: int = 10) -> None:
             f'<div style="{prov_style}">{r.get("kemendagri_prov_name", "-")}</div>'
             f'</td>'
             f'<td style="{fsi_cell_style}">{fmt_score(r.get("FSI_index"), 2)}</td>'
-            f'<td style="{cell_style}">{_fsi_tier_chip(r.get("FSI_tier", "-"))}</td>'
+            f'<td style="{cell_style}">{_cluster_chip(r.get("cluster_label", "-"))}</td>'
             f'<td style="{cell_style}">{_gi_chip(r.get("gi_cat_FSI", "Not significant"))}</td>'
             f'<td style="{cell_style}">{mk_chip_html}</td>'
             f'<td style="{num_cell_style}">{fmt_int(r.get("event_count"))}</td>'
@@ -479,7 +502,7 @@ def render_ranking_table(rows_df: pd.DataFrame, top_n: int = 10) -> None:
         f'<th style="{header_right_style}width:32px;">#</th>'
         f'<th style="{header_style}">Regency</th>'
         f'<th style="{header_right_style}">FSI Score</th>'
-        f'<th style="{header_style}">Tier</th>'
+        f'<th style="{header_style}">Cluster</th>'
         f'<th style="{header_style}">Gi*</th>'
         f'<th style="{header_style}">MK</th>'
         f'<th style="{header_right_style}">Events</th>'

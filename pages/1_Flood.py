@@ -47,7 +47,11 @@ from lib.format import (
 
 from components.section_header import render_page_header, render_section_header
 from components.kpi_strip       import render_kpi_strip
-from components.choropleth      import render_fsi_choropleth, compute_province_view
+from components.choropleth      import (
+    render_fsi_choropleth, 
+    render_legend, 
+    compute_province_view,
+)
 from components.line_chart      import render_annual_line_chart
 from components.ranking_table import (
     render_top10_fsi,
@@ -228,21 +232,22 @@ with tab_national:
 
 
     # ─────────────────────────────────────────────────────────────────────
-    # Choropleth — FSI by regency (static, no click handler)
+    # Choropleth — Dual-layer map: cluster typology + FSI severity dots
     # ─────────────────────────────────────────────────────────────────────
     render_section_header(
         kicker="Spatial · descriptive",
-        title=f"FSI Score by regency — {fmt_int(k.get('n_regencies'))} units",
+        title=f"Flood typology & severity — {fmt_int(k.get('n_regencies'))} regencies",
         description=(
-            "<strong>Flood Severity Index Score</strong> &mdash; cumulative "
-            "2016&ndash;2025 burden per regency on a 0&ndash;100 relative scale "
-            "(not a percentage). Tier classes: "
-            "<strong>Catastrophic &ge;75</strong>, High 50&ndash;75, "
-            "Moderate 25&ndash;50, Low &lt;25. "
+            "<strong>Two-layer spatial map.</strong> "
+            "Polygon fill shows K-means A3 cluster typology "
+            "(Low Impact / Catastrophic / Frequent-Contained). "
+            "Blue dot overlay shows Flood Severity Index (FSI), with size "
+            "proportional to severity (sqrt scaling, 0–100 scale). "
+            "Toggle layers via checkboxes on the right. "
             "See <strong>Analytical Framework</strong> menu for full methodology."
         ),
     )
-
+ 
     if geo is None:
         st.warning(
             "GeoJSON file `public/data/geo/regencies.geojson` is missing. "
@@ -250,48 +255,94 @@ with tab_national:
             "to that path."
         )
     else:
-        # No on_select — static choropleth. Avoids the silent-render
-        # interaction observed when on_select="rerun" is combined with
-        # lazy-rendering parents (st.tabs etc).
-        try:
-            render_fsi_choropleth(
-                reg_df=reg_df,
-                geojson=geo,
-                height=520,
-                key="national_choropleth",
+        # Map layout: 4 cols map | 1.3 cols controls + legend
+        col_map_n, col_ctrl_n = st.columns([4, 1.3])
+ 
+        with col_ctrl_n:
+            # Section: Map layers toggles
+            st.markdown(
+                "<div style='font-size:11px;color:#6b7280;"
+                "text-transform:uppercase;letter-spacing:0.05em;"
+                "margin-bottom:6px;margin-top:8px;'>Map layers</div>",
+                unsafe_allow_html=True,
             )
-        except Exception as e:
-            st.error(
-                f"**Could not render the choropleth.**\n\n"
-                f"`{type(e).__name__}`: {e}\n\n"
-                f"Check that `regency_table.parquet` has these columns: "
-                f"`kemendagri_kab_code`, `kemendagri_kab_name`, "
-                f"`FSI_tier`, `FSI_index`, `event_count`, `deaths`, "
-                f"`missing`, `injured`, `house_flooded`."
+            show_cluster_n = st.checkbox(
+                "Cluster typology",
+                value=True,
+                help="K-means A3 typology: Low Impact / Catastrophic / Frequent-Contained",
+                key="toggle_cluster_national",
             )
-            with st.expander("Traceback (for debugging)"):
-                st.code(traceback.format_exc(), language="python")
-
+            show_fsi_dots_n = st.checkbox(
+                "FSI dot overlay",
+                value=True,
+                help="Dot size proportional to FSI severity (sqrt scale, 0–100)",
+                key="toggle_fsi_dots_national",
+            )
+ 
+            # Section: Legend (vertical layout, stacked below toggles)
+            st.markdown(
+                "<div style='font-size:11px;color:#6b7280;"
+                "text-transform:uppercase;letter-spacing:0.05em;"
+                "margin-top:14px;margin-bottom:6px;'>Legend</div>",
+                unsafe_allow_html=True,
+            )
+            # Cluster counts from reg_df for n=XXX display
+            cluster_counts = (
+                dict(reg_df["cluster_label"].value_counts())
+                if "cluster_label" in reg_df.columns else None
+            )
+            render_legend(
+                show_cluster=show_cluster_n,
+                show_fsi_dots=show_fsi_dots_n,
+                cluster_counts=cluster_counts,
+                layout="vertical",
+            )
+ 
+        with col_map_n:
+            try:
+                render_fsi_choropleth(
+                    reg_df=reg_df,
+                    geojson=geo,
+                    height=520,
+                    key="national_choropleth",
+                    show_cluster=show_cluster_n,
+                    show_fsi_dots=show_fsi_dots_n,
+                )
+            except Exception as e:
+                st.error(
+                    f"**Could not render the choropleth.**\n\n"
+                    f"`{type(e).__name__}`: {e}\n\n"
+                    f"Check that `regency_table.parquet` has these columns: "
+                    f"`kemendagri_kab_code`, `kemendagri_kab_name`, "
+                    f"`FSI_index`, `event_count`, `deaths`, "
+                    f"`missing`, `injured`, `house_flooded`, "
+                    f"`cluster_a3`, `cluster_label`, `centroid_lat`, `centroid_lon`."
+                )
+                with st.expander("Traceback (for debugging)"):
+                    st.code(traceback.format_exc(), language="python")
 
     # ─────────────────────────────────────────────────────────────────────
     # Annual line chart
     # ─────────────────────────────────────────────────────────────────────
     render_section_header(
         kicker="Temporal · descriptive",
-        title=f"Annual trend {k.get('year_min')}&ndash;{k.get('year_max')}",
+        title=f"Annual trend {k.get('year_min')}–{k.get('year_max')}",
         description=(
-            "The three FSI dimensions &mdash; event frequency, HCI, PDI "
-            "&mdash; alongside the composite FSI Score, each rescaled to "
-            "0&ndash;100 for visual comparison. Raw counts togglable. "
+            "The three FSI dimensions — event frequency, HCI, PDI "
+            "— alongside the composite FSI Score, each rescaled to "
+            "0–100 for visual comparison. Raw counts togglable. "
+            "<em>Event frequency here is the annual flood-event count "
+            "rescaled 0–100 — not the log-weighted frequency "
+            "used in the trend (Mann-Kendall) analysis.</em> "
             "See <strong>Analytical Framework</strong> for dimension definitions."
         ),
     )
+
     render_annual_line_chart(
         annual=annual,
         height=440,
         key="national_line",
     )
-
 
     # ─────────────────────────────────────────────────────────────────────
     # Top 10 regencies — three views
@@ -336,7 +387,7 @@ with tab_national:
         )
 
 
-        # ─────────────────────────────────────────────────────────────────────
+    # ─────────────────────────────────────────────────────────────────────
     # Key Findings — narrative interpretation (Method A primary)
     # ─────────────────────────────────────────────────────────────────────
     render_section_header(
@@ -509,44 +560,111 @@ with tab_province:
     ])
     st.divider()
 
-    # ── Choropleth (descriptive) ───────────────────────────────────
+    # ── Choropleth (descriptive) — full parity with the National view ──
     render_section_header(
         kicker="Spatial · descriptive",
-        title=f"FSI Score across {prov_name}",
+        title=f"Flood typology & severity — {prov_name}",
         description=(
-            "<strong>FSI Min&ndash;Max 2016&ndash;2025</strong> for each regency "
-            "in the current province, zoomed to the provincial bounding box. "
-            "Same tier classes as the national view."
+            "<strong>Two-layer spatial map.</strong> "
+            "Polygon fill shows K-means A3 cluster typology "
+            "(Low Impact / Catastrophic / Frequent-Contained). "
+            "Blue dot overlay shows Flood Severity Index (FSI), with size "
+            "proportional to severity (sqrt scaling, 0–100 scale), zoomed to "
+            "the provincial bounding box. "
+            "Toggle layers via checkboxes on the right. "
+            "See <strong>Analytical Framework</strong> menu for full methodology."
         ),
     )
 
     if geo is None:
         st.warning("GeoJSON missing — cannot render the province map.")
     else:
-        try:
-            center, zoom = compute_province_view(reg_df_p, geo)
-            render_fsi_choropleth(
-                reg_df=reg_df_p,
-                geojson=geo,
-                height=460,
-                key=f"prov_choropleth_{prov_code}",
-                mapbox_zoom=zoom,
-                mapbox_center=center,
+        # Map layout: 4 cols map | 1.3 cols controls + legend (matches National)
+        col_map_p, col_ctrl_p = st.columns([4, 1.3])
+
+        with col_ctrl_p:
+            # Section: Map layers toggles
+            st.markdown(
+                "<div style='font-size:11px;color:#6b7280;"
+                "text-transform:uppercase;letter-spacing:0.05em;"
+                "margin-bottom:6px;margin-top:8px;'>Map layers</div>",
+                unsafe_allow_html=True,
             )
-        except Exception as e:
-            st.error(f"Province choropleth failed: {e}")
-            with st.expander("Traceback"):
-                import traceback
-                st.code(traceback.format_exc(), language="python")
+            show_cluster_p = st.checkbox(
+                "Cluster typology",
+                value=True,
+                help="K-means A3 typology: Low Impact / Catastrophic / Frequent-Contained",
+                key=f"toggle_cluster_province_{prov_code}",
+            )
+            show_fsi_dots_p = st.checkbox(
+                "FSI dot overlay",
+                value=True,
+                help="Dot size proportional to FSI severity (sqrt scale, 0–100)",
+                key=f"toggle_fsi_dots_province_{prov_code}",
+            )
+
+            # Section: Legend (vertical layout, stacked below toggles)
+            st.markdown(
+                "<div style='font-size:11px;color:#6b7280;"
+                "text-transform:uppercase;letter-spacing:0.05em;"
+                "margin-top:14px;margin-bottom:6px;'>Legend</div>",
+                unsafe_allow_html=True,
+            )
+            # Cluster counts within THIS province (n=XXX display)
+            cluster_counts_p = (
+                dict(reg_df_p["cluster_label"].value_counts())
+                if "cluster_label" in reg_df_p.columns else None
+            )
+            render_legend(
+                show_cluster=show_cluster_p,
+                show_fsi_dots=show_fsi_dots_p,
+                cluster_counts=cluster_counts_p,
+                layout="vertical",
+            )
+
+        with col_map_p:
+            try:
+                # Robust unpack: compute_province_view may return (center, zoom)
+                # or (center, zoom, bounds, …) depending on version — take the
+                # first two values regardless of arity.
+                _view = compute_province_view(reg_df_p, geo)
+                center, zoom = _view[0], _view[1]
+                render_fsi_choropleth(
+                    reg_df=reg_df_p,
+                    geojson=geo,
+                    height=520,
+                    key=f"prov_choropleth_{prov_code}",
+                    mapbox_zoom=zoom,
+                    mapbox_center=center,
+                    show_cluster=show_cluster_p,
+                    show_fsi_dots=show_fsi_dots_p,
+                )
+            except Exception as e:
+                st.error(
+                    f"**Could not render the choropleth.**\n\n"
+                    f"`{type(e).__name__}`: {e}\n\n"
+                    f"Check that `regency_table.parquet` has these columns: "
+                    f"`kemendagri_kab_code`, `kemendagri_kab_name`, "
+                    f"`FSI_index`, `event_count`, `deaths`, "
+                    f"`missing`, `injured`, `house_flooded`, "
+                    f"`cluster_a3`, `cluster_label`, `centroid_lat`, `centroid_lon`."
+                )
+                with st.expander("Traceback (for debugging)"):
+                    st.code(traceback.format_exc(), language="python")
+    
     
     # ── Annual line chart (descriptive) — matches National schema ──
     render_section_header(
         kicker="Temporal · descriptive",
         title=f"Annual trend {k_p.get('year_min', 2016)}\u2013{k_p.get('year_max', 2025)}",
         description=(
-            "FSI Score alongside its three dimensions &mdash; frequency, "
-            f"HCI, PDI &mdash; for {prov_name}. Each rescaled to 0&ndash;100 "
-            "for visual comparison. Raw counts togglable."
+            "The three FSI dimensions — event frequency, HCI, PDI "
+            f"— alongside the composite FSI Score, for {prov_name}, "
+            "each rescaled to 0–100 for visual comparison. "
+            "Raw counts togglable. "
+            "<em>Event frequency here is the annual flood-event count "
+            "rescaled 0–100 — not the log-weighted frequency "
+            "used in the trend (Mann-Kendall) analysis.</em>"
         ),
     )
     try:
@@ -799,7 +917,9 @@ with tab_province:
                               if "fasum_damaged" in reg_df_p.columns
                               else [0] * len(reg_df_p),
         "FSI (0–100)":       reg_df_p["FSI_index"].round(1).values,
-        "FSI tier":          reg_df_p["FSI_tier"].values,
+        "Cluster":           (reg_df_p["cluster_label"].values
+                              if "cluster_label" in reg_df_p.columns
+                              else ["—"] * len(reg_df_p)),
     })
 
     # Display table — sorted by FSI desc (already sorted in nb12)
@@ -826,7 +946,9 @@ with tab_province:
                                       if "fasum_damaged" in reg_df_p.columns
                                       else [0] * len(reg_df_p),
         "FSI_index":           reg_df_p["FSI_index"].round(2).values,
-        "FSI_tier":            reg_df_p["FSI_tier"].values,
+        "cluster":             (reg_df_p["cluster_label"].values
+                                if "cluster_label" in reg_df_p.columns
+                                else ["—"] * len(reg_df_p)),
     })
 
     # Sanitise province name for filename
@@ -1026,55 +1148,113 @@ with tab_regency:
 
     st.divider()
 
-    # ── Choropleth (descriptive) ───────────────────────────────────
+    # ── Choropleth (descriptive) — full parity with the National view ──
     render_section_header(
         kicker="Spatial · descriptive",
-        title=f"FSI Score — {kab_name}",
+        title=f"Flood typology & severity — {kab_name}",
         description=(
-            f"<strong>FSI Min&ndash;Max 2016&ndash;2025</strong> for {kab_name}, "
-            f"shown on the same tier colour scale as the National and "
-            f"Province views. Tier: "
-            f"<strong>{reg_row.get('FSI_tier', '?')}</strong> "
+            f"<strong>Two-layer spatial map.</strong> "
+            f"Polygon fill shows K-means A3 cluster typology, blue dot overlay "
+            f"shows Flood Severity Index (FSI) sized by severity (sqrt scale, "
+            f"0–100), for {kab_name}. Cluster: "
+            f"<strong>{reg_row.get('cluster_label', '?')}</strong> "
             f"(FSI Score {fmt_decimal(reg_row.get('FSI_index'), 1)}/100). "
-            f"Gi* category: <strong>{reg_row.get('gi_cat_FSI', '?')}</strong>."
+            f"Gi* category: <strong>{reg_row.get('gi_cat_FSI', '?')}</strong>. "
+            f"Toggle layers via checkboxes on the right."
         ),
     )
 
     if geo is None:
         st.warning("GeoJSON missing — cannot render the regency map.")
     else:
-        try:
-            # Reuse compute_province_view — works on any 1+ feature subset
-            center, zoom = compute_province_view(reg_row_df, geo, padding=0.40)
-            render_fsi_choropleth(
-                reg_df=reg_row_df,
-                geojson=geo,
-                height=460,
-                key=f"reg_choropleth_{kab_code}",
-                mapbox_zoom=zoom,
-                mapbox_center=center,
+        # Map layout: 4 cols map | 1.3 cols controls + legend (matches National)
+        col_map_r, col_ctrl_r = st.columns([4, 1.3])
+
+        with col_ctrl_r:
+            # Section: Map layers toggles
+            st.markdown(
+                "<div style='font-size:11px;color:#6b7280;"
+                "text-transform:uppercase;letter-spacing:0.05em;"
+                "margin-bottom:6px;margin-top:8px;'>Map layers</div>",
+                unsafe_allow_html=True,
             )
-        except Exception as e:
-            st.error(f"Regency choropleth failed: {e}")
-            import traceback
-            with st.expander("Traceback"):
-                st.code(traceback.format_exc(), language="python") 
-    # ── Annual line chart (descriptive) ────────────────────────────
+            show_cluster_r = st.checkbox(
+                "Cluster typology",
+                value=True,
+                help="K-means A3 typology: Low Impact / Catastrophic / Frequent-Contained",
+                key=f"toggle_cluster_regency_{kab_code}",
+            )
+            show_fsi_dots_r = st.checkbox(
+                "FSI dot overlay",
+                value=True,
+                help="Dot size proportional to FSI severity (sqrt scale, 0–100)",
+                key=f"toggle_fsi_dots_regency_{kab_code}",
+            )
+
+            # Section: Legend (vertical layout, stacked below toggles)
+            st.markdown(
+                "<div style='font-size:11px;color:#6b7280;"
+                "text-transform:uppercase;letter-spacing:0.05em;"
+                "margin-top:14px;margin-bottom:6px;'>Legend</div>",
+                unsafe_allow_html=True,
+            )
+            # Single regency: typology key + dot scale, but no per-cluster counts
+            # (a lone "n=1" would be noise).
+            render_legend(
+                show_cluster=show_cluster_r,
+                show_fsi_dots=show_fsi_dots_r,
+                cluster_counts=None,
+                layout="vertical",
+            )
+
+        with col_map_r:
+            try:
+                # Reuse compute_province_view — works on any 1+ feature subset.
+                # Robust unpack (see Province note): take first two return values.
+                _view = compute_province_view(reg_row_df, geo, padding=0.40)
+                center, zoom = _view[0], _view[1]
+                render_fsi_choropleth(
+                    reg_df=reg_row_df,
+                    geojson=geo,
+                    height=520,
+                    key=f"reg_choropleth_{kab_code}",
+                    mapbox_zoom=zoom,
+                    mapbox_center=center,
+                    show_cluster=show_cluster_r,
+                    show_fsi_dots=show_fsi_dots_r,
+                )
+            except Exception as e:
+                st.error(
+                    f"**Could not render the choropleth.**\n\n"
+                    f"`{type(e).__name__}`: {e}\n\n"
+                    f"Check that `regency_table.parquet` has these columns: "
+                    f"`kemendagri_kab_code`, `kemendagri_kab_name`, "
+                    f"`FSI_index`, `event_count`, `deaths`, "
+                    f"`missing`, `injured`, `house_flooded`, "
+                    f"`cluster_a3`, `cluster_label`, `centroid_lat`, `centroid_lon`."
+                )
+                with st.expander("Traceback (for debugging)"):
+                    st.code(traceback.format_exc(), language="python")
+    
+    
+    # ── Annual line chart (descriptive) — matches National schema ──
     render_section_header(
         kicker="Temporal · descriptive",
         title=f"Annual trend — {kab_name}",
         description=(
-            "FSI Score and its three dimensions &mdash; frequency, HCI, PDI "
-            f"&mdash; for {kab_name}, year by year. Each series rescaled to "
-            "0&ndash;100 within this regency for visual comparison. "
-            "Raw counts togglable via the legend."
+            "The three FSI dimensions — event frequency, HCI, PDI "
+            f"— alongside the composite FSI Score, for {kab_name}, "
+            "each rescaled to 0–100 for visual comparison. "
+            "Raw counts togglable via the legend. "
+            "<em>Event frequency here is the annual flood-event count "
+            "rescaled 0–100 — not the log-weighted frequency "
+            "used in the trend (Mann-Kendall) analysis.</em>"
         ),
     )
 
     try:
         # reg_bundle was loaded earlier (in the KPI strip section).
-        # Its 'annual' sub-dict now has the same schema as Province / National
-        # (after the nb12 Cell 6 refinement).
+        # Its 'annual' sub-dict has the same schema as Province / National.
         annual_r = reg_bundle.get("annual", {})
 
         if annual_r and annual_r.get("years"):
@@ -1093,21 +1273,8 @@ with tab_regency:
         import traceback
         with st.expander("Traceback"):
             st.code(traceback.format_exc(), language="python")
-            
-    # ── Monthly heatmap + Avg monthly profile (descriptive) ─────────
-    render_section_header(
-        kicker="Temporal · descriptive",
-        title=f"Seasonal pattern — {kab_name}",
-        description=(
-            "<strong>Left:</strong> FSI Score for every month from 2016 to "
-            "2025 &mdash; reveals year-to-year extremes and any shift in "
-            "seasonal timing. "
-            "<strong>Right:</strong> 10-year average FSI by month of year "
-            "&mdash; the typical seasonal profile. "
-            "Darker / taller cells mean higher flood severity."
-        ),
-    )
 
+    # ── Seasonal pattern — heatmap + monthly profile (two sub-sections) ──
     try:
         import plotly.graph_objects as go
 
@@ -1122,113 +1289,135 @@ with tab_regency:
         has_heatmap = bool(years_m) and bool(values_m)
         has_bar     = bool(avg_monthly) and any(v > 0 for v in avg_monthly)
 
-        # Two columns — heatmap takes ~2/3 width, bar chart ~1/3
-        col_heat, col_bar = st.columns([2, 1], gap="medium")
-
         MONTH_LABELS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        month_x = [MONTH_LABELS[m - 1] for m in months_m]
 
-        # ── HEATMAP ─────────────────────────────────────────────────
-        with col_heat:
-            if not has_heatmap:
-                st.info("No monthly data available for this regency.")
-            else:
-                # Single-hue blue scale (light = low, dark = high FSI)
-                # — matches the National/Province tier palette family
-                fig_heat = go.Figure(go.Heatmap(
-                    z=values_m,
-                    x=[MONTH_LABELS[m - 1] for m in months_m],
-                    y=[str(y) for y in years_m],
-                    colorscale=[
-                        [0.0,  "#f8fafc"],
-                        [0.25, "#bfdbfe"],
-                        [0.5,  "#60a5fa"],
-                        [0.75, "#2563eb"],
-                        [1.0,  "#1e3a8a"],
-                    ],
-                    zmin=0,
-                    hovertemplate=(
-                        "<b>%{y} %{x}</b><br>"
-                        "FSI Score: %{z:.2f} / 100"
-                        "<extra></extra>"
-                    ),
-                    colorbar=dict(
-                        title=dict(text="FSI", side="right",
-                                   font=dict(size=10)),
-                        thickness=10,
-                        len=0.85,
-                        tickfont=dict(size=9),
-                    ),
-                    xgap=1,
-                    ygap=1,
-                ))
-                fig_heat.update_layout(
-                    height=320,
-                    margin=dict(l=0, r=0, t=10, b=0),
-                    font=dict(family="Inter, sans-serif", size=10,
-                              color="#1f2937"),
-                    paper_bgcolor="rgba(0,0,0,0)",
-                    plot_bgcolor="rgba(0,0,0,0)",
-                    xaxis=dict(side="bottom", tickfont=dict(size=10)),
-                    yaxis=dict(autorange="reversed",
-                               tickmode="array",
-                               tickvals=[str(y) for y in years_m],
-                               tickfont=dict(size=10),),
-                    hoverlabel=dict(bgcolor="white", bordercolor="#e5e7eb"),
-                )
-                st.plotly_chart(
-                    fig_heat,
-                    key=f"reg_heatmap_{kab_code}",
-                    config={"displayModeBar": False},
-                )
+        # Right-side margin (px) reserved so the bar's plot area lines up with
+        # the heatmap's — the heatmap's colorbar occupies space on the right,
+        # so the bar gets an equivalent right margin instead of stretching wider.
+        ALIGN_RIGHT_MARGIN = 60
 
-        # ── BAR CHART (avg monthly) ────────────────────────────────
-        with col_bar:
-            if not has_bar:
-                st.info("No seasonal profile available.")
-            else:
-                # Identify the peak month for emphasis colour
-                max_val = max(avg_monthly)
-                bar_colors = [
-                    "#1e3a8a" if v == max_val else "#93c5fd"
-                    for v in avg_monthly
-                ]
+        # ══ UPPER: HEATMAP — its own title ═══════════════════════════════
+        render_section_header(
+            kicker="Temporal · descriptive",
+            title=f"Monthly FSI heatmap — {kab_name}",
+            description=(
+                "FSI Score for every month from 2016 to 2025 &mdash; reveals "
+                "year-to-year extremes and any shift in seasonal timing. "
+                "Darker cells mean higher flood severity."
+            ),
+        )
 
-                fig_bar = go.Figure(go.Bar(
-                    x=MONTH_LABELS,
-                    y=avg_monthly,
-                    marker=dict(color=bar_colors,
-                                line=dict(width=0)),
-                    hovertemplate=(
-                        "<b>%{x}</b><br>"
-                        "Avg FSI: %{y:.2f} / 100"
-                        "<extra></extra>"
-                    ),
-                ))
-                fig_bar.update_layout(
-                    height=320,
-                    margin=dict(l=0, r=0, t=10, b=0),
-                    font=dict(family="Inter, sans-serif", size=10,
-                              color="#1f2937"),
-                    paper_bgcolor="rgba(0,0,0,0)",
-                    plot_bgcolor="rgba(0,0,0,0)",
-                    xaxis=dict(tickfont=dict(size=10), showline=True,
-                               linecolor="#e5e7eb"),
-                    yaxis=dict(title="Avg FSI", title_font=dict(size=10),
-                               tickfont=dict(size=10),
-                               gridcolor="#f1f5f9",
-                               showline=True, linecolor="#e5e7eb",
-                               zeroline=False),
-                    hoverlabel=dict(bgcolor="white", bordercolor="#e5e7eb"),
-                )
-                st.plotly_chart(
-                    fig_bar,
-                    key=f"reg_bar_{kab_code}",
-                    config={"displayModeBar": False},
-                )
+        if not has_heatmap:
+            st.info("No monthly data available for this regency.")
+        else:
+            # Single-hue blue scale (light = low, dark = high FSI)
+            # — matches the National/Province palette family
+            fig_heat = go.Figure(go.Heatmap(
+                z=values_m,
+                x=month_x,
+                y=[str(y) for y in years_m],
+                colorscale=[
+                    [0.0,  "#f8fafc"],
+                    [0.25, "#bfdbfe"],
+                    [0.5,  "#60a5fa"],
+                    [0.75, "#2563eb"],
+                    [1.0,  "#1e3a8a"],
+                ],
+                zmin=0,
+                hovertemplate=(
+                    "<b>%{y} %{x}</b><br>"
+                    "FSI Score: %{z:.2f} / 100"
+                    "<extra></extra>"
+                ),
+                colorbar=dict(
+                    title=dict(text="FSI", side="right", font=dict(size=10)),
+                    thickness=10,
+                    len=0.9,
+                    tickfont=dict(size=9),
+                ),
+                xgap=1,
+                ygap=1,
+            ))
+            fig_heat.update_layout(
+                height=340,
+                margin=dict(l=0, r=0, t=10, b=0),
+                font=dict(family="Inter, sans-serif", size=10, color="#1f2937"),
+                paper_bgcolor="rgba(0,0,0,0)",
+                plot_bgcolor="rgba(0,0,0,0)",
+                # Own title now — heatmap shows its own month labels.
+                xaxis=dict(side="bottom", tickfont=dict(size=10)),
+                yaxis=dict(autorange="reversed",
+                           tickmode="array",
+                           tickvals=[str(y) for y in years_m],
+                           tickfont=dict(size=10)),
+                hoverlabel=dict(bgcolor="white", bordercolor="#e5e7eb"),
+            )
+            st.plotly_chart(
+                fig_heat,
+                key=f"reg_heatmap_{kab_code}",
+                config={"displayModeBar": False},
+                use_container_width=True,
+            )
 
+        # ══ LOWER: BAR CHART — its own title ═════════════════════════════
+        render_section_header(
+            kicker="Temporal · descriptive",
+            title=f"Average seasonal profile — {kab_name}",
+            description=(
+                "10-year average FSI by month of year &mdash; the typical "
+                "seasonal profile. The peak month is highlighted."
+            ),
+        )
+
+        if not has_bar:
+            st.info("No seasonal profile available.")
+        else:
+            # Identify the peak month for emphasis colour
+            max_val = max(avg_monthly)
+            bar_colors = [
+                "#1e3a8a" if v == max_val else "#93c5fd"
+                for v in avg_monthly
+            ]
+
+            fig_bar = go.Figure(go.Bar(
+                x=MONTH_LABELS,
+                y=avg_monthly,
+                marker=dict(color=bar_colors, line=dict(width=0)),
+                hovertemplate=(
+                    "<b>%{x}</b><br>"
+                    "Avg FSI: %{y:.2f} / 100"
+                    "<extra></extra>"
+                ),
+            ))
+            fig_bar.update_layout(
+                height=220,
+                # Match the heatmap's right margin so the two plot areas align
+                margin=dict(l=0, r=ALIGN_RIGHT_MARGIN, t=10, b=0),
+                font=dict(family="Inter, sans-serif", size=10, color="#1f2937"),
+                paper_bgcolor="rgba(0,0,0,0)",
+                plot_bgcolor="rgba(0,0,0,0)",
+                bargap=0.25,
+                xaxis=dict(tickfont=dict(size=10), showline=True,
+                           linecolor="#e5e7eb",
+                           # Lock category order so it lines up with the heatmap
+                           categoryorder="array", categoryarray=MONTH_LABELS),
+                yaxis=dict(title="Avg FSI", title_font=dict(size=10),
+                           tickfont=dict(size=10),
+                           gridcolor="#f1f5f9",
+                           showline=True, linecolor="#e5e7eb",
+                           zeroline=False),
+                hoverlabel=dict(bgcolor="white", bordercolor="#e5e7eb"),
+            )
+            st.plotly_chart(
+                fig_bar,
+                key=f"reg_bar_{kab_code}",
+                config={"displayModeBar": False},
+                use_container_width=True,
+            )
     except Exception as e:
         st.warning(f"Could not render monthly views: {e}")
         import traceback
         with st.expander("Traceback"):
-            st.code(traceback.format_exc(), language="python")   
+            st.code(traceback.format_exc(), language="python")
