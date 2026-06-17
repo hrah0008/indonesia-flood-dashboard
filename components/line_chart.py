@@ -301,7 +301,8 @@ def render_economic_line_chart(
         height=height,
         margin=dict(l=0, r=0, t=10, b=0),
         font=dict(family=FONT_BODY, color="#1f2937"),
-        xaxis=dict(title="", showgrid=False, dtick=1),
+        xaxis=dict(title="", showgrid=False,
+                   tickmode="array", tickvals=list(years)),
         yaxis=dict(title="Growth (%)", showgrid=True, gridcolor=HAIRLINE,
                    zeroline=True, zerolinecolor="#d1d5db"),
         yaxis2=dict(title="FSI (0-100)", overlaying="y", side="right",
@@ -513,3 +514,70 @@ def render_province_scatter(
         f"estimate; thresholds are relative and with few regencies the grouping "
         f"can shift."
     )
+
+
+
+# ═════════════════════════════════════════════════════════════════════════
+# Regency economic profile — sector composition treemap (share of GRDP)
+# ═════════════════════════════════════════════════════════════════════════
+def render_composition_stacked(
+    composition: dict,
+    mode: str = "rupiah",
+    height: int = 460,
+    key: str = "composition_stacked",
+) -> None:
+    """Stacked bar of sector composition over time for one regency.
+
+    One bar per year, stacked by all 17 sectors. Two modes:
+      • 'rupiah'  — absolute GRDP level (bar height = total GRDP, grows)
+      • 'share'   — 100% stacked (each bar = 100%, shows structural shift)
+
+    composition : dict with keys sectors / years / levels / totals
+                  (from the regency series JSON, nb13 STEP 8).
+    """
+    if not composition or "levels" not in composition:
+        st.info("No composition data for this regency.")
+        return
+
+    sectors = composition["sectors"]
+    years = composition["years"]
+    levels = composition["levels"]
+    totals = composition.get("totals", [])
+
+    # 17-colour qualitative palette (distinct, print-safe-ish)
+    PALETTE = [
+        "#3b6d11", "#6aa121", "#9fce6a", "#c7e29b", "#185fa5", "#4a8fce",
+        "#8bbce4", "#dc6b2f", "#f2a25c", "#f6c89a", "#8c4a9e", "#b884c9",
+        "#b5651d", "#d99a5b", "#6b7280", "#a8b0bd", "#d4af37",
+    ]
+
+    fig = go.Figure()
+    for i, sec in enumerate(sectors):
+        vals = levels.get(sec, [0] * len(years))
+        if mode == "share":
+            y = [round(v / t * 100, 2) if t else 0 for v, t in zip(vals, totals)]
+            hover = "%{x}<br>" + sec + ": %{y:.1f}%<extra></extra>"
+        else:
+            y = vals
+            hover = "%{x}<br>" + sec + ": Rp %{y:,.0f}<extra></extra>"
+        fig.add_trace(go.Bar(
+            x=[str(yr) for yr in years], y=y, name=sec,
+            marker=dict(color=PALETTE[i % len(PALETTE)], line=dict(width=0)),
+            hovertemplate=hover,
+        ))
+
+    y_title = "Share of GRDP (%)" if mode == "share" else "GRDP (constant 2010 prices)"
+    fig.update_layout(
+        barmode="stack",
+        height=height,
+        margin=dict(l=0, r=0, t=10, b=0),
+        font=dict(family=FONT_BODY, color="#1f2937", size=12),
+        xaxis=dict(title="", showgrid=False, type="category",
+                   tickmode="array", tickvals=[str(yr) for yr in years]),
+        yaxis=dict(title=y_title, showgrid=True, gridcolor=HAIRLINE,
+                   range=[0, 100] if mode == "share" else None),
+        legend=dict(orientation="h", yanchor="top", y=-0.08, xanchor="left", x=0,
+                    font=dict(size=10)),
+        hovermode="closest",
+    )
+    st.plotly_chart(fig, key=key, config={"displayModeBar": False})

@@ -1,7 +1,7 @@
 """
 pages/2_Economic.py
 ===================
-Economic menu — National view.
+Economic menu — National / Province / Regency views.
 """
 
 import streamlit as st
@@ -20,25 +20,29 @@ from lib.data_economic import (
     load_national_fsi_table,
     list_economic_provinces,
     load_province_economic_kpis,
-    load_province_choropleth_table, 
+    load_province_choropleth_table,
     load_province_economic_series,
     load_province_scatter,
-    load_province_sector_table, 
+    load_province_sector_table,
+    list_economic_regencies,
+    get_regency_code,
+    load_regency_economic_kpis,
+    load_regency_economic_series,
 )
 from lib.data_flood import load_regencies_geojson
-
 from components.choropleth import (
-    render_economic_choropleth, 
+    render_economic_choropleth,
     render_economic_legend,
-    compute_province_view, 
+    compute_province_view,
 )
 from components.kpi_strip import render_kpi_strip
 from components.line_chart import (
-    render_economic_line_chart, 
-    render_sector_impact_bar, 
-    render_province_scatter,
+    render_economic_line_chart, render_sector_impact_bar, render_province_scatter,
+    render_composition_stacked,
 )
-from components.ranking_table import render_economic_fsi_table, render_province_sector_table
+from components.ranking_table import (
+    render_economic_fsi_table, render_province_sector_table,
+)
 from components.insight_box import render_insight_box
 
 
@@ -61,7 +65,7 @@ render_page_header(
     ),
 )
 
-# ─── Load data ────────────────────────────────────────────────────────
+# ─── Load shared data ─────────────────────────────────────────────────
 try:
     reg_df  = load_economic_choropleth_table()
     geojson = load_regencies_geojson()
@@ -69,11 +73,13 @@ except FileNotFoundError as e:
     st.error(f"Could not load economic data: {e}")
     st.stop()
 
-tab_national, tab_province = st.tabs(["National", "Province"])
+tab_national, tab_province, tab_regency = st.tabs(["National", "Province", "Regency"])
 
+# ═════════════════════════════════════════════════════════════════════
+# TAB 1 — NATIONAL
+# ═════════════════════════════════════════════════════════════════════
 with tab_national:
 
-    # ── KPI strip ────────────────────────────────────────────────────
     try:
         kpis = load_national_economic_kpis()
         render_kpi_strip(kpis)
@@ -90,7 +96,6 @@ with tab_national:
 
     st.divider()
 
-    # ── Choropleth ───────────────────────────────────────────────────
     render_section_header(
         kicker="Spatial · analytical",
         title=f"GRDP growth & FSI — {fmt_int(reg_df['kemendagri_kab_code'].nunique())} regencies",
@@ -150,7 +155,6 @@ with tab_national:
         "FSI joined from the Flood dataset (single-sourced)."
     )
 
-    # ── Line chart ───────────────────────────────────────────────────
     st.divider()
 
     render_section_header(
@@ -174,7 +178,6 @@ with tab_national:
     except FileNotFoundError as e:
         st.warning(f"Annual series not available yet: {e}")
 
-    # ── Bar chart + table (two columns) ──────────────────────────────
     st.divider()
 
     col_bar, col_tbl = st.columns([1, 1], gap="large")
@@ -208,7 +211,6 @@ with tab_national:
         except FileNotFoundError as e:
             st.warning(f"FSI table not available yet: {e}")
 
-    # ── Key findings (mirrors Flood "Diagnostic synthesis") ──────────
     render_section_header(
         kicker="Diagnostic synthesis",
         title="Key Findings",
@@ -225,7 +227,6 @@ with tab_national:
     )
 
     bullets = [
-        # 1 — aggregate / national (annual)
         f"<strong>National impact is limited and annual, not cumulative.</strong> "
         f"The estimated effects represent <em>annual</em> impacts: each coefficient "
         f"captures how flooding in a particular year is associated with economic "
@@ -239,7 +240,6 @@ with tab_national:
         f"growth. Flooding therefore does not broadly depress regional economic "
         f"performance, and its aggregate effects are relatively small.",
 
-        # 2 — sectoral, evidence standard + three channels
         f"<strong>At the sector level the effects are more heterogeneous.</strong> "
         f"Statistical significance was evaluated after controlling for multiple "
         f"testing across 17 sectors using the Benjamini&ndash;Hochberg False "
@@ -255,7 +255,6 @@ with tab_national:
         f"robust evidence. Third, <em>physical damage</em> produces modest negative "
         f"effects in capital-intensive sectors such as mining and manufacturing.",
 
-        # 3 — reading a beta in depth + caveats
         f"<strong>Reading a sector coefficient.</strong> The education-services "
         f"sector shows a robust coefficient of &beta; = &minus;0.13 for flood human "
         f"cost. Because the flood variable is logged and growth is in percentage "
@@ -285,16 +284,14 @@ with tab_national:
 
 
 # ═════════════════════════════════════════════════════════════════════
-# TAB 2 — PROVINCE (descriptive; no regression output)
+# TAB 2 — PROVINCE (descriptive)
 # ═════════════════════════════════════════════════════════════════════
 with tab_province:
     provinces = list_economic_provinces()
-
     if not provinces:
         st.warning("No province data available.")
         st.stop()
 
-    # default to a previously-clicked province if set, else first
     default_idx = 0
     if "selected_province_econ" in st.session_state:
         cur = st.session_state["selected_province_econ"]
@@ -310,11 +307,8 @@ with tab_province:
         )
     with col_dropdown:
         prov_name = st.selectbox(
-            label="Province",
-            options=provinces,
-            index=default_idx,
-            key="_province_dropdown_econ",
-            label_visibility="collapsed",
+            label="Province", options=provinces, index=default_idx,
+            key="_province_dropdown_econ", label_visibility="collapsed",
         )
     st.session_state["selected_province_econ"] = prov_name
 
@@ -324,7 +318,7 @@ with tab_province:
         unsafe_allow_html=True,
     )
 
-    # ── Province KPI strip (descriptive — no regression) ─────────────
+    # KPI strip
     try:
         prov_kpis = load_province_economic_kpis(prov_name)
         render_kpi_strip(prov_kpis)
@@ -339,9 +333,8 @@ with tab_province:
     except Exception as e:
         st.warning(f"Province KPIs not available: {e}")
 
-    # ── Province choropleth (zoomed to the province, like Flood) ──────
+    # Choropleth (zoomed to province)
     st.divider()
-
     render_section_header(
         kicker="Spatial · descriptive",
         title=f"GRDP growth & FSI — {prov_name}",
@@ -362,12 +355,8 @@ with tab_province:
     if prov_df is not None and len(prov_df):
         pc1, pc2 = st.columns([3, 1])
         with pc2:
-            p_show_growth = st.checkbox(
-                "Growth saturation", value=True, key="toggle_growth_prov",
-            )
-            p_show_fsi = st.checkbox(
-                "FSI bubble overlay", value=True, key="toggle_fsi_prov",
-            )
+            p_show_growth = st.checkbox("Growth saturation", value=True, key="toggle_growth_prov")
+            p_show_fsi = st.checkbox("FSI bubble overlay", value=True, key="toggle_fsi_prov")
             st.markdown(
                 f"<div style='font-family:{FONT_MONO};font-size:11px;color:{MUTED};"
                 f"text-transform:uppercase;letter-spacing:0.05em;"
@@ -375,33 +364,26 @@ with tab_province:
                 unsafe_allow_html=True,
             )
             render_economic_legend(
-                show_growth=p_show_growth,
-                show_fsi_dots=p_show_fsi,
+                show_growth=p_show_growth, show_fsi_dots=p_show_fsi,
                 growth_min=float(prov_df["growth_avg"].min()),
                 growth_max=float(prov_df["growth_avg"].max()),
                 layout="vertical",
             )
-
         with pc1:
             try:
                 _view = compute_province_view(prov_df, geojson)
                 center, zoom = _view[0], _view[1]
                 render_economic_choropleth(
-                    reg_df=prov_df,
-                    geojson=geojson,
+                    reg_df=prov_df, geojson=geojson,
                     key=f"economic_choropleth_prov_{prov_name}",
-                    mapbox_zoom=zoom,
-                    mapbox_center=center,
-                    show_growth=p_show_growth,
-                    show_fsi_dots=p_show_fsi,
+                    mapbox_zoom=zoom, mapbox_center=center,
+                    show_growth=p_show_growth, show_fsi_dots=p_show_fsi,
                 )
             except Exception as e:
                 st.error(f"Could not render province choropleth.\n\n`{e}`")
 
-
-    # ── Province line chart (growth + FSI over time) ──────────────────
+    # Line chart
     st.divider()
-
     render_section_header(
         kicker="Temporal · descriptive",
         title=f"Growth & flood severity over time — {prov_name}",
@@ -411,7 +393,6 @@ with tab_province:
             "2016-2025. Add sector growth lines with the selector below."
         ),
     )
-
     try:
         prov_series = load_province_economic_series(prov_name)
         render_economic_line_chart(prov_series, key=f"economic_line_prov_{prov_name}")
@@ -422,20 +403,18 @@ with tab_province:
     except FileNotFoundError as e:
         st.warning(f"Province series not available yet: {e}")
 
-    # ── Province quadrant scatter: FSI vs growth per regency ──────────
+    # Quadrant scatter
     st.divider()
-
     render_section_header(
         kicker="Spatial · descriptive",
         title=f"FSI vs growth across regencies — {prov_name}",
         description=(
             "Each dot is a regency, split into four quadrants at the province's "
-            "median FSI and median growth. The lower-right (high flood, low "
-            "growth) flags regencies to watch; upper-left (low flood, high "
-            "growth) are thriving. Descriptive, not causal."
+            "median FSI and median growth. Lower-right (high flood, low growth) "
+            "flags regencies to watch; upper-left (low flood, high growth) are "
+            "thriving. Descriptive, not causal."
         ),
     )
-
     try:
         scatter_df = load_province_scatter(prov_name)
         render_province_scatter(scatter_df, prov_name=prov_name,
@@ -443,9 +422,8 @@ with tab_province:
     except Exception as e:
         st.warning(f"Scatter not available: {e}")
 
-    # ── Province per-regency sector table (17 sector growth) ──────────
+    # Per-regency sector table
     st.divider()
-
     render_section_header(
         kicker="Sectoral · descriptive",
         title=f"Sector growth by regency — {prov_name}",
@@ -454,9 +432,150 @@ with tab_province:
             "(constant 2010 prices). Sorted by overall growth."
         ),
     )
-
     try:
         sector_tbl = load_province_sector_table(prov_name)
         render_province_sector_table(sector_tbl)
     except Exception as e:
         st.warning(f"Sector table not available: {e}")
+
+
+# ═════════════════════════════════════════════════════════════════════
+# TAB 3 — REGENCY (descriptive; single-regency drill-down)
+# ═════════════════════════════════════════════════════════════════════
+with tab_regency:
+    provinces_r = list_economic_provinces()
+    if not provinces_r:
+        st.warning("No province data available.")
+        st.stop()
+
+    rc1, rc2 = st.columns(2)
+    with rc1:
+        prov_r = st.selectbox("Province", options=provinces_r, key="_province_dropdown_reg")
+    regencies_r = list_economic_regencies(prov_r)
+    with rc2:
+        regency_r = st.selectbox("Regency", options=regencies_r, key="_regency_dropdown_reg")
+
+    st.markdown(
+        f'<div style="font-family:{FONT_DISPLAY};font-size:20px;'
+        f'font-weight:600;color:{INK};margin:18px 0 14px 0;">{regency_r}'
+        f'<span style="font-size:13px;color:{MUTED};font-weight:400;"> · {prov_r}</span></div>',
+        unsafe_allow_html=True,
+    )
+
+    # KPI strip (avg growth, fastest, slowest, FSI + cluster)
+    try:
+        reg_kpis = load_regency_economic_kpis(prov_r, regency_r)
+        render_kpi_strip(reg_kpis)
+        st.markdown(
+            f'<div style="font-family:{FONT_MONO};font-size:10px;color:{MUTED};'
+            f'letter-spacing:0.04em;margin-top:8px;text-align:center;">'
+            f'{regency_r} &middot; GRDP growth 2016&ndash;2025 &middot; '
+            f'descriptive profile (no flood regression at regency level)'
+            f'</div>',
+            unsafe_allow_html=True,
+        )
+    except Exception as e:
+        st.warning(f"Regency KPIs not available: {e}")
+
+    # Choropleth — single regency, same style as Province
+    st.divider()
+    render_section_header(
+        kicker="Spatial · descriptive",
+        title=f"GRDP growth & FSI — {regency_r}",
+        description=(
+            "<strong>This regency only.</strong> Polygon fill shows its average "
+            "GRDP growth 2016-2025; the blue bubble shows its Flood Severity "
+            "Index (FSI)."
+        ),
+    )
+    try:
+        prov_tbl = load_province_choropleth_table(prov_r)
+        reg_only = prov_tbl[prov_tbl["kemendagri_kab_name"] == regency_r].copy()
+        if len(reg_only):
+            rc_map, rc_leg = st.columns([3, 1])
+            with rc_leg:
+                r_show_growth = st.checkbox("Growth saturation", value=True, key="toggle_growth_reg")
+                r_show_fsi = st.checkbox("FSI bubble overlay", value=True, key="toggle_fsi_reg")
+                st.markdown(
+                    f"<div style='font-family:{FONT_MONO};font-size:11px;color:{MUTED};"
+                    f"text-transform:uppercase;letter-spacing:0.05em;"
+                    f"margin-top:14px;margin-bottom:6px;'>Legend</div>",
+                    unsafe_allow_html=True,
+                )
+                render_economic_legend(
+                    show_growth=r_show_growth, show_fsi_dots=r_show_fsi,
+                    growth_min=float(reg_only["growth_avg"].min()),
+                    growth_max=float(reg_only["growth_avg"].max()),
+                    layout="vertical",
+                )
+            with rc_map:
+                _view = compute_province_view(reg_only, geojson)
+                center, zoom = _view[0], _view[1]
+                render_economic_choropleth(
+                    reg_df=reg_only, geojson=geojson,
+                    key=f"economic_choropleth_reg_{regency_r}",
+                    mapbox_zoom=zoom + 1.5, mapbox_center=center,
+                    show_growth=r_show_growth, show_fsi_dots=r_show_fsi,
+                )
+        else:
+            st.info("No map data for this regency.")
+    except Exception as e:
+        st.error(f"Could not render regency map.\n\n`{e}`")
+
+    # Line chart
+    st.divider()
+    render_section_header(
+        kicker="Temporal · descriptive",
+        title=f"Growth & flood severity over time — {regency_r}",
+        description=(
+            "<strong>GRDP growth (%)</strong> (left axis) and "
+            "<strong>FSI (0-100)</strong> (right axis), 2016-2025. "
+            "Add sector growth lines with the selector below."
+        ),
+    )
+    reg_series = None
+    try:
+        reg_code = get_regency_code(prov_r, regency_r)
+        reg_series = load_regency_economic_series(reg_code)
+        render_economic_line_chart(reg_series, key=f"economic_line_reg_{reg_code}")
+        st.caption(
+            "GRDP at constant 2010 prices (ADHK). Year-on-year growth; "
+            "sector lines start 2017."
+        )
+    except (FileNotFoundError, KeyError) as e:
+        st.warning(f"Regency series not available yet: {e}")
+
+    # ── Economic structure — sector composition over time (stacked) ───
+    st.divider()
+
+    _comp = (reg_series or {}).get("composition")
+
+    render_section_header(
+        kicker="Structural · descriptive",
+        title=f"Economic structure over time — {regency_r}",
+        description=(
+            "<strong>Sector composition by year</strong>, all 17 sectors stacked "
+            "(GRDP at constant 2010 prices). Toggle between absolute Rupiah "
+            "(bar height = total GRDP, so you see the economy grow) and 100% share "
+            "(each bar = 100%, so you see the structure shift). This complements "
+            "the growth trend above &mdash; structure versus rate of change."
+        ),
+    )
+
+    if _comp:
+        mode_label = st.radio(
+            "Composition mode",
+            options=["Rupiah (absolute)", "Share (100%)"],
+            horizontal=True,
+            key="stacked_mode_reg",
+            label_visibility="collapsed",
+        )
+        mode = "rupiah" if mode_label.startswith("Rupiah") else "share"
+        render_composition_stacked(_comp, mode=mode,
+                                   key=f"composition_stacked_{regency_r}_{mode}")
+        st.caption(
+            "GRDP value added by sector (constant 2010 prices, ADHK). "
+            "Composition (structure) is distinct from growth (rate of change)."
+        )
+    else:
+        st.info("Composition data not available for this regency.")

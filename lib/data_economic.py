@@ -317,3 +317,96 @@ def load_province_sector_table(prov_name: str) -> pd.DataFrame:
     cols = ["kemendagri_kab_name", "growth_avg"] + sector_cols
     out = sub[cols].copy().rename(columns={"kemendagri_kab_name": "regency"})
     return out.sort_values("growth_avg", ascending=False).reset_index(drop=True)
+
+
+@st.cache_data(show_spinner=False)
+def list_economic_regencies(prov_name: str) -> list:
+    """Regency names in a province, ordered by region code (kemendagri_kab_code)."""
+    econ = load_national_economic_table().copy()
+    sub = econ[econ["kemendagri_prov_name"] == prov_name].copy()
+    sub = sub.sort_values("kemendagri_kab_code")
+    return sub["kemendagri_kab_name"].tolist()
+
+
+@st.cache_data(show_spinner=False)
+def get_regency_code(prov_name: str, regency_name: str) -> str:
+    """kemendagri_kab_code for a (province, regency) pair — used to load the
+    per-regency JSON series."""
+    econ = load_national_economic_table()
+    row = econ[(econ["kemendagri_prov_name"] == prov_name) &
+               (econ["kemendagri_kab_name"] == regency_name)]
+    if len(row) == 0:
+        raise KeyError(f"Regency '{regency_name}' not found in {prov_name}.")
+    return str(row.iloc[0]["kemendagri_kab_code"])
+
+
+@st.cache_data(show_spinner=False)
+def load_regency_economic_kpis(prov_name: str, regency_name: str) -> list:
+    """Four KPIs for one regency: avg growth (10y), fastest sector, slowest
+    sector, and FSI + cluster (joined from the Flood regency table).
+    """
+    econ = load_national_economic_table()
+    row = econ[(econ["kemendagri_prov_name"] == prov_name) &
+               (econ["kemendagri_kab_name"] == regency_name)]
+    if len(row) == 0:
+        return []
+    row = row.iloc[0]
+
+    sector_cols = [c for c in econ.columns
+                   if c.endswith("_growth_avg") and c != "growth_avg"]
+    sec_vals = row[sector_cols]
+
+    def _sec_label(col):
+        return col.replace("_growth_avg", "").replace("_", " ").title()
+
+    fastest = sec_vals.idxmax()
+    slowest = sec_vals.idxmin()
+
+    # FSI + cluster from the Flood regency table
+    fsi_val, cluster_lab = None, None
+    flood_path = _FLOOD_DIR / "national" / "regency_table.parquet"
+    if flood_path.exists():
+        flood = pd.read_parquet(flood_path)
+        frow = flood[flood["kemendagri_kab_code"] == row["kemendagri_kab_code"]]
+        if len(frow):
+            frow = frow.iloc[0]
+            if "FSI_index" in frow:     fsi_val = float(frow["FSI_index"])
+            if "cluster_label" in frow: cluster_lab = str(frow["cluster_label"])
+
+    kpis = [
+        {"label": "Avg Growth (10-yr)",
+         "value": f"{row['growth_avg']:.2f}%",
+         "sublabel": "Mean annual 2016-2025", "tone": "green"},
+        {"label": "Fastest-Growing Sector",
+         "value": f"{sec_vals[fastest]:.2f}%",
+         "sublabel": f"{_sec_label(fastest)} · descriptive", "tone": "green"},
+        {"label": "Slowest-Growing Sector",
+         "value": f"{sec_vals[slowest]:.2f}%",
+         "sublabel": f"{_sec_label(slowest)} · descriptive", "tone": "amber"},
+    ]
+    if fsi_val is not None:
+        kpis.append({
+            "label": "Flood Severity (FSI)",
+            "value": f"{fsi_val:.1f}",
+            "sublabel": (cluster_lab or "FSI 0-100") + " · flood typology",
+            "highlight": True,
+        })
+    return kpis
+
+
+@st.cache_data(show_spinner=False)
+def load_regency_economic_series(regency_code: str) -> dict:
+    """Annual series (growth + FSI + 17 sectors per year) for one regency,
+    read from economic/regencies/{kemendagri_kab_code}.json (one file per
+    regency, mirroring the Flood structure). From nb13 STEP 8.
+    """
+    import json
+    path = _ECON_DIR / "regencies" / f"{regency_code}.json"
+    if not path.exists():
+        raise FileNotFoundError(
+            f"Regency series missing: {path.relative_to(_PROJECT_ROOT)}\n"
+            f"Run nb13 (STEP 8) and copy economic/regencies/ to "
+            f"public/data/economic/regencies/."
+        )
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
