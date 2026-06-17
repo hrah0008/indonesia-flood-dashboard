@@ -72,47 +72,47 @@ st.set_page_config(
 )
 
 
-# ─── Page-scoped CSS — readability column for description prose ──────
-st.markdown("""
-<style>
-  /* Readability column for description prose */
-  section.main div[data-testid="stMarkdownContainer"] > p {
-    max-width: 760px;
-    line-height: 1.55;
-  }
-  section.main div[data-testid="stMarkdownContainer"] > ul > li,
-  section.main div[data-testid="stMarkdownContainer"] > ol > li {
-    max-width: 760px;
-  }
-  /* Tab list — matches Analytical Framework page */
-  div[data-baseweb="tab-list"] {
-    gap: 8px !important;
-    border-bottom: 2px solid #e5e7eb !important;
-    margin-bottom: 18px !important;
-  }
-  button[data-baseweb="tab"] {
-    font-family: 'Inter', sans-serif !important;
-    font-size: 13.5px !important;
-    font-weight: 500 !important;
-    color: #6b7280 !important;
-    padding: 10px 22px !important;
-    letter-spacing: 0.01em !important;
-    transition: color 120ms ease;
-  }
-  button[data-baseweb="tab"]:hover {
-    color: #374151 !important;
-  }
-  button[data-baseweb="tab"][aria-selected="true"] {
-    color: #1e3a8a !important;
-    font-weight: 600 !important;
-    border-bottom: 2px solid #1e3a8a !important;
-    margin-bottom: -2px !important;
-  }
-  div[data-baseweb="tab-highlight"] { display: none !important; }
-  /* Defensive: prevent 0-height tab panel cutting off Plotly */
-  div[data-baseweb="tab-panel"] { min-height: 1px; }
-</style>
-""", unsafe_allow_html=True)
+# # ─── Page-scoped CSS — readability column for description prose ──────
+# st.markdown("""
+# <style>
+#   /* Readability column for description prose */
+#   section.main div[data-testid="stMarkdownContainer"] > p {
+#     max-width: 760px;
+#     line-height: 1.55;
+#   }
+#   section.main div[data-testid="stMarkdownContainer"] > ul > li,
+#   section.main div[data-testid="stMarkdownContainer"] > ol > li {
+#     max-width: 760px;
+#   }
+#   /* Tab list — matches Analytical Framework page */
+#   div[data-baseweb="tab-list"] {
+#     gap: 8px !important;
+#     border-bottom: 2px solid #e5e7eb !important;
+#     margin-bottom: 18px !important;
+#   }
+#   button[data-baseweb="tab"] {
+#     font-family: 'Inter', sans-serif !important;
+#     font-size: 13.5px !important;
+#     font-weight: 500 !important;
+#     color: #6b7280 !important;
+#     padding: 10px 22px !important;
+#     letter-spacing: 0.01em !important;
+#     transition: color 120ms ease;
+#   }
+#   button[data-baseweb="tab"]:hover {
+#     color: #374151 !important;
+#   }
+#   button[data-baseweb="tab"][aria-selected="true"] {
+#     color: #1e3a8a !important;
+#     font-weight: 600 !important;
+#     border-bottom: 2px solid #1e3a8a !important;
+#     margin-bottom: -2px !important;
+#   }
+#   div[data-baseweb="tab-highlight"] { display: none !important; }
+#   /* Defensive: prevent 0-height tab panel cutting off Plotly */
+#   div[data-baseweb="tab-panel"] { min-height: 1px; }
+# </style>
+# """, unsafe_allow_html=True)
 
 # Sidebar nav (shared component)
 with st.sidebar:
@@ -322,29 +322,6 @@ with tab_national:
                     st.code(traceback.format_exc(), language="python")
 
     # ─────────────────────────────────────────────────────────────────────
-    # Annual line chart
-    # ─────────────────────────────────────────────────────────────────────
-    render_section_header(
-        kicker="Temporal · descriptive",
-        title=f"Annual trend {k.get('year_min')}–{k.get('year_max')}",
-        description=(
-            "The three FSI dimensions — event frequency, HCI, PDI "
-            "— alongside the composite FSI Score, each rescaled to "
-            "0–100 for visual comparison. Raw counts togglable. "
-            "<em>Event frequency here is the annual flood-event count "
-            "rescaled 0–100 — not the log-weighted frequency "
-            "used in the trend (Mann-Kendall) analysis.</em> "
-            "See <strong>Analytical Framework</strong> for dimension definitions."
-        ),
-    )
-
-    render_annual_line_chart(
-        annual=annual,
-        height=440,
-        key="national_line",
-    )
-
-    # ─────────────────────────────────────────────────────────────────────
     # Top 10 regencies — three views
     # ─────────────────────────────────────────────────────────────────────
     render_section_header(
@@ -387,7 +364,7 @@ with tab_national:
         )
 
 
-    # ─────────────────────────────────────────────────────────────────────
+        # ─────────────────────────────────────────────────────────────────────
     # Key Findings — narrative interpretation (Method A primary)
     # ─────────────────────────────────────────────────────────────────────
     render_section_header(
@@ -652,19 +629,14 @@ with tab_province:
                 with st.expander("Traceback (for debugging)"):
                     st.code(traceback.format_exc(), language="python")
     
-    
     # ── Annual line chart (descriptive) — matches National schema ──
     render_section_header(
         kicker="Temporal · descriptive",
         title=f"Annual trend {k_p.get('year_min', 2016)}\u2013{k_p.get('year_max', 2025)}",
         description=(
-            "The three FSI dimensions — event frequency, HCI, PDI "
-            f"— alongside the composite FSI Score, for {prov_name}, "
-            "each rescaled to 0–100 for visual comparison. "
-            "Raw counts togglable. "
-            "<em>Event frequency here is the annual flood-event count "
-            "rescaled 0–100 — not the log-weighted frequency "
-            "used in the trend (Mann-Kendall) analysis.</em>"
+            "FSI Score alongside its three dimensions &mdash; frequency, "
+            f"HCI, PDI &mdash; for {prov_name}. Each rescaled to 0&ndash;100 "
+            "for visual comparison. Raw counts togglable."
         ),
     )
     try:
@@ -1235,26 +1207,22 @@ with tab_regency:
                 )
                 with st.expander("Traceback (for debugging)"):
                     st.code(traceback.format_exc(), language="python")
-    
-    
-    # ── Annual line chart (descriptive) — matches National schema ──
+    # ── Annual line chart (descriptive) ────────────────────────────
     render_section_header(
         kicker="Temporal · descriptive",
         title=f"Annual trend — {kab_name}",
         description=(
-            "The three FSI dimensions — event frequency, HCI, PDI "
-            f"— alongside the composite FSI Score, for {kab_name}, "
-            "each rescaled to 0–100 for visual comparison. "
-            "Raw counts togglable via the legend. "
-            "<em>Event frequency here is the annual flood-event count "
-            "rescaled 0–100 — not the log-weighted frequency "
-            "used in the trend (Mann-Kendall) analysis.</em>"
+            "FSI Score and its three dimensions &mdash; frequency, HCI, PDI "
+            f"&mdash; for {kab_name}, year by year. Each series rescaled to "
+            "0&ndash;100 within this regency for visual comparison. "
+            "Raw counts togglable via the legend."
         ),
     )
 
     try:
         # reg_bundle was loaded earlier (in the KPI strip section).
-        # Its 'annual' sub-dict has the same schema as Province / National.
+        # Its 'annual' sub-dict now has the same schema as Province / National
+        # (after the nb12 Cell 6 refinement).
         annual_r = reg_bundle.get("annual", {})
 
         if annual_r and annual_r.get("years"):
@@ -1273,7 +1241,7 @@ with tab_regency:
         import traceback
         with st.expander("Traceback"):
             st.code(traceback.format_exc(), language="python")
-
+            
     # ── Seasonal pattern — heatmap + monthly profile (two sub-sections) ──
     try:
         import plotly.graph_objects as go
@@ -1358,7 +1326,6 @@ with tab_regency:
                 fig_heat,
                 key=f"reg_heatmap_{kab_code}",
                 config={"displayModeBar": False},
-                use_container_width=True,
             )
 
         # ══ LOWER: BAR CHART — its own title ═════════════════════════════
@@ -1414,7 +1381,6 @@ with tab_regency:
                 fig_bar,
                 key=f"reg_bar_{kab_code}",
                 config={"displayModeBar": False},
-                use_container_width=True,
             )
     except Exception as e:
         st.warning(f"Could not render monthly views: {e}")

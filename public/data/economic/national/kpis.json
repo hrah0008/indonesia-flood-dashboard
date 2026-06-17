@@ -1,0 +1,32 @@
+[
+  {
+    "label": "Avg Growth (National)",
+    "value": "4.19%",
+    "sublabel": "GRDP growth, 2016-2025 mean",
+    "tone": "green"
+  },
+  {
+    "label": "Avg Total Annual GRDP",
+    "value": "Rp 11.5 T",
+    "sublabel": "Sum of 17 sectors, yearly mean"
+  },
+  {
+    "label": "Fastest-Growing Sector",
+    "value": "7.00%",
+    "sublabel": "J Infocomm · descriptive",
+    "tone": "green"
+  },
+  {
+    "label": "Slowest-Growing Sector",
+    "value": "2.58%",
+    "sublabel": "B Mining · descriptive",
+    "tone": "amber"
+  },
+  {
+    "label": "Significant Flood Driver",
+    "value": "PDI",
+    "sublabel": "β=-0.022, p=0.014 · small effect · others n.s.",
+    "tone": "red",
+    "highlight": true
+  }
+]

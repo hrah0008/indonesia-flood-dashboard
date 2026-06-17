@@ -54,7 +54,7 @@ import streamlit as st
 
 # Defensive import — fall back to hardcoded values if lib.colors lacks them
 from lib.colors import (
-    MUTED, FONT_BODY,
+    MUTED, FONT_BODY, INK,
     CLUSTER_COLORS, CLUSTER_BORDERS, CLUSTER_ORDER, CLUSTER_DESCRIPTIONS,
 )
 
@@ -67,6 +67,22 @@ FSI_DOT_COLOR   = "#185FA5"  # solid blue, contrasts with all 3 cluster colors
 FSI_DOT_OPACITY = 0.6
 FSI_DOT_MIN_R   = 1.5        # minimum radius (px) for FSI=0
 FSI_DOT_MAX_R   = 13         # maximum radius (px) for FSI=100 (was 22 — too large at national zoom)
+
+
+# ── Economic growth choropleth palette ────────────────────────────────────
+# DIVERGING red → white → green, using the Flood family's red (#dc2626,
+# "Catastrophic") and green (#84cc16 / #3b6d11, "Low Impact"/"Improving").
+# Growth has BOTH negative and positive values, so a diverging scale is the
+# correct encoding (sequential would hide the sign). White is pinned to
+# growth = 0 via zmid=0 in the trace (NOT the midpoint of the data range),
+# so red = shrinking economy, white = flat, green = growing.
+GROWTH_COLORSCALE = [
+    [0.00, "#a32d2d"],   # deep red    — strong contraction
+    [0.25, "#e8908f"],   # soft red
+    [0.50, "#ffffff"],   # white       — pinned to 0% via zmid=0
+    [0.75, "#9fce6a"],   # soft green
+    [1.00, "#3b6d11"],   # deep green  — strong growth (Flood "Improving" green)
+]
 
 
 # ═════════════════════════════════════════════════════════════════════════
@@ -510,3 +526,179 @@ def compute_province_view(
     zoom = max(4.0, min(9.0, math.log2(30.0 / max_span) + 4.0))
 
     return {"lat": lat_center, "lon": lon_center}, zoom
+
+# ═════════════════════════════════════════════════════════════════════════
+# Economic menu — growth saturation choropleth + FSI bubble overlay
+# ═════════════════════════════════════════════════════════════════════════
+def render_economic_choropleth(
+    reg_df: pd.DataFrame,
+    geojson: dict,
+    height: int = 520,
+    key: Optional[str] = None,
+    mapbox_zoom: float = 4.0,
+    mapbox_center: Optional[dict] = None,
+    show_growth: bool = True,
+    show_fsi_dots: bool = True,
+):
+    """Economic map: GRDP growth as continuous colour saturation + FSI bubbles.
+
+    Mirrors the Flood map's two-layer feel and reuses the SAME blue family
+    (GROWTH_COLORSCALE ends on the FSI-dot blue #185FA5) so the two menus look
+    consistent. The polygon layer is a CONTINUOUS economic variable (growth),
+    not the K-means cluster typology.
+
+    Required columns in reg_df:
+        kemendagri_kab_code, growth_avg          (polygon layer)
+        FSI_index, centroid_lat, centroid_lon    (bubble layer)
+    Optional (hover):
+        kemendagri_kab_name, kemendagri_prov_name
+    """
+    df = reg_df.copy()
+    df["kemendagri_kab_code"] = df["kemendagri_kab_code"].astype(str)
+
+    fig = go.Figure()
+
+    # ─── Layer 1: growth saturation choropleth ───────────────────────────
+    if show_growth:
+        cd = np.column_stack([
+            df.get("kemendagri_kab_name", pd.Series([""] * len(df))).values,
+            df.get("kemendagri_prov_name", pd.Series([""] * len(df))).values,
+            df["growth_avg"].values,
+        ])
+        hover = (
+            "<b>%{customdata[0]}</b><br>"
+            "<span style='color:#888'>%{customdata[1]}</span><br>"
+            "Avg growth 2016-2025: <b>%{customdata[2]:.2f}%</b>"
+            "<extra></extra>"
+        )
+        fig.add_trace(go.Choroplethmapbox(
+            geojson=geojson,
+            locations=df["kemendagri_kab_code"],
+            z=df["growth_avg"],
+            featureidkey="properties.kemendagri_kab_code",
+            colorscale=GROWTH_COLORSCALE,
+            zmid=0,                      # pin white to 0% growth (diverging)
+            marker_opacity=0.85,
+            marker_line_width=0.3,
+            marker_line_color="#ffffff",
+            showscale=False,             # no in-map colorbar; the custom legend
+                                         # below the checkboxes is the key (mirrors Flood)
+            customdata=cd,
+            hovertemplate=hover,
+            name="Growth",
+        ))
+
+    # ─── Layer 2: FSI bubble overlay (identical styling to Flood map) ────
+    if show_fsi_dots and {"centroid_lat", "centroid_lon", "FSI_index"}.issubset(df.columns):
+        dots = df.dropna(subset=["centroid_lat", "centroid_lon", "FSI_index"]).copy()
+        if len(dots) > 0:
+            sizes = _compute_dot_sizes(dots["FSI_index"])
+            dot_cd = np.column_stack([
+                dots.get("kemendagri_kab_name", pd.Series([""] * len(dots))).values,
+                dots["FSI_index"].values,
+            ])
+            fig.add_trace(go.Scattermapbox(
+                lat=dots["centroid_lat"],
+                lon=dots["centroid_lon"],
+                mode="markers",
+                marker=dict(size=sizes, color=FSI_DOT_COLOR, opacity=FSI_DOT_OPACITY),
+                customdata=dot_cd,
+                hovertemplate=(
+                    "<b>%{customdata[0]}</b><br>"
+                    "FSI: <b>%{customdata[1]:.1f} / 100</b>"
+                    "<extra></extra>"
+                ),
+                name="FSI",
+            ))
+
+    # ─── Layout (match Flood map) ────────────────────────────────────────
+    center = mapbox_center or {"lat": -2.5, "lon": 118.0}
+    fig.update_layout(
+        mapbox_style="carto-positron",
+        mapbox_zoom=mapbox_zoom,
+        mapbox_center=center,
+        height=height,
+        margin=dict(l=0, r=0, t=0, b=0),
+        showlegend=False,
+        font=dict(family=FONT_BODY, color=INK),
+    )
+
+    st.plotly_chart(
+        fig,
+        key=key,
+        config={"displayModeBar": False, "scrollZoom": True},
+    )
+
+
+
+# ═════════════════════════════════════════════════════════════════════════
+# Economic legend — growth saturation gradient + FSI dot-size scale
+# ═════════════════════════════════════════════════════════════════════════
+def render_economic_legend(
+    show_growth: bool = True,
+    show_fsi_dots: bool = True,
+    growth_min: float = None,
+    growth_max: float = None,
+    layout: str = "vertical",
+) -> None:
+    """Legend for the Economic choropleth: growth diverging gradient + FSI dots.
+
+    Mirrors render_legend() (Flood) but the polygon section is a CONTINUOUS
+    growth gradient (red→white→green), not the cluster typology.
+
+    Parameters
+    ----------
+    show_growth : bool       show the growth gradient bar
+    show_fsi_dots : bool     show the FSI dot-size scale
+    growth_min, growth_max : float | None
+        Optional data range to annotate the gradient ends (e.g. -1.3% .. +12.4%).
+    layout : str             "vertical" (narrow column) or "horizontal".
+    """
+    sections_html = []
+
+    if show_growth:
+        # gradient bar built from the same stops as GROWTH_COLORSCALE
+        stops = ", ".join(f"{c} {int(p*100)}%" for p, c in GROWTH_COLORSCALE)
+        lo = f"{growth_min:+.1f}%" if growth_min is not None else "lower"
+        hi = f"{growth_max:+.1f}%" if growth_max is not None else "higher"
+        bar = (
+            f"<div style='height:12px;width:180px;border-radius:3px;"
+            f"background:linear-gradient(to right, {stops});"
+            f"border:0.5px solid #d1d5db;'></div>"
+        )
+        sections_html.append(
+            f"<div style='margin-bottom:10px;'>"
+            f"<div style='font-family:{FONT_BODY};font-size:10.5px;color:{MUTED};"
+            f"text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;'>"
+            f"GRDP growth (avg 2016-2025):</div>"
+            f"{bar}"
+            f"<div style='display:flex;justify-content:space-between;width:180px;"
+            f"font-family:{FONT_BODY};font-size:10px;color:{MUTED};margin-top:2px;'>"
+            f"<span>{lo}</span><span>0%</span><span>{hi}</span></div>"
+            f"<div style='font-family:{FONT_BODY};font-size:10px;color:{MUTED};"
+            f"margin-top:3px;'>red = contracting · white = flat · green = growing</div>"
+            f"</div>"
+        )
+
+    if show_fsi_dots:
+        dot_scale_svg = (
+            "<svg width='180' height='28' style='vertical-align:middle;'>"
+            f"<circle cx='12'  cy='14' r='3'  fill='{FSI_DOT_COLOR}' opacity='{FSI_DOT_OPACITY}'/>"
+            f"<circle cx='52'  cy='14' r='7'  fill='{FSI_DOT_COLOR}' opacity='{FSI_DOT_OPACITY}'/>"
+            f"<circle cx='100' cy='14' r='11' fill='{FSI_DOT_COLOR}' opacity='{FSI_DOT_OPACITY}'/>"
+            f"<circle cx='158' cy='14' r='15' fill='{FSI_DOT_COLOR}' opacity='{FSI_DOT_OPACITY}'/>"
+            "</svg>"
+        )
+        sections_html.append(
+            f"<div style='display:inline-flex;align-items:center;gap:10px;margin-top:2px;'>"
+            f"<span style='color:{MUTED};font-size:10.5px;'>FSI severity:</span>"
+            f"{dot_scale_svg}"
+            f"<span style='color:{MUTED};font-size:10.5px;'>low → high</span>"
+            f"</div>"
+        )
+
+    if sections_html:
+        wrapper = ("margin-top:8px;max-height:460px;overflow-y:auto;padding-right:4px;"
+                   if layout == "vertical" else "margin-top:8px;")
+        st.markdown(f"<div style='{wrapper}'>" + "".join(sections_html) + "</div>",
+                    unsafe_allow_html=True)

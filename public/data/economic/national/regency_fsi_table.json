@@ -1,0 +1,115 @@
+{
+  "rows": [
+    {
+      "regency": "Kab. Bogor",
+      "province": "Jawa Barat",
+      "fsi": 36.3,
+      "growth_avg": 4.65,
+      "top_sectors": [
+        "C manufacturing",
+        "G trade",
+        "F construction"
+      ]
+    },
+    {
+      "regency": "Kab. Bandung",
+      "province": "Jawa Barat",
+      "fsi": 31.7,
+      "growth_avg": 4.86,
+      "top_sectors": [
+        "C manufacturing",
+        "G trade",
+        "F construction"
+      ]
+    },
+    {
+      "regency": "Kab. Padang Pariaman",
+      "province": "Sumatera Barat",
+      "fsi": 31.7,
+      "growth_avg": 3.55,
+      "top_sectors": [
+        "A agriculture",
+        "H transport",
+        "C manufacturing"
+      ]
+    },
+    {
+      "regency": "Kab. Sukabumi",
+      "province": "Jawa Barat",
+      "fsi": 29.8,
+      "growth_avg": 4.7,
+      "top_sectors": [
+        "A agriculture",
+        "G trade",
+        "C manufacturing"
+      ]
+    },
+    {
+      "regency": "Kab. Aceh Utara",
+      "province": "Aceh",
+      "fsi": 26.6,
+      "growth_avg": 2.09,
+      "top_sectors": [
+        "A agriculture",
+        "B mining",
+        "G trade"
+      ]
+    },
+    {
+      "regency": "Kab. Wajo",
+      "province": "Sulawesi Selatan",
+      "fsi": 26.4,
+      "growth_avg": 3.64,
+      "top_sectors": [
+        "A agriculture",
+        "G trade",
+        "B mining"
+      ]
+    },
+    {
+      "regency": "Kab. Bima",
+      "province": "Nusa Tenggara Barat",
+      "fsi": 26.3,
+      "growth_avg": 2.98,
+      "top_sectors": [
+        "A agriculture",
+        "G trade",
+        "H transport"
+      ]
+    },
+    {
+      "regency": "Kab. Garut",
+      "province": "Jawa Barat",
+      "fsi": 25.7,
+      "growth_avg": 4.4,
+      "top_sectors": [
+        "A agriculture",
+        "G trade",
+        "C manufacturing"
+      ]
+    },
+    {
+      "regency": "Kab. Luwu Utara",
+      "province": "Sulawesi Selatan",
+      "fsi": 25.4,
+      "growth_avg": 5.4,
+      "top_sectors": [
+        "A agriculture",
+        "G trade",
+        "F construction"
+      ]
+    },
+    {
+      "regency": "Kab. Cirebon",
+      "province": "Jawa Barat",
+      "fsi": 25.4,
+      "growth_avg": 4.28,
+      "top_sectors": [
+        "C manufacturing",
+        "G trade",
+        "A agriculture"
+      ]
+    }
+  ],
+  "note": "Descriptive profile of the 10 highest-FSI regencies. Top sectors are the largest by GRDP level (constant 2010 prices). This table does not estimate monetary flood loss — the regression effects are small and mostly non-significant, so per-regency loss figures would not be statistically defensible."
+}

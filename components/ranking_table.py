@@ -501,3 +501,84 @@ def render_ranking_table(rows_df: pd.DataFrame, top_n: int = 10) -> None:
         f'</table>'
     )
     st.markdown(table_html, unsafe_allow_html=True)
+
+# ═════════════════════════════════════════════════════════════════════════
+# Economic — Top-10 FSI regency profile (descriptive: FSI + growth + top-3)
+# ═════════════════════════════════════════════════════════════════════════
+def render_economic_fsi_table(df: "pd.DataFrame") -> None:
+    """Descriptive Top-10 FSI table for the Economic National page.
+
+    Columns: regency | FSI | avg growth | top-3 sectors (by GRDP level, ADHK).
+    FSI is the same composite as the Flood page (joined at runtime), so the
+    ranking matches. Purely descriptive — pairs with the bar chart (analytical
+    effects). Does NOT show per-regency monetary loss (not defensible).
+
+    df : DataFrame from load_national_fsi_table()
+         columns: regency | province | fsi | growth_avg | top_sectors
+    """
+    if df is None or len(df) == 0:
+        st.info("No regency table available.")
+        return
+
+    show = pd.DataFrame({
+        "Regency": df["regency"],
+        "Province": df["province"],
+        "FSI": df["fsi"],
+        "Growth %": df["growth_avg"],
+        "Top 3 sectors": df["top_sectors"],
+    })
+
+    st.dataframe(
+        show,
+        hide_index=True,
+        width='stretch',
+        column_config={
+            "FSI": st.column_config.NumberColumn(
+                "FSI", format="%.2f", help="Flood Severity Index (0-100) — same as the Flood page"),
+            "Growth %": st.column_config.NumberColumn("Growth %", format="%.2f",
+                help="Mean annual GRDP growth 2016-2025"),
+            "Top 3 sectors": st.column_config.TextColumn(
+                "Top 3 sectors", help="Largest sectors by GRDP level (constant 2010 prices, ADHK)"),
+        },
+    )
+    st.caption(
+        "Descriptive profile of the 10 highest-FSI regencies. FSI is the flood "
+        "severity composite (shared with the Flood page); top sectors are the "
+        "largest by GRDP level. This table does not estimate monetary flood loss."
+    )
+
+
+# ═════════════════════════════════════════════════════════════════════════
+# Province per-regency sector table — growth_avg + 17 sector growth
+# ═════════════════════════════════════════════════════════════════════════
+def render_province_sector_table(df: "pd.DataFrame") -> None:
+    """Per-regency table for a province: overall avg growth + 17 sector growth
+    (all in %, consistent with Y = growth). Sortable / scrollable dataframe.
+
+    df : regency | growth_avg | <17 sector>_growth_avg
+    """
+    if df is None or len(df) == 0:
+        st.info("No regency data for this province.")
+        return
+
+    rename = {"regency": "Regency", "growth_avg": "Overall %"}
+    for c in df.columns:
+        if c.endswith("_growth_avg") and c != "growth_avg":
+            label = c.replace("_growth_avg", "").replace("_", " ").title()
+            rename[c] = label
+    show = df.rename(columns=rename)
+
+    # numeric formatting for all % columns
+    num_cols = [c for c in show.columns if c != "Regency"]
+    colcfg = {c: st.column_config.NumberColumn(c, format="%.1f") for c in num_cols}
+
+    st.dataframe(
+        show,
+        hide_index=True,
+        width="stretch",
+        column_config=colcfg,
+    )
+    st.caption(
+        "All figures are mean annual GRDP growth 2016-2025 (%), at constant "
+        "2010 prices (ADHK). Sorted by overall growth."
+    )

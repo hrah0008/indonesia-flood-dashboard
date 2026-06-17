@@ -1,0 +1,119 @@
+{
+  "bars": [
+    {
+      "sector": "Q Health",
+      "dimension": "event",
+      "beta": 0.3868,
+      "flag": "**",
+      "grade": "robust",
+      "p_clustered": 0.0191,
+      "p_dk": 0.0029
+    },
+    {
+      "sector": "G Trade",
+      "dimension": "event",
+      "beta": 0.2965,
+      "flag": "**",
+      "grade": "robust",
+      "p_clustered": 0.0191,
+      "p_dk": 0.0084
+    },
+    {
+      "sector": "P Education",
+      "dimension": "HCI",
+      "beta": -0.1264,
+      "flag": "**",
+      "grade": "robust",
+      "p_clustered": 0.0364,
+      "p_dk": 0.0039
+    },
+    {
+      "sector": "F Construction",
+      "dimension": "event",
+      "beta": 0.3966,
+      "flag": "~cl",
+      "grade": "suggestive",
+      "p_clustered": 0.0485,
+      "p_dk": 0.064
+    },
+    {
+      "sector": "Mn Business",
+      "dimension": "event",
+      "beta": 0.3443,
+      "flag": "~cl",
+      "grade": "suggestive",
+      "p_clustered": 0.0485,
+      "p_dk": 0.064
+    },
+    {
+      "sector": "F Construction",
+      "dimension": "HCI",
+      "beta": -0.1827,
+      "flag": "~cl",
+      "grade": "suggestive",
+      "p_clustered": 0.0364,
+      "p_dk": 0.2432
+    },
+    {
+      "sector": "Mn Business",
+      "dimension": "HCI",
+      "beta": -0.1781,
+      "flag": "~cl",
+      "grade": "suggestive",
+      "p_clustered": 0.0364,
+      "p_dk": 0.0777
+    },
+    {
+      "sector": "I Accommodation",
+      "dimension": "HCI",
+      "beta": -0.1771,
+      "flag": "~cl",
+      "grade": "suggestive",
+      "p_clustered": 0.0364,
+      "p_dk": 0.0839
+    },
+    {
+      "sector": "Rstu Other",
+      "dimension": "HCI",
+      "beta": -0.1614,
+      "flag": "~cl",
+      "grade": "suggestive",
+      "p_clustered": 0.0364,
+      "p_dk": 0.0839
+    },
+    {
+      "sector": "C Manufacturing",
+      "dimension": "PDI",
+      "beta": -0.0713,
+      "flag": "~dk",
+      "grade": "suggestive",
+      "p_clustered": 0.0977,
+      "p_dk": 0.0057
+    },
+    {
+      "sector": "B Mining",
+      "dimension": "PDI",
+      "beta": -0.0423,
+      "flag": "~dk",
+      "grade": "suggestive",
+      "p_clustered": 0.3627,
+      "p_dk": 0.0293
+    }
+  ],
+  "n_significant": 11,
+  "n_not_significant": 40,
+  "n_total": 51,
+  "n_dropped_model_ns": 0,
+  "flag_legend": {
+    "**": "robust (sig both SE)",
+    "~cl": "clustered-only",
+    "~dk": "DK-only",
+    "": "n.s."
+  },
+  "note": "Across 17 sectors (each tested on 3 flood dimensions = 51 effects), 11 are statistically significant; the majority (40, 78%) show no significant flood effect. Positive β = flood associated with higher sector growth (e.g. reconstruction); negative β = lower growth.",
+  "dimension_meaning": {
+    "event": "Flood frequency",
+    "HCI": "Human cost",
+    "PDI": "Physical damage"
+  }
+}
