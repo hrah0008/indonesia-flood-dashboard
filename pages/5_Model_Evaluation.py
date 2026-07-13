@@ -23,6 +23,7 @@ import json
 from pathlib import Path
 
 import pandas as pd
+import plotly.graph_objects as go
 import streamlit as st
 
 from lib.colors import INK, MUTED, HAIRLINE, INDIGO, FONT_DISPLAY, FONT_BODY, FONT_MONO
@@ -57,7 +58,7 @@ def render_outcome(data):
     st.dataframe(
         df.style.format({"R²": "{:+.3f}", "RMSE": "{:.3f}", "MAE": "{:.3f}"}),
         hide_index=True,
-        width="stretch",
+        use_container_width=True,
     )
     st.caption(
         "Tuned on training years, selected on 2023, evaluated once on 2024–25. "
@@ -74,7 +75,7 @@ def render_outcome(data):
         st.markdown("**2 · SHAP beeswarm**")
         png = _MODEL_DIR / data["beeswarm"]
         if png.exists():
-            st.image(str(png), width="stretch")
+            st.image(str(png), use_container_width=True)
         else:
             st.info("Beeswarm image not found — re-run nb16.")
         st.caption(
@@ -83,11 +84,38 @@ def render_outcome(data):
         )
 
     # 3. Importance bar
+    # Rendered with Plotly rather than st.bar_chart: st.bar_chart goes through
+    # Altair, which fails to import on some Python builds. Plotly is already a
+    # dependency of the other pages, so this adds nothing new — and it lets the
+    # bars be coloured by flood vs control, which is the point of the chart.
     with col_r:
         st.markdown("**3 · Feature importance (flood vs control)**")
-        imp = pd.DataFrame(data["importance"])
-        imp = imp.set_index("label")["importance"]
-        st.bar_chart(imp)
+        imp_df = pd.DataFrame(data["importance"]).sort_values("importance")
+        _is_flood = imp_df["type"].str.lower().eq("flood") if "type" in imp_df.columns \
+                    else pd.Series([False] * len(imp_df), index=imp_df.index)
+        fig_imp = go.Figure(
+            go.Bar(
+                x=imp_df["importance"],
+                y=imp_df["label"],
+                orientation="h",
+                marker_color=[INDIGO if f else "#cbd5e1" for f in _is_flood],
+                hovertemplate="%{y}: %{x:.3f}<extra></extra>",
+            )
+        )
+        fig_imp.update_layout(
+            height=260,
+            margin=dict(l=0, r=10, t=6, b=6),
+            xaxis_title="mean |SHAP|",
+            yaxis_title=None,
+            plot_bgcolor="white",
+            paper_bgcolor="white",
+            font=dict(family="Inter, sans-serif", size=12, color=INK),
+            showlegend=False,
+        )
+        fig_imp.update_xaxes(gridcolor=HAIRLINE, zeroline=False)
+        fig_imp.update_yaxes(gridcolor="rgba(0,0,0,0)")
+        st.plotly_chart(fig_imp, use_container_width=True)
+        st.caption("Blue = flood variables · grey = control variables")
         fshare = data["flood_share"]
         st.caption(
             f"Flood share of importance: **{fshare:.0f}%** "
