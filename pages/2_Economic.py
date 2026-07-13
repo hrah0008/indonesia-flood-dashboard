@@ -36,10 +36,9 @@ from components.choropleth import (
     compute_province_view,
 )
 from components.kpi_strip import render_kpi_strip
-from components.line_chart import (
-    render_economic_line_chart, render_sector_impact_bar, render_province_scatter,
-    render_composition_stacked,
-)
+from components.line_chart import render_economic_line_chart
+from components.bar_chart import render_sector_impact_bar, render_composition_stacked
+from components.scatter_plot import render_province_scatter
 from components.ranking_table import (
     render_economic_fsi_table, render_province_sector_table,
 )
@@ -58,7 +57,7 @@ with st.sidebar:
 
 render_page_header(
     menu_label="Economic Impact",
-    title="Regional economic growth & flood severity",
+    title="Regional economic growth and flood severity",
     description=(
         "How regional GRDP growth (2016-2025) relates spatially to flood "
         "severity (FSI). Growth is shown by colour saturation; FSI by bubble size."
@@ -97,8 +96,8 @@ with tab_national:
     st.divider()
 
     render_section_header(
-        kicker="Spatial · analytical",
-        title=f"GRDP growth & FSI — {fmt_int(reg_df['kemendagri_kab_code'].nunique())} regencies",
+        kicker="Spatial · descriptive",
+        title=f"GRDP growth and FSI — {fmt_int(reg_df['kemendagri_kab_code'].nunique())} regencies",
         description=(
             "<strong>Two-layer spatial map.</strong> "
             "Polygon fill shows <strong>average GRDP growth 2016-2025</strong> "
@@ -112,6 +111,12 @@ with tab_national:
 
     c1, c2 = st.columns([3, 1])
     with c2:
+        st.markdown(
+                "<div style='font-size:11px;color:#6b7280;"
+                "text-transform:uppercase;letter-spacing:0.05em;"
+                "margin-bottom:6px;margin-top:8px;'>Map layers</div>",
+                unsafe_allow_html=True,
+            )
         show_growth = st.checkbox(
             "Growth saturation", value=True, key="toggle_growth_econ",
             help="Polygon fill by average GRDP growth 2016-2025",
@@ -120,11 +125,13 @@ with tab_national:
             "FSI bubble overlay", value=True, key="toggle_fsi_econ",
             help="Bubble size proportional to FSI severity (sqrt scale, 0-100)",
         )
+       
+        # Section: Legend (vertical layout, stacked below toggles)
         st.markdown(
-            f"<div style='font-family:{FONT_MONO};font-size:11px;color:{MUTED};"
-            f"text-transform:uppercase;letter-spacing:0.05em;"
-            f"margin-top:14px;margin-bottom:6px;'>Legend</div>",
-            unsafe_allow_html=True,
+                "<div style='font-size:11px;color:#6b7280;"
+                "text-transform:uppercase;letter-spacing:0.05em;"
+                "margin-top:14px;margin-bottom:6px;'>Legend</div>",
+                unsafe_allow_html=True,
         )
         render_economic_legend(
             show_growth=show_growth,
@@ -159,7 +166,7 @@ with tab_national:
 
     render_section_header(
         kicker="Temporal · descriptive",
-        title="Economic growth & flood severity over time",
+        title="Economic growth and flood severity over time",
         description=(
             "<strong>Average GRDP growth (%)</strong> on the left axis and "
             "<strong>FSI (0-100)</strong> on the right axis, 2016-2025. "
@@ -199,7 +206,7 @@ with tab_national:
 
     with col_tbl:
         render_section_header(
-            kicker="Flood severity · analytical",
+            kicker="Flood severity · descriptive",
             title="Most flood-affected regencies",
             description=(
                 "Top 10 by FSI with their economic profile · showing 10 of 514"
@@ -241,36 +248,39 @@ with tab_national:
         f"performance, and its aggregate effects are relatively small.",
 
         f"<strong>At the sector level the effects are more heterogeneous.</strong> "
-        f"Statistical significance was evaluated after controlling for multiple "
-        f"testing across 17 sectors using the Benjamini&ndash;Hochberg False "
-        f"Discovery Rate (BH-FDR) procedure. Evidence was then graded by the "
-        f"consistency of alternative standard errors: effects significant under "
-        f"<em>both</em> clustered and Driscoll&ndash;Kraay SE are <strong>robust</strong>; "
-        f"those confirmed by only one method are <strong>suggestive</strong>. Three "
-        f"transmission channels emerge. First, higher flood <em>frequency</em> is "
-        f"associated with stronger growth in recovery- and reconstruction-linked "
-        f"sectors, particularly trade, health, and construction. Second, increases "
-        f"in flood-related <em>human cost</em> are associated with weaker growth in "
-        f"service-oriented sectors, with education showing the strongest and most "
-        f"robust evidence. Third, <em>physical damage</em> produces modest negative "
-        f"effects in capital-intensive sectors such as mining and manufacturing.",
+        f"Significance was assessed after Benjamini&ndash;Hochberg (BH-FDR) "
+        f"correction across 17 sectors, then graded by standard-error consistency: "
+        f"effects significant under <em>both</em> clustered and Driscoll&ndash;Kraay "
+        f"SE are <strong>robust</strong>; those under only one are "
+        f"<strong>suggestive</strong>. The flood block is jointly significant in 11 "
+        f"of 17 sectors. Three tentative transmission channels emerge. First, higher "
+        f"flood <em>frequency</em> is associated with stronger growth in recovery-linked "
+        f"sectors &mdash; robustly for <em>trade</em> and <em>health</em>, and more "
+        f"weakly (suggestive) for <em>construction</em> and business services. Second, "
+        f"higher flood-related <em>human cost</em> is associated with weaker growth in "
+        f"service sectors, with <em>education</em> the only robust case (accommodation "
+        f"and a few others are suggestive). Third, <em>physical damage</em> shows only "
+        f"<em>suggestive</em> negative effects in mining and manufacturing (significant "
+        f"under Driscoll&ndash;Kraay only, not robust). For two sectors (electricity, "
+        f"real estate) the flood block is jointly significant but no single dimension "
+        f"is, so the effect cannot be attributed to a specific channel.",
 
         f"<strong>Reading a sector coefficient.</strong> The education-services "
         f"sector shows a robust coefficient of &beta; = &minus;0.13 for flood human "
-        f"cost. Because the flood variable is logged and growth is in percentage "
+        f"cost &mdash; the clearest sector result, significant under both SEs after "
+        f"BH-FDR. Because the flood variable is logged and growth is in percentage "
         f"points, this is a semi-elasticity: in years when a regency experiences "
-        f"higher flood-related human costs, the education-services sector grows about "
-        f"0.13 percentage points slower &mdash; consistent with reduced economic "
-        f"activity in education services around flood events (for instance delayed "
-        f"government education spending and lower private-provider output, the two "
-        f"components of this GRDP sector). Several caveats apply. "
-        f"(a) The estimates are <em>associations</em> from a fixed-effects panel and "
-        f"do not establish causation. (b) The coefficients describe annual changes in "
-        f"growth <em>rates</em>, not monetary losses or cumulative damages. (c) The "
-        f"education variable is the GRDP of the education-<em>services</em> sector, not "
-        f"educational quality or access. Overall, flooding's impact is limited and "
-        f"dimension-dependent: of 51 sector&ndash;dimension combinations, only 11 are "
-        f"significant while the remaining 40 (78%) show no significant relationship "
+        f"higher flood-related human costs, education-services GRDP grows about 0.13 "
+        f"percentage points slower &mdash; consistent with reduced activity in "
+        f"education services around flood events (e.g. delayed government education "
+        f"spending and lower private-provider output, the two components of this GRDP "
+        f"sector). Several caveats apply. (a) Estimates are <em>associations</em> from "
+        f"a fixed-effects panel, not causal effects. (b) Coefficients describe annual "
+        f"changes in growth <em>rates</em>, not monetary losses. (c) This is the GRDP "
+        f"of education <em>services</em>, not educational quality or access. "
+        f"(d) Most results are dimension-dependent and many are only suggestive: of 51 "
+        f"sector&ndash;dimension combinations only 11 are significant (3 robust under "
+        f"both SEs, the rest under one), and 40 (78%) show no significant relationship "
         f"&mdash; so the results do not support estimating monetary losses at the "
         f"regency level.",
     ]
@@ -337,7 +347,7 @@ with tab_province:
     st.divider()
     render_section_header(
         kicker="Spatial · descriptive",
-        title=f"GRDP growth & FSI — {prov_name}",
+        title=f"GRDP growth and FSI — {prov_name}",
         description=(
             "<strong>Two-layer spatial map, zoomed to this province.</strong> "
             "Polygon fill shows <strong>average GRDP growth 2016-2025</strong> "
@@ -355,12 +365,19 @@ with tab_province:
     if prov_df is not None and len(prov_df):
         pc1, pc2 = st.columns([3, 1])
         with pc2:
+            st.markdown(
+                "<div style='font-size:11px;color:#6b7280;"
+                "text-transform:uppercase;letter-spacing:0.05em;"
+                "margin-bottom:6px;margin-top:8px;'>Map layers</div>",
+                unsafe_allow_html=True,
+            )
             p_show_growth = st.checkbox("Growth saturation", value=True, key="toggle_growth_prov")
             p_show_fsi = st.checkbox("FSI bubble overlay", value=True, key="toggle_fsi_prov")
+             # Section: Legend (vertical layout, stacked below toggles)
             st.markdown(
-                f"<div style='font-family:{FONT_MONO};font-size:11px;color:{MUTED};"
-                f"text-transform:uppercase;letter-spacing:0.05em;"
-                f"margin-top:14px;margin-bottom:6px;'>Legend</div>",
+                "<div style='font-size:11px;color:#6b7280;"
+                "text-transform:uppercase;letter-spacing:0.05em;"
+                "margin-top:14px;margin-bottom:6px;'>Legend</div>",
                 unsafe_allow_html=True,
             )
             render_economic_legend(
@@ -386,7 +403,7 @@ with tab_province:
     st.divider()
     render_section_header(
         kicker="Temporal · descriptive",
-        title=f"Growth & flood severity over time — {prov_name}",
+        title=f"Growth and flood severity over time — {prov_name}",
         description=(
             "<strong>Average GRDP growth (%)</strong> (left axis) and "
             "<strong>FSI (0-100)</strong> (right axis) for this province, "
@@ -481,7 +498,7 @@ with tab_regency:
     st.divider()
     render_section_header(
         kicker="Spatial · descriptive",
-        title=f"GRDP growth & FSI — {regency_r}",
+        title=f"GRDP growth and FSI — {regency_r}",
         description=(
             "<strong>This regency only.</strong> Polygon fill shows its average "
             "GRDP growth 2016-2025; the blue bubble shows its Flood Severity "
@@ -494,13 +511,20 @@ with tab_regency:
         if len(reg_only):
             rc_map, rc_leg = st.columns([3, 1])
             with rc_leg:
+                st.markdown(
+                "<div style='font-size:11px;color:#6b7280;"
+                "text-transform:uppercase;letter-spacing:0.05em;"
+                "margin-bottom:6px;margin-top:8px;'>Map layers</div>",
+                unsafe_allow_html=True,
+                )
                 r_show_growth = st.checkbox("Growth saturation", value=True, key="toggle_growth_reg")
                 r_show_fsi = st.checkbox("FSI bubble overlay", value=True, key="toggle_fsi_reg")
+                # Section: Legend (vertical layout, stacked below toggles)
                 st.markdown(
-                    f"<div style='font-family:{FONT_MONO};font-size:11px;color:{MUTED};"
-                    f"text-transform:uppercase;letter-spacing:0.05em;"
-                    f"margin-top:14px;margin-bottom:6px;'>Legend</div>",
-                    unsafe_allow_html=True,
+                        "<div style='font-size:11px;color:#6b7280;"
+                        "text-transform:uppercase;letter-spacing:0.05em;"
+                        "margin-top:14px;margin-bottom:6px;'>Legend</div>",
+                        unsafe_allow_html=True,
                 )
                 render_economic_legend(
                     show_growth=r_show_growth, show_fsi_dots=r_show_fsi,
@@ -526,7 +550,7 @@ with tab_regency:
     st.divider()
     render_section_header(
         kicker="Temporal · descriptive",
-        title=f"Growth & flood severity over time — {regency_r}",
+        title=f"Growth and flood severity over time — {regency_r}",
         description=(
             "<strong>GRDP growth (%)</strong> (left axis) and "
             "<strong>FSI (0-100)</strong> (right axis), 2016-2025. "

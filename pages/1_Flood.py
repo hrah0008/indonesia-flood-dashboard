@@ -72,48 +72,6 @@ st.set_page_config(
 )
 
 
-# # ─── Page-scoped CSS — readability column for description prose ──────
-# st.markdown("""
-# <style>
-#   /* Readability column for description prose */
-#   section.main div[data-testid="stMarkdownContainer"] > p {
-#     max-width: 760px;
-#     line-height: 1.55;
-#   }
-#   section.main div[data-testid="stMarkdownContainer"] > ul > li,
-#   section.main div[data-testid="stMarkdownContainer"] > ol > li {
-#     max-width: 760px;
-#   }
-#   /* Tab list — matches Analytical Framework page */
-#   div[data-baseweb="tab-list"] {
-#     gap: 8px !important;
-#     border-bottom: 2px solid #e5e7eb !important;
-#     margin-bottom: 18px !important;
-#   }
-#   button[data-baseweb="tab"] {
-#     font-family: 'Inter', sans-serif !important;
-#     font-size: 13.5px !important;
-#     font-weight: 500 !important;
-#     color: #6b7280 !important;
-#     padding: 10px 22px !important;
-#     letter-spacing: 0.01em !important;
-#     transition: color 120ms ease;
-#   }
-#   button[data-baseweb="tab"]:hover {
-#     color: #374151 !important;
-#   }
-#   button[data-baseweb="tab"][aria-selected="true"] {
-#     color: #1e3a8a !important;
-#     font-weight: 600 !important;
-#     border-bottom: 2px solid #1e3a8a !important;
-#     margin-bottom: -2px !important;
-#   }
-#   div[data-baseweb="tab-highlight"] { display: none !important; }
-#   /* Defensive: prevent 0-height tab panel cutting off Plotly */
-#   div[data-baseweb="tab-panel"] { min-height: 1px; }
-# </style>
-# """, unsafe_allow_html=True)
-
 # Sidebar nav (shared component)
 with st.sidebar:
     render_sidebar_nav()
@@ -235,7 +193,7 @@ with tab_national:
     # Choropleth — Dual-layer map: cluster typology + FSI severity dots
     # ─────────────────────────────────────────────────────────────────────
     render_section_header(
-        kicker="Spatial · descriptive",
+        kicker="Spatial · analytical",
         title=f"Flood typology & severity — {fmt_int(k.get('n_regencies'))} regencies",
         description=(
             "<strong>Two-layer spatial map.</strong> "
@@ -320,6 +278,37 @@ with tab_national:
                 )
                 with st.expander("Traceback (for debugging)"):
                     st.code(traceback.format_exc(), language="python")
+
+    # ─────────────────────────────────────────────────────────────────────
+    # Annual line chart — FSI dimensions + composite, 2016–2025
+    # ─────────────────────────────────────────────────────────────────────
+    render_section_header(
+        kicker="Temporal · descriptive",
+        title=f"Annual trend {k.get('year_min', 2016)}\u2013{k.get('year_max', 2025)}",
+        description=(
+            "National FSI Score alongside its three dimensions &mdash; frequency, "
+            "HCI, PDI &mdash; rescaled to 0&ndash;100 for visual comparison. "
+            "Raw counts togglable via the legend."
+        ),
+    )
+    try:
+        render_annual_line_chart(
+            annual=annual,
+            height=440,
+            key="national_line",
+        )
+    except Exception as e:
+        st.warning(f"Could not render national line chart: {e}")
+
+    st.caption(
+        "Headline series (Event frequency · HCI · PDI · FSI Score) are rescaled "
+        "to 0–100 using min–max normalisation — each series is mapped so its "
+        "lowest year = 0 and highest year = 100 — purely to compare trends on a "
+        "common axis. These index values are descriptive and are NOT the "
+        "log-transformed variables and absolute raw "
+        "counts can be toggled in the selector above."
+    )
+    st.divider()
 
     # ─────────────────────────────────────────────────────────────────────
     # Top 10 regencies — three views
@@ -930,42 +919,42 @@ with tab_province:
                  .replace("\\", "_")
     )
 
-    # Download buttons — side by side
-    col_csv, col_xlsx, _spacer = st.columns([1.2, 1.2, 3.6])
+    # # Download buttons — side by side
+    # col_csv, col_xlsx, _spacer = st.columns([1.2, 1.2, 3.6])
 
-    with col_csv:
-        csv_bytes = download_df.to_csv(index=False).encode("utf-8")
-        st.download_button(
-            label="⬇  Download CSV",
-            data=csv_bytes,
-            file_name=f"flood_data_{safe_prov_name}.csv",
-            mime="text/csv",
-            key=f"dl_csv_{prov_code}",
-            width="stretch",
-        )
+    # with col_csv:
+    #     csv_bytes = download_df.to_csv(index=False).encode("utf-8")
+    #     st.download_button(
+    #         label="⬇  Download CSV",
+    #         data=csv_bytes,
+    #         file_name=f"flood_data_{safe_prov_name}.csv",
+    #         mime="text/csv",
+    #         key=f"dl_csv_{prov_code}",
+    #         width="stretch",
+    #     )
 
-    with col_xlsx:
-        xlsx_buf = BytesIO()
-        with pd.ExcelWriter(xlsx_buf, engine="openpyxl") as writer:
-            download_df.to_excel(writer, sheet_name="Regency Data", index=False)
-            worksheet = writer.sheets["Regency Data"]
-            for col_idx, col_name in enumerate(download_df.columns, start=1):
-                max_len = max(
-                    len(str(col_name)),
-                    download_df[col_name].astype(str).str.len().max()
-                    if len(download_df) else 0,
-                )
-                worksheet.column_dimensions[
-                    worksheet.cell(row=1, column=col_idx).column_letter
-                ].width = min(max_len + 2, 30)
-        st.download_button(
-            label="⬇  Download Excel",
-            data=xlsx_buf.getvalue(),
-            file_name=f"flood_data_{safe_prov_name}.xlsx",
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            key=f"dl_xlsx_{prov_code}",
-            width="stretch",
-        )
+    # with col_xlsx:
+    #     xlsx_buf = BytesIO()
+    #     with pd.ExcelWriter(xlsx_buf, engine="openpyxl") as writer:
+    #         download_df.to_excel(writer, sheet_name="Regency Data", index=False)
+    #         worksheet = writer.sheets["Regency Data"]
+    #         for col_idx, col_name in enumerate(download_df.columns, start=1):
+    #             max_len = max(
+    #                 len(str(col_name)),
+    #                 download_df[col_name].astype(str).str.len().max()
+    #                 if len(download_df) else 0,
+    #             )
+    #             worksheet.column_dimensions[
+    #                 worksheet.cell(row=1, column=col_idx).column_letter
+    #             ].width = min(max_len + 2, 30)
+    #     st.download_button(
+    #         label="⬇  Download Excel",
+    #         data=xlsx_buf.getvalue(),
+    #         file_name=f"flood_data_{safe_prov_name}.xlsx",
+    #         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    #         key=f"dl_xlsx_{prov_code}",
+    #         width="stretch",
+    #     )
 
     
 # ═════════════════════════════════════════════════════════════════════

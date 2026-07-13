@@ -1,0 +1,195 @@
+{
+  "rows": [
+    {
+      "sector": "G_trade",
+      "fe_significant": "event(+0.30)",
+      "fe_block_p": 0.00010427263852119673,
+      "xgb_cv_r2": 0.007981926988561905,
+      "xgb_test_r2": -0.34576497919331084,
+      "flood_share": 58.32214951515198,
+      "top_feature": "event_count_log",
+      "signal_from": "flood",
+      "verdict": "no signal"
+    },
+    {
+      "sector": "MN_business",
+      "fe_significant": "event(+0.34), HCI(-0.18)",
+      "fe_block_p": 0.001023444150169861,
+      "xgb_cv_r2": 0.004111179181015468,
+      "xgb_test_r2": -0.6259491822106698,
+      "flood_share": 59.884047508239746,
+      "top_feature": "log_population",
+      "signal_from": "control",
+      "verdict": "no signal"
+    },
+    {
+      "sector": "F_construction",
+      "fe_significant": "event(+0.40), HCI(-0.18)",
+      "fe_block_p": 0.0002676494185589462,
+      "xgb_cv_r2": 0.0029979033750226146,
+      "xgb_test_r2": -0.06404795320352075,
+      "flood_share": 46.542686223983765,
+      "top_feature": "event_count_log",
+      "signal_from": "flood",
+      "verdict": "no signal"
+    },
+    {
+      "sector": "B_mining",
+      "fe_significant": "PDI(-0.04)",
+      "fe_block_p": 0.03060487396621059,
+      "xgb_cv_r2": -0.002677097412535834,
+      "xgb_test_r2": 0.015971659621910606,
+      "flood_share": 25.728794932365417,
+      "top_feature": "log_population",
+      "signal_from": "control",
+      "verdict": "no signal"
+    },
+    {
+      "sector": "RSTU_other",
+      "fe_significant": "HCI(-0.16)",
+      "fe_block_p": 0.044298995769806226,
+      "xgb_cv_r2": -0.005843509157750848,
+      "xgb_test_r2": -0.46351567646305436,
+      "flood_share": 59.565532207489014,
+      "top_feature": "event_count_log",
+      "signal_from": "flood",
+      "verdict": "no signal"
+    },
+    {
+      "sector": "C_manufacturing",
+      "fe_significant": "PDI(-0.07)",
+      "fe_block_p": 2.034605840872672e-05,
+      "xgb_cv_r2": -0.006502993695078829,
+      "xgb_test_r2": -0.15375022475997469,
+      "flood_share": 42.87209212779999,
+      "top_feature": "rls_years",
+      "signal_from": "control",
+      "verdict": "no signal"
+    },
+    {
+      "sector": "I_accommodation",
+      "fe_significant": "HCI(-0.18)",
+      "fe_block_p": 2.1584839804411615e-08,
+      "xgb_cv_r2": -0.011094197335626976,
+      "xgb_test_r2": -0.5572706180637206,
+      "flood_share": 58.70770812034607,
+      "top_feature": "event_count_log",
+      "signal_from": "flood",
+      "verdict": "no signal"
+    },
+    {
+      "sector": "P_education",
+      "fe_significant": "HCI(-0.13)",
+      "fe_block_p": 0.0007007823035087846,
+      "xgb_cv_r2": -0.015116915836650046,
+      "xgb_test_r2": -0.15526340432890606,
+      "flood_share": 58.70928764343262,
+      "top_feature": "event_count_log",
+      "signal_from": "flood",
+      "verdict": "no signal"
+    },
+    {
+      "sector": "Q_health",
+      "fe_significant": "event(+0.39)",
+      "fe_block_p": 0.0007955247767330587,
+      "xgb_cv_r2": -0.018183555783970552,
+      "xgb_test_r2": -0.08930624215250882,
+      "flood_share": 45.30059993267059,
+      "top_feature": "rls_years",
+      "signal_from": "control",
+      "verdict": "no signal"
+    },
+    {
+      "sector": "A_agriculture",
+      "fe_significant": "none sig",
+      "fe_block_p": 0.1376632299986693,
+      "xgb_cv_r2": 0.054209890246784596,
+      "xgb_test_r2": -0.10724290515288581,
+      "flood_share": 31.972023844718933,
+      "top_feature": "log_population",
+      "signal_from": "control",
+      "verdict": "CV-only (fails test)"
+    },
+    {
+      "sector": "O_government",
+      "fe_significant": "none sig",
+      "fe_block_p": 0.2826774184185842,
+      "xgb_cv_r2": 0.05041794737262426,
+      "xgb_test_r2": -0.504711509701379,
+      "flood_share": 49.02522265911102,
+      "top_feature": "event_count_log",
+      "signal_from": "flood",
+      "verdict": "CV-only (fails test)"
+    },
+    {
+      "sector": "J_infocomm",
+      "fe_significant": "none sig",
+      "fe_block_p": 0.17635369907431542,
+      "xgb_cv_r2": 0.04188945471021539,
+      "xgb_test_r2": -0.2357067210124837,
+      "flood_share": 26.48150622844696,
+      "top_feature": "log_population",
+      "signal_from": "control",
+      "verdict": "CV-only (fails test)"
+    },
+    {
+      "sector": "L_realestate",
+      "fe_significant": "none sig",
+      "fe_block_p": 0.048014756633631084,
+      "xgb_cv_r2": 0.025606015636384694,
+      "xgb_test_r2": -0.26151841841425005,
+      "flood_share": 38.25579583644867,
+      "top_feature": "log_population",
+      "signal_from": "control",
+      "verdict": "CV-only (fails test)"
+    },
+    {
+      "sector": "D_electricity",
+      "fe_significant": "none sig",
+      "fe_block_p": 0.006341450445345509,
+      "xgb_cv_r2": 0.01773648115607094,
+      "xgb_test_r2": 0.0010087562078604506,
+      "flood_share": 41.75646901130676,
+      "top_feature": "rls_years",
+      "signal_from": "control",
+      "verdict": "no signal"
+    },
+    {
+      "sector": "K_finance",
+      "fe_significant": "none sig",
+      "fe_block_p": 0.12795229473651482,
+      "xgb_cv_r2": 0.0007713459859316263,
+      "xgb_test_r2": -0.13473099405144273,
+      "flood_share": 29.578354954719543,
+      "top_feature": "log_population",
+      "signal_from": "control",
+      "verdict": "no signal"
+    },
+    {
+      "sector": "E_water",
+      "fe_significant": "none sig",
+      "fe_block_p": 0.5245018217758022,
+      "xgb_cv_r2": -0.003601944882049657,
+      "xgb_test_r2": -0.18852928103070465,
+      "flood_share": 26.104295253753662,
+      "top_feature": "rls_years",
+      "signal_from": "control",
+      "verdict": "no signal"
+    },
+    {
+      "sector": "H_transport",
+      "fe_significant": "none sig",
+      "fe_block_p": 0.12165367594576415,
+      "xgb_cv_r2": -0.011958467860202137,
+      "xgb_test_r2": -0.5277766727126059,
+      "flood_share": 47.92671203613281,
+      "top_feature": "log_population",
+      "signal_from": "control",
+      "verdict": "no signal"
+    }
+  ],
+  "n_fe_sig": 9,
+  "n_xgb_weak": 0,
+  "n_both": 0,
+  "note": "FE tests statistical significance (inference); XGBoost tests out-of-sample prediction. A sector can be FE-significant yet have XGBoost R2 near zero — significance is not the same as predictability."
+}

@@ -1,0 +1,27 @@
+{
+  "x_labels": [
+    "Poverty rate",
+    "Unemployment (TPT)"
+  ],
+  "y_labels": [
+    "Event frequency (log)",
+    "Human cost / HCI (log)",
+    "Physical damage / PDI (log)"
+  ],
+  "matrix": [
+    [
+      -0.213,
+      0.127
+    ],
+    [
+      -0.036,
+      0.073
+    ],
+    [
+      -0.176,
+      0.123
+    ]
+  ],
+  "n": 5140,
+  "note": "Descriptive bivariate Pearson correlations (not controlled). FSI and the regression controls (schooling, population) are excluded; see nb10 regression for controlled inference."
+}

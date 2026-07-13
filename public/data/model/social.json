@@ -1,0 +1,134 @@
+{
+  "poverty": {
+    "key": "poverty_pct",
+    "label": "Poverty Rate",
+    "stages": [
+      {
+        "stage": "Train (CV)",
+        "r2": 0.3602,
+        "rmse": 0.428,
+        "mae": 0.342
+      },
+      {
+        "stage": "Validation",
+        "r2": 0.3987,
+        "rmse": 0.402,
+        "mae": 0.319
+      },
+      {
+        "stage": "Test",
+        "r2": 0.3908,
+        "rmse": 0.407,
+        "mae": 0.323
+      },
+      {
+        "stage": "Naive baseline",
+        "r2": -0.0468,
+        "rmse": 0.534,
+        "mae": 0.43
+      }
+    ],
+    "flood_share": 7.0,
+    "importance": [
+      {
+        "feature": "rls_years",
+        "label": "Schooling",
+        "importance": 0.1417,
+        "kind": "control"
+      },
+      {
+        "feature": "log_population",
+        "label": "Population",
+        "importance": 0.0926,
+        "kind": "control"
+      },
+      {
+        "feature": "PDI_log",
+        "label": "Physical damage",
+        "importance": 0.0123,
+        "kind": "flood"
+      },
+      {
+        "feature": "event_count_log",
+        "label": "Flood frequency",
+        "importance": 0.0043,
+        "kind": "flood"
+      },
+      {
+        "feature": "HCI_log",
+        "label": "Human impact",
+        "importance": 0.0011,
+        "kind": "flood"
+      }
+    ],
+    "beeswarm": "img/beeswarm_poverty.png",
+    "narrative": "**FE (inference):** Flood block NOT significant - the cleanest null; no flood dimension significant.  \n**XGBoost (prediction):** XGBoost reaches test-R2=+0.39, but SHAP shows the top driver is 'Schooling' (a control); flood share is only 7%. The predictive power comes from controls, not flooding.  \n**Overall:** significance is not the same as predictability - even where FE detects an effect, flooding is not a strong predictor of poverty rate.",
+    "n": 5140
+  },
+  "tpt": {
+    "key": "tpt_pct",
+    "label": "Unemployment (TPT)",
+    "stages": [
+      {
+        "stage": "Train (CV)",
+        "r2": 0.3689,
+        "rmse": 0.383,
+        "mae": 0.287
+      },
+      {
+        "stage": "Validation",
+        "r2": 0.3343,
+        "rmse": 0.343,
+        "mae": 0.267
+      },
+      {
+        "stage": "Test",
+        "r2": 0.0819,
+        "rmse": 0.373,
+        "mae": 0.289
+      },
+      {
+        "stage": "Naive baseline",
+        "r2": -0.0781,
+        "rmse": 0.404,
+        "mae": 0.319
+      }
+    ],
+    "flood_share": 11.8,
+    "importance": [
+      {
+        "feature": "rls_years",
+        "label": "Schooling",
+        "importance": 0.1618,
+        "kind": "control"
+      },
+      {
+        "feature": "log_population",
+        "label": "Population",
+        "importance": 0.1122,
+        "kind": "control"
+      },
+      {
+        "feature": "PDI_log",
+        "label": "Physical damage",
+        "importance": 0.0306,
+        "kind": "flood"
+      },
+      {
+        "feature": "event_count_log",
+        "label": "Flood frequency",
+        "importance": 0.0049,
+        "kind": "flood"
+      },
+      {
+        "feature": "HCI_log",
+        "label": "Human impact",
+        "importance": 0.0012,
+        "kind": "flood"
+      }
+    ],
+    "beeswarm": "img/beeswarm_tpt.png",
+    "narrative": "**FE (inference):** Fragile: significant only under Driscoll-Kraay SE, with signs that flip across specifications.  \n**XGBoost (prediction):** XGBoost reaches test-R2=+0.08, but SHAP shows the top driver is 'Schooling' (a control); flood share is only 12%. The predictive power comes from controls, not flooding.  \n**Overall:** significance is not the same as predictability - even where FE detects an effect, flooding is not a strong predictor of unemployment (tpt).",
+    "n": 5140
+  }
+}

@@ -561,14 +561,24 @@ def render_province_sector_table(df: "pd.DataFrame") -> None:
         st.info("No regency data for this province.")
         return
 
-    rename = {"regency": "Regency", "growth_avg": "Overall %"}
+    rename = {"regency": "Regency", "growth_avg": "Overall %",
+              "FSI_index": "FSI (0–100)"}
     for c in df.columns:
         if c.endswith("_growth_avg") and c != "growth_avg":
             label = c.replace("_growth_avg", "").replace("_", " ").title()
             rename[c] = label
     show = df.rename(columns=rename)
 
-    # numeric formatting for all % columns
+    # drop the internal code column if present (kept only for the FSI join)
+    show = show.drop(columns=[c for c in ["kemendagri_kab_code"] if c in show.columns])
+
+    # lead with Regency, FSI, Overall %, then the sector columns
+    FSI_LABEL = "FSI (0–100)"
+    lead = [c for c in ["Regency", FSI_LABEL, "Overall %"] if c in show.columns]
+    rest = [c for c in show.columns if c not in lead]
+    show = show[lead + rest]
+
+    # numeric formatting: FSI 0.1, growth % 0.1
     num_cols = [c for c in show.columns if c != "Regency"]
     colcfg = {c: st.column_config.NumberColumn(c, format="%.1f") for c in num_cols}
 
@@ -576,9 +586,62 @@ def render_province_sector_table(df: "pd.DataFrame") -> None:
         show,
         hide_index=True,
         width="stretch",
+        height=min(420, 45 + 36 * len(show)),
         column_config=colcfg,
     )
     st.caption(
-        "All figures are mean annual GRDP growth 2016-2025 (%), at constant "
-        "2010 prices (ADHK). Sorted by overall growth."
+        "Sector figures are mean annual GRDP growth 2016-2025 (%), at constant "
+        "2010 prices (ADHK). FSI is the flood-severity composite (0-100). "
+        "Sorted by FSI (most flood-affected first)."
+    )
+
+
+# ═════════════════════════════════════════════════════════════════════════
+# Social menu — "Most flood-affected regencies" (top-10 FSI + social profile)
+# ═════════════════════════════════════════════════════════════════════════
+def render_social_fsi_table(df: "pd.DataFrame") -> None:
+    """Descriptive Top-10 FSI table for the Social National page.
+
+    Columns: regency | province | FSI | poverty % | unemployment %.
+    FSI is the same composite as the Flood page (joined at runtime), so the
+    ranking matches. Purely descriptive: shows the social profile of the most
+    flood-affected regencies. It does NOT imply flooding caused those rates —
+    see Key Findings / regression for inference.
+
+    df : DataFrame from load_social_fsi_table()
+         columns: regency | province | fsi | poverty_avg | tpt_avg
+    """
+    if df is None or len(df) == 0:
+        st.info("No regency table available.")
+        return
+
+    show = pd.DataFrame({
+        "Regency": df["regency"],
+        "Province": df["province"],
+        "FSI": df["fsi"],
+        "Poverty %": df["poverty_avg"],
+        "Unemployment %": df["tpt_avg"],
+    })
+
+    st.dataframe(
+        show,
+        hide_index=True,
+        width="stretch",
+        column_config={
+            "FSI": st.column_config.NumberColumn(
+                "FSI", format="%.2f",
+                help="Flood Severity Index (0-100) — same as the Flood page"),
+            "Poverty %": st.column_config.NumberColumn(
+                "Poverty %", format="%.2f",
+                help="Average poverty headcount 2016-2025 (point-%)"),
+            "Unemployment %": st.column_config.NumberColumn(
+                "Unemployment %", format="%.2f",
+                help="Average open-unemployment rate (TPT) 2016-2025 (point-%)"),
+        },
+    )
+    st.caption(
+        "Social profile of the 10 highest-FSI regencies. FSI is the flood "
+        "severity composite (shared with the Flood page); poverty and "
+        "unemployment are descriptive averages. High FSI here does not imply "
+        "flooding caused these rates - see Key Findings for the regression evidence."
     )

@@ -1,0 +1,17 @@
+{
+  "growth": {
+    "label": "GRDP Growth",
+    "test_r2": -0.3412,
+    "flood_share": 67.6
+  },
+  "poverty": {
+    "label": "Poverty",
+    "test_r2": 0.3908,
+    "flood_share": 7.0
+  },
+  "tpt": {
+    "label": "Unemployment",
+    "test_r2": 0.0819,
+    "flood_share": 11.8
+  }
+}

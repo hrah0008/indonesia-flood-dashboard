@@ -12,16 +12,12 @@ Layout (3 tabs, static cards):
 
   Tab 2 — Temporal trend
     4. Mann-Kendall trend test
-    5. Theil-Sen slope estimator
 
-  Tab 3 — Causal & Predictive (placeholder for future RQ2 work)
-    6. Panel regression formula
-    7. Assumption diagnostics (7 tests)
-    8. XGBoost predictor
-    9. Performance metrics
-    10. SHAP attribution
-    11. Feature importance bars
-    12. Synthesis pipeline diagram
+  Tab 3 — Causal & Predictive (RQ2: FE + XGBoost + SHAP)
+    5. Two-way fixed-effects panel regression (inference)
+    6. XGBoost gradient-boosting model (prediction)
+    7. SHAP feature attribution
+    8. Synthesis: how the two lenses fit together
 
 Cards are static (no expand/collapse) — methodology is always visible.
 Density: short narrative (1-2 sentences) + key statistics + reference.
@@ -103,7 +99,7 @@ render_page_header(
     description=(
         "Statistical and machine-learning methods underpinning RQ1 and "
         "RQ2. Three tabs organise the methodology by analytical question: "
-        "spatial diagnostics, temporal trend, and causal &amp; predictive "
+        "spatial diagnostics, temporal trend, causal and predictive "
         "analysis."
     ),
 )
@@ -195,7 +191,7 @@ render_section_header(
     title="Statistical and ML methods",
     description=(
         "Pipeline: K-means &rarr; FSI &rarr; Moran's I &rarr; Gi* &rarr; "
-        "Mann-Kendall &rarr; Theil-Sen &rarr; Panel FE &rarr; XGBoost &rarr; SHAP. "
+        "Mann-Kendall &rarr; Panel FE &rarr; XGBoost &rarr; SHAP. "
         "Three tabs organise the cards by analytical question."
     ),
 )
@@ -210,7 +206,7 @@ st.markdown(
     f'<div style="font-family:{FONT_DISPLAY};font-size:15px;font-weight:600;'
     f'color:{INK};margin-top:4px;line-height:1.4;">'
     f'K-means &nbsp;&rarr;&nbsp; FSI &nbsp;&rarr;&nbsp; Moran\'s I &nbsp;&rarr;&nbsp; Gi* &nbsp;&rarr;&nbsp; '
-    f'Mann-Kendall &nbsp;&rarr;&nbsp; Theil-Sen &nbsp;&rarr;&nbsp; '
+    f'Mann-Kendall &nbsp;&rarr;&nbsp; '
     f'Panel FE &nbsp;&rarr;&nbsp; XGBoost &nbsp;&rarr;&nbsp; SHAP'
     f'</div>'
     f'</div>',
@@ -293,11 +289,7 @@ with tab_spatial:
             "classification (Catastrophic/High/Moderate/Low) has been retired "
             "to eliminate semantic conflict."
         ),
-        reference=(
-            "Hartigan &amp; Wong (1979). A K-Means Clustering Algorithm. "
-            "<em>JRSS Series C (Applied Statistics)</em> 28(1): 100&ndash;108. "
-            "&middot; Rousseeuw (1987) <em>J. Comp. Applied Math.</em> 20: 53&ndash;65 (silhouette)."
-        ),
+        
     )
 
     # ── Card 2: FSI construction (foundation) ────────────────────────
@@ -340,17 +332,13 @@ with tab_spatial:
             "&nbsp;&nbsp;<strong>Form 1</strong> &mdash; Z-weighted FSI = w &middot; Z(log_x)<br>"
             "&nbsp;&nbsp;&nbsp;&nbsp;&rarr; Phase 1&ndash;2: Moran's I, Gi* (spatial autocorrelation)<br>"
             "&nbsp;&nbsp;<strong>Form 2</strong> &mdash; Log-weighted FSI<sub>log</sub> = w &middot; log_x<br>"
-            "&nbsp;&nbsp;&nbsp;&nbsp;&rarr; Phase 3: Mann-Kendall, Theil-Sen (temporal trend)<br>"
+            "&nbsp;&nbsp;&nbsp;&nbsp;&rarr; Phase 3: Mann-Kendall (temporal trend)<br>"
             "<br>"
             "Both forms share identical cluster weights. Form 2 omits the "
             "Z-standardisation step to preserve year-over-year magnitude "
             "that Mann-Kendall is designed to detect."
         ),
-        reference=(
-            "Cutter, Boruff &amp; Shirley (2003). Social Vulnerability to Environmental Hazards. <em>Social Science Quarterly</em> 84(2): 242&ndash;261. "
-            "&middot; OECD (2008). <em>Handbook on Constructing Composite Indicators</em>. "
-            "&middot; FEMA NRI methodology (&eta;&sup2;-weighted composite design)."
-        ),
+        
     )
 
     # ── Card 2: Global Moran's I ─────────────────────────────────────
@@ -379,7 +367,7 @@ with tab_spatial:
             "(999 permutations)<br>"
             "&nbsp;&nbsp;&rarr; Strong positive spatial autocorrelation confirmed."
         ),
-        reference="Moran, P. A. P. (1950). Notes on Continuous Stochastic Phenomena. Biometrika 37(1/2): 17&ndash;23.",
+        
     )
 
     # ── Card 3: Gi* hot spots ────────────────────────────────────────
@@ -417,20 +405,20 @@ with tab_spatial:
             "&nbsp;&nbsp;Strongest 10 all concentrated in Aceh province "
             "&mdash; the dominant regional cluster."
         ),
-        reference="Getis &amp; Ord (1992). The Analysis of Spatial Association by Use of Distance Statistics. Geographical Analysis 24(3): 189&ndash;206.",
+        
     )
 
 
 # ═════════════════════════════════════════════════════════════════════
-# TAB 2 — TEMPORAL TREND  (Mann-Kendall · Theil-Sen)
+# TAB 2 — TEMPORAL TREND  (Mann-Kendall)
 # ═════════════════════════════════════════════════════════════════════
 with tab_temporal:
     st.markdown(
         f'<div style="font-family:{FONT_BODY};font-size:12.5px;color:{MUTED};'
         f'line-height:1.55;margin-bottom:14px;max-width:760px;">'
         f'How is each regency&rsquo;s flood burden changing over 2016&ndash;2025? '
-        f'Mann-Kendall tests trend significance (yes/no); Theil-Sen estimates '
-        f'the magnitude of annual change.'
+        f'Mann-Kendall tests whether each regency&rsquo;s flood burden shows a '
+        f'significant monotonic trend over 2016&ndash;2025.'
         f'</div>',
         unsafe_allow_html=True,
     )
@@ -471,57 +459,172 @@ with tab_temporal:
             "&nbsp;&nbsp;&rarr; Indonesia overall is rising (strong signal due to "
             "noise averaging across 514 regencies)."
         ),
-        reference=(
-            "Mann (1945) Econometrica 13:245&ndash;259 &middot; "
-            "Hamed &amp; Rao (1998) J. Hydrology 204:182&ndash;196 &middot; "
-            "Benjamini &amp; Hochberg (1995) JRSS B 57(1):289&ndash;300."
-        ),
+        
     )
 
-    # ── Card 5: Theil-Sen slope estimator ────────────────────────────
-    
 
 # ═════════════════════════════════════════════════════════════════════
-# TAB 3 — CAUSAL & PREDICTIVE  (placeholder for RQ2 work)
+# TAB 3 — CAUSAL & PREDICTIVE  (RQ2: FE + XGBoost + SHAP)
 # ═════════════════════════════════════════════════════════════════════
 with tab_causal:
     st.markdown(
         f'<div style="font-family:{FONT_BODY};font-size:12.5px;color:{MUTED};'
         f'line-height:1.55;margin-bottom:14px;max-width:760px;">'
         f'How do flood patterns translate into socioeconomic outcomes, and '
-        f'what drives the prediction? Six methodological cards plus a '
-        f'synthesis pipeline. <em>Content placeholder &mdash; full methodology '
-        f'to be added as the RQ2 pipeline is implemented.</em>'
+        f'what drives the prediction? Two complementary lenses: fixed-effects '
+        f'panel regression for causal inference (does flooding have a '
+        f'significant effect?) and XGBoost with SHAP for predictive evaluation '
+        f'(can flooding predict the outcome, and which features drive it?). '
+        f'Full per-outcome results are in the Model Evaluation menu.'
         f'</div>',
         unsafe_allow_html=True,
     )
 
-    
-    # ── Synthesis card (placeholder) ─────────────────────────────────
+    # -- Card: Two-way fixed-effects panel regression --
+    render_method_card(
+        phase="Phase 5 - Causal inference",
+        title="Two-way fixed-effects panel regression",
+        rq_tag="RQ2",
+        narrative=(
+            "Estimates the association between flood exposure and each "
+            "socioeconomic outcome while absorbing time-invariant regency "
+            "characteristics (entity effects) and common national shocks "
+            "(year effects). Clustered standard errors account for "
+            "within-regency correlation. This is the inferential model: it "
+            "tests whether flood coefficients are statistically significant, "
+            "not whether they predict out-of-sample."
+        ),
+        stats_html=(
+            "<strong>Specification</strong><br>"
+            "Y<sub>it</sub> = &beta;<sub>1</sub>&middot;FloodFreq<sub>it</sub> + "
+            "&beta;<sub>2</sub>&middot;FloodSeverity<sub>it</sub> + "
+            "&gamma;&middot;X<sub>it</sub> + &alpha;<sub>i</sub> + "
+            "&delta;<sub>t</sub> + &epsilon;<sub>it</sub><br>"
+            "<br>"
+            "<strong>Terms</strong><br>"
+            "&nbsp;&nbsp;&alpha;<sub>i</sub> = regency fixed effects (time-invariant traits)<br>"
+            "&nbsp;&nbsp;&delta;<sub>t</sub> = year fixed effects (national shocks, climate)<br>"
+            "&nbsp;&nbsp;X<sub>it</sub> = controls (log population, mean years schooling)<br>"
+            "<br>"
+            "<strong>Estimator</strong>&nbsp; PanelOLS (linearmodels), "
+            "entity + time effects, clustered SE by regency<br>"
+            "<strong>Outcomes</strong>&nbsp; GRDP growth, poverty rate, "
+            "unemployment (TPT); 17 sector growth rates<br>"
+            "<br>"
+            "<strong>Headline result (growth)</strong><br>"
+            "&nbsp;&nbsp;PDI (physical damage): &beta; = "
+            "<span style='color:#3730a3;font-weight:600;'>-0.022</span>, "
+            "p = <span style='color:#3730a3;font-weight:600;'>0.019</span> "
+            "(significant &amp; negative)<br>"
+            "&nbsp;&nbsp;Flood-block joint Wald p = "
+            "<span style='color:#3730a3;font-weight:600;'>0.003</span><br>"
+            "&nbsp;&nbsp;Poverty: flood block NOT significant (cleanest null)<br>"
+            "&nbsp;&nbsp;Unemployment: fragile (DK-only, signs flip)"
+        ),
+        
+    )
+
+    # -- Card: XGBoost predictive model --
+    render_method_card(
+        phase="Phase 6 - Prediction",
+        title="XGBoost gradient-boosting model",
+        rq_tag="RQ2",
+        narrative=(
+            "Gradient-boosted regression trees test whether flood exposure "
+            "can PREDICT each outcome out-of-sample, capturing any non-linear "
+            "or threshold effects a linear model would miss. Tuned by grouped "
+            "cross-validation; evaluated on an untouched 2024-25 test set "
+            "against a naive mean baseline. This answers a different question "
+            "from FE: predictability, not significance."
+        ),
+        stats_html=(
+            "<strong>Algorithm</strong>&nbsp; XGBoost regressor "
+            "(squared-error objective), 324-combination grid search<br>"
+            "<strong>Validation</strong>&nbsp; GroupKFold by regency "
+            "(no regency in both train and test fold)<br>"
+            "<strong>Split</strong>&nbsp;&nbsp;&nbsp;&nbsp; train 2016-2022 / "
+            "validation 2023 / test 2024-2025 (temporal)<br>"
+            "<strong>Metrics</strong>&nbsp; R&sup2;, RMSE, MAE + naive baseline; "
+            "bootstrap R&sup2; 95% CI<br>"
+            "<br>"
+            "<strong>Headline result</strong><br>"
+            "&nbsp;&nbsp;Growth test-R&sup2; = "
+            "<span style='color:#3730a3;font-weight:600;'>&asymp; 0 (negative)</span> "
+            "- predictions collapse to the mean<br>"
+            "&nbsp;&nbsp;Poverty test-R&sup2; = "
+            "<span style='color:#3730a3;font-weight:600;'>+0.40</span>, but "
+            "driven by controls (flood share 13%)<br>"
+            "&nbsp;&nbsp;Across 17 sectors: no sector is both FE-significant "
+            "and XGBoost-predictive<br>"
+            "<br>"
+            "<strong>Key reading</strong>&nbsp; significance &ne; "
+            "predictability - a real but small linear effect need not "
+            "translate into out-of-sample predictive power."
+        ),
+        
+    )
+
+    # -- Card: SHAP attribution --
+    render_method_card(
+        phase="Phase 7 - Attribution",
+        title="SHAP feature attribution",
+        rq_tag="RQ2",
+        narrative=(
+            "Decomposes each XGBoost prediction into additive per-feature "
+            "contributions grounded in cooperative game theory (Shapley "
+            "values). SHAP answers which features the model relies on and in "
+            "what direction - here it reveals that where predictive power "
+            "exists (e.g. poverty), it comes from control variables, not "
+            "flooding (flood share 13-15%). SHAP is interpretation, not a "
+            "model that learns: it inherits the quality of the tuned XGBoost."
+        ),
+        stats_html=(
+            "<strong>Method</strong>&nbsp; TreeExplainer (exact SHAP for tree "
+            "ensembles)<br>"
+            "<strong>Additivity</strong>&nbsp; prediction = base value + "
+            "&Sigma; SHAP(feature)<br>"
+            "<strong>Views</strong>&nbsp;&nbsp;&nbsp;&nbsp; beeswarm (per-obs "
+            "beeswarm), bar (mean|SHAP| importance), waterfall (single obs)<br>"
+            "<br>"
+            "<strong>Flood share of importance</strong><br>"
+            "&nbsp;&nbsp;Growth = <span style='color:#3730a3;font-weight:600;'>~64%</span> "
+            "of a tiny total (importance &ne; effect)<br>"
+            "&nbsp;&nbsp;Poverty = <span style='color:#3730a3;font-weight:600;'>13%</span> "
+            "(schooling &amp; population dominate)<br>"
+            "&nbsp;&nbsp;Unemployment = <span style='color:#3730a3;font-weight:600;'>~15%</span><br>"
+            "<br>"
+            "<strong>Base value</strong>&nbsp; &asymp; training-mean outcome; "
+            "predictions stay near it &rarr; consistent with R&sup2; &asymp; 0."
+        ),
+
+    )
+
+    # -- Synthesis pipeline card --
     st.markdown('<div style="margin-top:16px;"></div>', unsafe_allow_html=True)
-    placeholder_card_style = (
-        f"background:white;border:2px dashed {HAIRLINE};border-radius:8px;"
-        f"padding:36px 24px;text-align:center;margin-bottom:24px;"
+    synth_style = (
+        f"background:white;border:1px solid {HAIRLINE};border-radius:8px;"
+        f"padding:24px;margin-bottom:24px;"
     )
     st.markdown(
-        f'<div style="{placeholder_card_style}">'
+        f'<div style="{synth_style}">'
         f'<div style="font-family:{FONT_MONO};font-size:10px;font-weight:600;'
         f'letter-spacing:0.10em;text-transform:uppercase;color:{MUTED};">'
-        f'Synthesis &middot; pipeline diagram'
+        f'Synthesis &middot; how the two lenses fit together'
         f'</div>'
-        f'<div style="font-family:{FONT_DISPLAY};font-size:17px;font-weight:600;'
-        f'color:{INK};margin-top:6px;">'
-        f'How the trained XGBoost is applied at 2030'
+        f'<div style="font-family:{FONT_DISPLAY};font-size:16px;font-weight:600;'
+        f'color:{INK};margin-top:6px;margin-bottom:10px;">'
+        f'FE (inference) + XGBoost/SHAP (prediction)'
         f'</div>'
-        f'<div style="font-family:{FONT_BODY};font-size:12.5px;color:{MUTED};'
-        f'margin-top:10px;max-width:540px;margin-left:auto;margin-right:auto;'
-        f'line-height:1.55;">'
-        f'Placeholder. The pipeline visualisation will show how Phase 3 '
-        f'projections (2027/2030 FSI values) feed into the trained XGBoost '
-        f'model to predict socioeconomic outcomes, with SHAP attribution '
-        f'identifying dominant drivers per regency. '
-        f'<br><br>'
-        f'<span style="color:{INDIGO};font-weight:600;">RQ1 + RQ2</span>'
+        f'<div style="font-family:{FONT_BODY};font-size:12.5px;color:{INK};'
+        f'line-height:1.6;max-width:720px;">'
+        f'Fixed effects identifies whether flooding has a statistically '
+        f'significant effect (e.g. physical damage lowers growth). XGBoost then '
+        f'tests whether that effect is strong enough to predict outcomes for '
+        f'unseen years - it is not. SHAP explains why: flood features contribute '
+        f'little, and where R&sup2; is high (poverty) the signal comes from '
+        f'structural controls, not flooding. The two methods converge on one '
+        f'honest conclusion - <strong>flooding is significantly associated with '
+        f'some outcomes but is not a strong predictor of them</strong>.'
         f'</div>'
         f'</div>',
         unsafe_allow_html=True,

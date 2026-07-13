@@ -702,3 +702,163 @@ def render_economic_legend(
                    if layout == "vertical" else "margin-top:8px;")
         st.markdown(f"<div style='{wrapper}'>" + "".join(sections_html) + "</div>",
                     unsafe_allow_html=True)
+
+
+# ═════════════════════════════════════════════════════════════════════════
+# Social choropleth — poverty OR unemployment (TPT) colour + FSI bubbles
+# ═════════════════════════════════════════════════════════════════════════
+# Higher poverty / unemployment = worse, so we use a SEQUENTIAL scale
+# (light -> deep) rather than the diverging growth scale. Amber/orange family
+# for unemployment (default), red family for poverty, kept distinct from the
+# blue FSI dots so the two layers read clearly.
+SOCIAL_SCALES = {
+    "tpt":     [[0, "#fff4e6"], [0.5, "#f2a25c"], [1, "#b5651d"]],   # amber/orange
+    "poverty": [[0, "#fdeceb"], [0.5, "#e8897f"], [1, "#a32d2d"]],   # red
+}
+SOCIAL_META = {
+    "tpt":     {"col": "tpt_avg",     "label": "Unemployment (TPT)",
+                "hover": "Avg unemployment 2016-2025"},
+    "poverty": {"col": "poverty_avg", "label": "Poverty rate",
+                "hover": "Avg poverty 2016-2025"},
+}
+
+
+def render_social_choropleth(
+    reg_df: pd.DataFrame,
+    geojson: dict,
+    metric: str = "tpt",
+    height: int = 520,
+    key: Optional[str] = None,
+    mapbox_zoom: float = 4.0,
+    mapbox_center: Optional[dict] = None,
+    show_metric: bool = True,
+    show_fsi_dots: bool = True,
+):
+    """Social map: poverty OR unemployment as colour saturation + FSI bubbles.
+
+    metric : "tpt" (default, unemployment) or "poverty". The default is TPT
+    because unemployment is the social outcome where flooding shows the
+    stronger signal. Sequential scale (light->deep = worse).
+
+    Required columns: kemendagri_kab_code, tpt_avg / poverty_avg,
+    FSI_index, centroid_lat, centroid_lon.
+    """
+    meta = SOCIAL_META.get(metric, SOCIAL_META["tpt"])
+    col, scale = meta["col"], SOCIAL_SCALES.get(metric, SOCIAL_SCALES["tpt"])
+
+    df = reg_df.copy()
+    df["kemendagri_kab_code"] = df["kemendagri_kab_code"].astype(str)
+
+    fig = go.Figure()
+
+    if show_metric and col in df.columns:
+        cd = np.column_stack([
+            df.get("kemendagri_kab_name", pd.Series([""] * len(df))).values,
+            df.get("kemendagri_prov_name", pd.Series([""] * len(df))).values,
+            df[col].values,
+        ])
+        hover = (
+            "<b>%{customdata[0]}</b><br>"
+            "<span style='color:#888'>%{customdata[1]}</span><br>"
+            + meta["hover"] + ": <b>%{customdata[2]:.2f}%</b>"
+            "<extra></extra>"
+        )
+        fig.add_trace(go.Choroplethmapbox(
+            geojson=geojson,
+            locations=df["kemendagri_kab_code"],
+            z=df[col],
+            featureidkey="properties.kemendagri_kab_code",
+            colorscale=scale,
+            marker_opacity=0.85,
+            marker_line_width=0.3,
+            marker_line_color="#ffffff",
+            showscale=False,
+            customdata=cd,
+            hovertemplate=hover,
+            name=meta["label"],
+        ))
+
+    if show_fsi_dots and {"centroid_lat", "centroid_lon", "FSI_index"}.issubset(df.columns):
+        dots = df.dropna(subset=["centroid_lat", "centroid_lon", "FSI_index"]).copy()
+        if len(dots) > 0:
+            sizes = _compute_dot_sizes(dots["FSI_index"])
+            dot_cd = np.column_stack([
+                dots.get("kemendagri_kab_name", pd.Series([""] * len(dots))).values,
+                dots["FSI_index"].values,
+            ])
+            fig.add_trace(go.Scattermapbox(
+                lat=dots["centroid_lat"], lon=dots["centroid_lon"], mode="markers",
+                marker=dict(size=sizes, color=FSI_DOT_COLOR, opacity=FSI_DOT_OPACITY),
+                customdata=dot_cd,
+                hovertemplate=("<b>%{customdata[0]}</b><br>"
+                               "FSI: <b>%{customdata[1]:.1f} / 100</b><extra></extra>"),
+                name="FSI",
+            ))
+
+    center = mapbox_center or {"lat": -2.5, "lon": 118.0}
+    fig.update_layout(
+        mapbox_style="carto-positron", mapbox_zoom=mapbox_zoom, mapbox_center=center,
+        height=height, margin=dict(l=0, r=0, t=0, b=0), showlegend=False,
+        font=dict(family=FONT_BODY, color=INK),
+    )
+    st.plotly_chart(fig, key=key, config={"displayModeBar": False, "scrollZoom": True})
+
+
+def render_social_legend(metric: str = "tpt", show_metric: bool = True,
+                         show_fsi_dots: bool = True,
+                         vmin: float = None, vmax: float = None,
+                         layout: str = "vertical") -> None:
+    """Legend for the social map: metric colour saturation gradient + FSI dot
+    scale. Mirrors render_economic_legend styling (gradient bar with end
+    labels + dot-size SVG) so Social and Economic look consistent.
+    """
+    meta = SOCIAL_META.get(metric, SOCIAL_META["tpt"])
+    scale = SOCIAL_SCALES.get(metric, SOCIAL_SCALES["tpt"])
+    sections_html = []
+
+    if show_metric:
+        # gradient bar built from the metric's sequential stops
+        stops = ", ".join(f"{c} {int(p*100)}%" for p, c in scale)
+        lo = f"{vmin:.1f}%" if vmin is not None else "lower"
+        hi = f"{vmax:.1f}%" if vmax is not None else "higher"
+        bar = (
+            f"<div style='height:12px;width:180px;border-radius:3px;"
+            f"background:linear-gradient(to right, {stops});"
+            f"border:0.5px solid #d1d5db;'></div>"
+        )
+        sections_html.append(
+            f"<div style='margin-bottom:10px;'>"
+            f"<div style='font-family:{FONT_BODY};font-size:10.5px;color:{MUTED};"
+            f"text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;'>"
+            f"{meta['label']} (avg 2016-2025):</div>"
+            f"{bar}"
+            f"<div style='display:flex;justify-content:space-between;width:180px;"
+            f"font-family:{FONT_BODY};font-size:10px;color:{MUTED};margin-top:2px;'>"
+            f"<span>{lo}</span><span>{hi}</span></div>"
+            f"<div style='font-family:{FONT_BODY};font-size:10px;color:{MUTED};"
+            f"margin-top:3px;'>light = lower · deep = higher</div>"
+            f"</div>"
+        )
+
+    if show_fsi_dots:
+        dot_scale_svg = (
+            "<svg width='180' height='28' style='vertical-align:middle;'>"
+            f"<circle cx='12'  cy='14' r='3'  fill='{FSI_DOT_COLOR}' opacity='{FSI_DOT_OPACITY}'/>"
+            f"<circle cx='52'  cy='14' r='7'  fill='{FSI_DOT_COLOR}' opacity='{FSI_DOT_OPACITY}'/>"
+            f"<circle cx='100' cy='14' r='11' fill='{FSI_DOT_COLOR}' opacity='{FSI_DOT_OPACITY}'/>"
+            f"<circle cx='158' cy='14' r='15' fill='{FSI_DOT_COLOR}' opacity='{FSI_DOT_OPACITY}'/>"
+            "</svg>"
+        )
+        sections_html.append(
+            f"<div style='display:inline-flex;align-items:center;gap:10px;margin-top:2px;'>"
+            f"<span style='color:{MUTED};font-size:10.5px;'>FSI severity:</span>"
+            f"{dot_scale_svg}"
+            f"<span style='color:{MUTED};font-size:10.5px;'>low → high</span>"
+            f"</div>"
+        )
+
+    if sections_html:
+        wrapper = ("margin-top:8px;max-height:460px;overflow-y:auto;padding-right:4px;"
+                   if layout == "vertical" else "margin-top:8px;")
+        st.markdown(f"<div style='{wrapper}'>" + "".join(sections_html) + "</div>",
+                    unsafe_allow_html=True)

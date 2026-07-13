@@ -314,9 +314,25 @@ def load_province_sector_table(prov_name: str) -> pd.DataFrame:
     sub = econ[econ["kemendagri_prov_name"] == prov_name].copy()
     sector_cols = [c for c in sub.columns
                    if c.endswith("_growth_avg") and c != "growth_avg"]
-    cols = ["kemendagri_kab_name", "growth_avg"] + sector_cols
-    out = sub[cols].copy().rename(columns={"kemendagri_kab_name": "regency"})
-    return out.sort_values("growth_avg", ascending=False).reset_index(drop=True)
+    cols = ["kemendagri_kab_code", "kemendagri_kab_name", "growth_avg"] + sector_cols
+    out = sub[[c for c in cols if c in sub.columns]].copy()
+
+    # join FSI from the Flood regency table (single-sourced) so the province
+    # table can lead with FSI and sort by it — consistent with Flood & Social.
+    flood_path = _FLOOD_DIR / "national" / "regency_table.parquet"
+    if flood_path.exists():
+        flood = pd.read_parquet(flood_path)[["kemendagri_kab_code", "FSI_index"]]
+        out = out.merge(flood, on="kemendagri_kab_code", how="left")
+    else:
+        out["FSI_index"] = pd.NA
+
+    out = out.rename(columns={"kemendagri_kab_name": "regency"})
+    # sort by FSI desc (consistent with the Flood & Social province tables)
+    if "FSI_index" in out.columns and out["FSI_index"].notna().any():
+        out = out.sort_values("FSI_index", ascending=False)
+    else:
+        out = out.sort_values("growth_avg", ascending=False)
+    return out.reset_index(drop=True)
 
 
 @st.cache_data(show_spinner=False)

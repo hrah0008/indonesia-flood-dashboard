@@ -36,7 +36,6 @@ from lib.colors import (
     MUTED, HAIRLINE, FONT_BODY,
 )
 
-
 def render_annual_line_chart(
     annual: dict,
     default_series: Optional[list[str]] = None,
@@ -199,8 +198,6 @@ def render_annual_line_chart(
         )
 
 
-# ─── Backward-compat alias ────────────────────────────────────────────
-# Older code paths may import `render_line_chart`. Accept both names.
 def render_line_chart(
     annual_data,
     default_series: Optional[list[str]] = None,
@@ -225,10 +222,6 @@ def render_line_chart(
     )
 
 
-# ═════════════════════════════════════════════════════════════════════════
-# Economic line chart — dual-axis (growth % left, FSI index right)
-# + toggleable 17-sector growth lines
-# ═════════════════════════════════════════════════════════════════════════
 def render_economic_line_chart(
     annual: dict,
     height: int = 440,
@@ -236,10 +229,11 @@ def render_economic_line_chart(
 ) -> None:
     """National Economic line chart.
 
-    Default lines: average GRDP growth (%) on the LEFT axis and FSI (0-100)
-    on the RIGHT axis — two scales, so a dual axis keeps both readable.
-    The 17 sector growth series can be toggled on via a multiselect; they
-    share the left (%) axis with average growth.
+    A single multiselect ("Variables to display") controls every series —
+    average GRDP growth (%), FSI (0-100), and the 17 sector growth lines —
+    consistent with the Flood and Social line charts. Growth (left axis) and
+    FSI (right axis) are shown by default; sectors are opt-in. Growth and the
+    sector lines share the left (%) axis; FSI uses the right axis.
 
     Parameters
     ----------
@@ -259,19 +253,40 @@ def render_economic_line_chart(
     FSI_COLOR    = "#dc2626"   # red (flood context, matches Flood HCI tone)
     SECTOR_COLOR = "#9ca3af"   # muted grey for toggled sector lines
 
-    # ── Sector toggle (off by default; growth + FSI shown by default) ────
-    sel_sectors = st.multiselect(
-        "Add sector growth lines",
-        options=sorted(sectors.keys()),
-        default=[],
-        key=f"{key}_sectors",
-        help="Overlay individual sector growth (%) on the left axis.",
+    # ── Unified option catalogue: headline (growth, FSI) + 17 sectors ────
+    # key -> label, used by the single multiselect below.
+    LABELS = {}
+    if "growth" in series:
+        LABELS["growth"] = "Avg GRDP growth (%)"
+    if "fsi" in series:
+        LABELS["fsi"] = "FSI (0-100)"
+    for sec in sorted(sectors.keys()):
+        LABELS[f"sector::{sec}"] = sec        # prefix avoids name clashes
+
+    available = list(LABELS.keys())
+    # default = headline series only (growth + FSI), sectors opt-in
+    default_series = [k for k in ("growth", "fsi") if k in LABELS]
+
+    # ── Single multiselect — matches Flood / Social ──────────────────────
+    selected = st.multiselect(
+        "Variables to display",
+        options=available,
+        default=default_series,
+        format_func=lambda k: LABELS.get(k, k),
+        key=key,
+        label_visibility="collapsed",
+        help=("Average GRDP growth (%) and the 17 sector growth lines share the "
+              "left axis; FSI (0-100) uses the right axis. Growth + FSI shown by "
+              "default; add sectors as needed."),
     )
+    if not selected:
+        st.info("Select at least one variable to display.")
+        return
 
     fig = go.Figure()
 
     # growth (left axis)
-    if "growth" in series:
+    if "growth" in selected and "growth" in series:
         fig.add_trace(go.Scatter(
             x=years, y=series["growth"]["values"], mode="lines+markers",
             name="Avg GRDP growth (%)", line=dict(color=GROWTH_COLOR, width=2.5),
@@ -280,7 +295,7 @@ def render_economic_line_chart(
         ))
 
     # FSI (right axis)
-    if "fsi" in series:
+    if "fsi" in selected and "fsi" in series:
         fig.add_trace(go.Scatter(
             x=years, y=series["fsi"]["values"], mode="lines+markers",
             name="FSI (0-100)", line=dict(color=FSI_COLOR, width=2.5, dash="dot"),
@@ -289,7 +304,10 @@ def render_economic_line_chart(
         ))
 
     # toggled sector lines (left axis, muted)
-    for sec in sel_sectors:
+    for k in selected:
+        if not k.startswith("sector::"):
+            continue
+        sec = k.split("::", 1)[1]
         fig.add_trace(go.Scatter(
             x=years, y=sectors[sec]["values"], mode="lines",
             name=sec, line=dict(color=SECTOR_COLOR, width=1.2),
@@ -297,6 +315,7 @@ def render_economic_line_chart(
             hovertemplate="%{x}: %{y:.2f}%<extra>" + sec + "</extra>",
         ))
 
+    show_y2 = "fsi" in selected
     fig.update_layout(
         height=height,
         margin=dict(l=0, r=0, t=10, b=0),
@@ -306,278 +325,78 @@ def render_economic_line_chart(
         yaxis=dict(title="Growth (%)", showgrid=True, gridcolor=HAIRLINE,
                    zeroline=True, zerolinecolor="#d1d5db"),
         yaxis2=dict(title="FSI (0-100)", overlaying="y", side="right",
-                    showgrid=False, range=[0, max(series.get("fsi", {}).get("values", [100]) + [1]) * 1.2]),
+                    showgrid=False, visible=show_y2,
+                    range=[0, max(series.get("fsi", {}).get("values", [100]) + [1]) * 1.2]),
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
         hovermode="x unified",
     )
 
-    st.plotly_chart(
-        fig,
-        key=key,
-        config={"displayModeBar": False},
-    )
+    st.plotly_chart(fig, key=f"{key}_fig", config={"displayModeBar": False})
 
 
-# ═════════════════════════════════════════════════════════════════════════
-# Sector impact bar chart — significant flood effects by sector × dimension
-# (robust vs suggestive, diverging from 0) — from nb9b
-# ═════════════════════════════════════════════════════════════════════════
-def render_sector_impact_bar(
-    impact: dict,
-    height: int = 460,
-    key: str = "sector_impact_bar",
-) -> None:
-    """Horizontal bar chart of significant sector flood effects.
+def render_social_line_chart(annual: dict, height: int = 440,
+                             key: str = "social_line") -> None:
+    """National social trend: poverty% + unemployment% on the left axis,
+    FSI (0-100) on the right axis, 2016-2025. From nb14 STEP 4 shape.
 
-    Bars are sector×dimension coefficients (beta) that reached significance.
-    Evidence grade is encoded by colour saturation:
-      • robust (**)      — full colour (significant under BOTH SE)
-      • suggestive (~)   — pale / outline (significant under ONE SE only)
-    Bars diverge from 0: positive = flood linked to higher sector growth
-    (e.g. reconstruction), negative = lower growth.
-
-    impact : dict from load_national_sector_impact()
+    A multiselect box above the chart lets the user choose which series to
+    display (default: all three) — consistent with the Flood and Economic
+    line charts. Series values follow the {"values": [...]} contract.
     """
-    if not impact or not impact.get("bars"):
-        st.info("No significant sector effects to display.")
+    if not annual or "years" not in annual:
+        st.info("No annual social data.")
         return
+    years = annual["years"]
+    series = annual.get("series", {})
 
-    bars = impact["bars"]
+    COLORS = {"poverty": "#a32d2d", "unemployment": "#b5651d", "fsi": "#185FA5"}
+    LABELS = {"poverty": "Poverty rate", "unemployment": "Unemployment (TPT)",
+              "fsi": "Flood Severity (FSI)"}
+    AXIS   = {"poverty": "y", "unemployment": "y", "fsi": "y2"}
 
-    # dimension colour families (consistent with the Flood SERIES palette)
-    DIM_COLOR = {
-        "event": {"robust": "#0c447c", "suggestive": "#9db8d6"},  # blue
-        "HCI":   {"robust": "#a32d2d", "suggestive": "#e0a5a4"},  # red
-        "PDI":   {"robust": "#b45309", "suggestive": "#e8c79a"},  # amber
-    }
+    # series actually present in the data
+    available = [k for k in ["poverty", "unemployment", "fsi"] if k in series]
+    default_series = annual.get("default_series", available)
 
-    # build label "Sector · dim" and colour per bar
-    labels = [f"{b['sector']} · {b['dimension']}" for b in bars]
-    betas  = [b["beta"] for b in bars]
-    colors = [DIM_COLOR.get(b["dimension"], {}).get(b["grade"], "#9ca3af") for b in bars]
-    flags  = [b["flag"] for b in bars]
-    grades = [b["grade"] for b in bars]
-
-    # reverse so the strongest (first in list) sits on top
-    labels, betas, colors, flags, grades = (
-        labels[::-1], betas[::-1], colors[::-1], flags[::-1], grades[::-1]
-    )
-
-    fig = go.Figure(go.Bar(
-        x=betas, y=labels, orientation="h",
-        marker=dict(color=colors,
-                    line=dict(width=1.0, color="#374151")),
-        customdata=list(zip(flags, grades)),
-        hovertemplate=("%{y}<br>\u03b2 = %{x:.3f}"
-                       "<br>%{customdata[1]} (%{customdata[0]})<extra></extra>"),
-    ))
-    fig.add_vline(x=0, line_width=1, line_color="#9ca3af")
-
-    fig.update_layout(
-        height=height,
-        margin=dict(l=0, r=0, t=10, b=0),
-        font=dict(family=FONT_BODY, color="#1f2937", size=12),
-        xaxis=dict(title="Coefficient (\u03b2) — effect on sector growth",
-                   zeroline=True, zerolinecolor="#9ca3af",
-                   showgrid=True, gridcolor=HAIRLINE),
-        yaxis=dict(title="", automargin=True),
-        showlegend=False,
-        bargap=0.35,
-    )
-
-    st.plotly_chart(
-        fig,
+    # ── UI — multiselect with sensible defaults (matches Flood/Economic) ──
+    selected = st.multiselect(
+        "Variables to display",
+        options=available,
+        default=[s for s in default_series if s in available],
+        format_func=lambda k: LABELS.get(k, k),
         key=key,
-        config={"displayModeBar": False},
+        label_visibility="collapsed",
+        help=("Poverty & unemployment are point-% (left axis); FSI is the "
+              "flood-severity index 0-100 (right axis). Descriptive national "
+              "means, not a controlled relationship."),
     )
-
-    # honest legend + NS note
-    st.caption(
-        f"**Full colour** = robust (significant under both clustered & "
-        f"Driscoll\u2013Kraay SE); **pale** = suggestive (one SE only). "
-        f"Blue = flood frequency · red = human cost · amber = physical damage. "
-        f"{impact.get('note', '')}"
-    )
-
-
-# ═════════════════════════════════════════════════════════════════════════
-# Province scatter — FSI vs growth per regency (descriptive, coloured)
-# ═════════════════════════════════════════════════════════════════════════
-def render_province_scatter(
-    df: "pd.DataFrame",
-    prov_name: str = "",
-    height: int = 460,
-    key: str = "province_scatter",
-) -> None:
-    """Quadrant scatter: one dot per regency, X = FSI, Y = avg growth.
-
-    Median lines (province FSI median, province growth median) split the plot
-    into four descriptive quadrants. Dots are coloured by cluster if a
-    'cluster' column exists, otherwise by growth (diverging). This is a
-    DESCRIPTIVE cross-regency view, not the causal within-regency estimate.
-
-    df : columns regency | FSI_index | growth_avg | [cluster]
-    """
-    if df is None or len(df) == 0:
-        st.info("No regency data for this province.")
+    if not selected:
+        st.info("Select at least one variable to display.")
         return
-
-    d = df.dropna(subset=["FSI_index", "growth_avg"]).copy()
-    if len(d) < 3:
-        st.info("Too few regencies with FSI data for a quadrant view.")
-        return
-
-    # median split lines (robust to outliers)
-    fsi_med = float(d["FSI_index"].median())
-    grw_med = float(d["growth_avg"].median())
-    x_min, x_max = d["FSI_index"].min(), d["FSI_index"].max()
-    y_min, y_max = d["growth_avg"].min(), d["growth_avg"].max()
-    x_pad = (x_max - x_min) * 0.12 + 1e-6
-    y_pad = (y_max - y_min) * 0.12 + 1e-6
-    x_lo, x_hi = x_min - x_pad, x_max + x_pad
-    y_lo, y_hi = y_min - y_pad, y_max + y_pad
 
     fig = go.Figure()
-
-    # quadrant shading (very light) — high-FSI/low-growth = concern
-    fig.add_shape(type="rect", x0=fsi_med, x1=x_hi, y0=y_lo, y1=grw_med,
-                  fillcolor="#fde2e1", opacity=0.35, line_width=0, layer="below")
-    fig.add_shape(type="rect", x0=x_lo, x1=fsi_med, y0=grw_med, y1=y_hi,
-                  fillcolor="#e6f0da", opacity=0.35, line_width=0, layer="below")
-
-    # median split lines
-    fig.add_vline(x=fsi_med, line_width=1, line_dash="dash", line_color="#9ca3af")
-    fig.add_hline(y=grw_med, line_width=1, line_dash="dash", line_color="#9ca3af")
-
-    # points — colour by cluster if present, else by growth
-    if "cluster" in d.columns and d["cluster"].notna().any():
-        CLUSTER_COLOR = {
-            "Low Impact": "#84cc16",
-            "Catastrophic": "#dc2626",
-            "Frequent-Contained": "#f59e0b",
-        }
-        for clab, grp in d.groupby("cluster"):
-            fig.add_trace(go.Scatter(
-                x=grp["FSI_index"], y=grp["growth_avg"], mode="markers",
-                name=str(clab),
-                marker=dict(size=10, color=CLUSTER_COLOR.get(str(clab), "#6b7280"),
-                            line=dict(width=0.5, color="#374151")),
-                text=grp["regency"],
-                hovertemplate="%{text}<br>FSI %{x:.1f} · growth %{y:.2f}%<extra></extra>",
-            ))
-        show_legend = True
-    else:
+    for kk in selected:
+        vals = series[kk]["values"]
+        is_fsi = kk == "fsi"
+        unit = "/100" if is_fsi else "%"
         fig.add_trace(go.Scatter(
-            x=d["FSI_index"], y=d["growth_avg"], mode="markers",
-            marker=dict(
-                size=10, color=d["growth_avg"],
-                colorscale=[[0, "#a32d2d"], [0.5, "#ffffff"], [1, "#3b6d11"]],
-                cmid=0, showscale=True,
-                colorbar=dict(title="Growth %", thickness=12, len=0.6),
-                line=dict(width=0.5, color="#374151"),
-            ),
-            text=d["regency"],
-            hovertemplate="%{text}<br>FSI %{x:.1f} · growth %{y:.2f}%<extra></extra>",
+            x=years, y=vals, mode="lines+markers",
+            name=LABELS[kk], yaxis=AXIS[kk],
+            line=dict(color=COLORS[kk], width=2.5, dash="dot" if is_fsi else "solid"),
+            marker=dict(size=6),
+            hovertemplate=f"%{{x}}<br>{LABELS[kk]}: %{{y:.2f}}{unit}<extra></extra>",
         ))
-        show_legend = False
 
-    # quadrant corner labels
-    _ann = dict(showarrow=False, font=dict(size=10, color="#6b7280"),
-                xref="x", yref="y")
-    fig.add_annotation(x=x_hi, y=y_lo, text="High flood · low growth",
-                       xanchor="right", yanchor="bottom", **_ann)
-    fig.add_annotation(x=x_hi, y=y_hi, text="High flood · high growth",
-                       xanchor="right", yanchor="top", **_ann)
-    fig.add_annotation(x=x_lo, y=y_hi, text="Low flood · high growth",
-                       xanchor="left", yanchor="top", **_ann)
-    fig.add_annotation(x=x_lo, y=y_lo, text="Low flood · low growth",
-                       xanchor="left", yanchor="bottom", **_ann)
-
+    show_y2 = "fsi" in selected
     fig.update_layout(
-        height=height,
-        margin=dict(l=0, r=0, t=10, b=0),
+        height=height, margin=dict(l=0, r=0, t=10, b=0),
         font=dict(family=FONT_BODY, color="#1f2937", size=12),
-        xaxis=dict(title="Flood Severity Index (FSI)", showgrid=False,
-                   range=[x_lo, x_hi]),
-        yaxis=dict(title="Avg GRDP growth (%)", showgrid=False,
-                   range=[y_lo, y_hi]),
-        showlegend=show_legend,
+        xaxis=dict(title="", showgrid=False, tickmode="array", tickvals=list(years)),
+        yaxis=dict(title="Poverty / Unemployment (%)", showgrid=True,
+                   gridcolor=HAIRLINE, side="left"),
+        yaxis2=dict(title="FSI (0-100)", overlaying="y", side="right",
+                    showgrid=False, visible=show_y2),
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
-        hovermode="closest",
+        hovermode="x unified",
     )
-
-    st.plotly_chart(fig, key=key, config={"displayModeBar": False})
-    st.caption(
-        f"Dashed lines split the province at its median FSI ({fsi_med:.1f}) and "
-        f"median growth ({grw_med:.2f}%), giving four descriptive quadrants. "
-        f"This is a cross-regency correlation within the province, not a causal "
-        f"estimate; thresholds are relative and with few regencies the grouping "
-        f"can shift."
-    )
-
-
-
-# ═════════════════════════════════════════════════════════════════════════
-# Regency economic profile — sector composition treemap (share of GRDP)
-# ═════════════════════════════════════════════════════════════════════════
-def render_composition_stacked(
-    composition: dict,
-    mode: str = "rupiah",
-    height: int = 460,
-    key: str = "composition_stacked",
-) -> None:
-    """Stacked bar of sector composition over time for one regency.
-
-    One bar per year, stacked by all 17 sectors. Two modes:
-      • 'rupiah'  — absolute GRDP level (bar height = total GRDP, grows)
-      • 'share'   — 100% stacked (each bar = 100%, shows structural shift)
-
-    composition : dict with keys sectors / years / levels / totals
-                  (from the regency series JSON, nb13 STEP 8).
-    """
-    if not composition or "levels" not in composition:
-        st.info("No composition data for this regency.")
-        return
-
-    sectors = composition["sectors"]
-    years = composition["years"]
-    levels = composition["levels"]
-    totals = composition.get("totals", [])
-
-    # 17-colour qualitative palette (distinct, print-safe-ish)
-    PALETTE = [
-        "#3b6d11", "#6aa121", "#9fce6a", "#c7e29b", "#185fa5", "#4a8fce",
-        "#8bbce4", "#dc6b2f", "#f2a25c", "#f6c89a", "#8c4a9e", "#b884c9",
-        "#b5651d", "#d99a5b", "#6b7280", "#a8b0bd", "#d4af37",
-    ]
-
-    fig = go.Figure()
-    for i, sec in enumerate(sectors):
-        vals = levels.get(sec, [0] * len(years))
-        if mode == "share":
-            y = [round(v / t * 100, 2) if t else 0 for v, t in zip(vals, totals)]
-            hover = "%{x}<br>" + sec + ": %{y:.1f}%<extra></extra>"
-        else:
-            y = vals
-            hover = "%{x}<br>" + sec + ": Rp %{y:,.0f}<extra></extra>"
-        fig.add_trace(go.Bar(
-            x=[str(yr) for yr in years], y=y, name=sec,
-            marker=dict(color=PALETTE[i % len(PALETTE)], line=dict(width=0)),
-            hovertemplate=hover,
-        ))
-
-    y_title = "Share of GRDP (%)" if mode == "share" else "GRDP (constant 2010 prices)"
-    fig.update_layout(
-        barmode="stack",
-        height=height,
-        margin=dict(l=0, r=0, t=10, b=0),
-        font=dict(family=FONT_BODY, color="#1f2937", size=12),
-        xaxis=dict(title="", showgrid=False, type="category",
-                   tickmode="array", tickvals=[str(yr) for yr in years]),
-        yaxis=dict(title=y_title, showgrid=True, gridcolor=HAIRLINE,
-                   range=[0, 100] if mode == "share" else None),
-        legend=dict(orientation="h", yanchor="top", y=-0.08, xanchor="left", x=0,
-                    font=dict(size=10)),
-        hovermode="closest",
-    )
-    st.plotly_chart(fig, key=key, config={"displayModeBar": False})
+    st.plotly_chart(fig, key=f"{key}_fig", config={"displayModeBar": False})

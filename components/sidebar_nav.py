@@ -15,8 +15,7 @@ Analysis group — concrete domain icons:
   - Social Impact    : diversity_3     (community / inclusion)
 Evidence group — analytical / output icons:
   - Analytical Framework : query_stats (statistical investigation)
-  - Predictive Outlook   : insights    (forecasting / foresight)
-  - Policy Brief         : fact_check  (evidence-based recommendation)
+  - Model Evaluation     : analytics   (predictive evaluation / metrics)
 """
 
 import streamlit as st
@@ -54,8 +53,7 @@ _NAV_GROUPS = [
         "items": [
             # Analytical / output icons — what the page produces
             {"page": "pages/4_Analytical_Framework.py", "label": "Analytical Framework", "icon": ":material/query_stats:"},
-            {"page": "pages/5_Predictive_Outlook.py",   "label": "Predictive Outlook",   "icon": ":material/insights:"},
-            {"page": "pages/6_Policy_Brief.py",         "label": "Policy Brief",         "icon": ":material/fact_check:"},
+            {"page": "pages/5_Model_Evaluation.py",     "label": "Model Evaluation",     "icon": ":material/analytics:"},
         ],
     },
 ]
@@ -149,9 +147,6 @@ def _inject_css() -> None:
 
 def _render_brand() -> None:
     """SVG icon + 'FloodX' on ONE line, the whole row is one <a> link."""
-    # Use a real HTML anchor pointing to the app root. Streamlit treats
-    # "/" as the main page (app.py), so this routes correctly without
-    # showing the auto-nav.
     st.markdown(
         f'<a href="/" target="_self" class="fx-brand-link">'
         f'<span class="fx-brand-icon">{_BRAND_SVG}</span>'

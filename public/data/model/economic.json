@@ -1,0 +1,1192 @@
+{
+  "overall": {
+    "key": "grdp_growth_pct",
+    "label": "GRDP Growth",
+    "stages": [
+      {
+        "stage": "Train (CV)",
+        "r2": 0.017,
+        "rmse": 2.826,
+        "mae": 2.094
+      },
+      {
+        "stage": "Validation",
+        "r2": -0.1492,
+        "rmse": 1.867,
+        "mae": 1.26
+      },
+      {
+        "stage": "Test",
+        "r2": -0.3412,
+        "rmse": 1.939,
+        "mae": 1.328
+      },
+      {
+        "stage": "Naive baseline",
+        "r2": -0.1615,
+        "rmse": 1.805,
+        "mae": 1.223
+      }
+    ],
+    "flood_share": 67.6,
+    "importance": [
+      {
+        "feature": "event_count_log",
+        "label": "Flood frequency",
+        "importance": 0.3072,
+        "kind": "flood"
+      },
+      {
+        "feature": "rls_years",
+        "label": "Schooling",
+        "importance": 0.0987,
+        "kind": "control"
+      },
+      {
+        "feature": "log_population",
+        "label": "Population",
+        "importance": 0.0922,
+        "kind": "control"
+      },
+      {
+        "feature": "PDI_log",
+        "label": "Physical damage",
+        "importance": 0.0807,
+        "kind": "flood"
+      },
+      {
+        "feature": "HCI_log",
+        "label": "Human impact",
+        "importance": 0.0113,
+        "kind": "flood"
+      }
+    ],
+    "beeswarm": "img/beeswarm_growth.png",
+    "narrative": "**FE (inference):** PDI significant & negative (beta=-0.022, p=0.019); event & HCI not significant; flood-block p=0.003.  \n**XGBoost (prediction):** XGBoost test-R2=-0.34 - predictions collapse toward the mean; flooding does not predict this outcome.  \n**Overall:** significance is not the same as predictability - even where FE detects an effect, flooding is not a strong predictor of grdp growth.",
+    "n": 5140
+  },
+  "sectors": {
+    "A_agriculture": {
+      "key": "grdp_A_agriculture_growth",
+      "label": "A Agriculture",
+      "stages": [
+        {
+          "stage": "Train (CV)",
+          "r2": 0.0623,
+          "rmse": 2.376,
+          "mae": 1.868
+        },
+        {
+          "stage": "Validation",
+          "r2": 0.0578,
+          "rmse": 2.345,
+          "mae": 1.741
+        },
+        {
+          "stage": "Test",
+          "r2": -0.0791,
+          "rmse": 2.91,
+          "mae": 2.218
+        },
+        {
+          "stage": "Naive baseline",
+          "r2": -0.0433,
+          "rmse": 2.861,
+          "mae": 2.201
+        }
+      ],
+      "flood_share": 27.8,
+      "importance": [
+        {
+          "feature": "log_population",
+          "label": "Population",
+          "importance": 0.372,
+          "kind": "control"
+        },
+        {
+          "feature": "rls_years",
+          "label": "Schooling",
+          "importance": 0.1906,
+          "kind": "control"
+        },
+        {
+          "feature": "event_count_log",
+          "label": "Flood frequency",
+          "importance": 0.1783,
+          "kind": "flood"
+        },
+        {
+          "feature": "PDI_log",
+          "label": "Physical damage",
+          "importance": 0.0347,
+          "kind": "flood"
+        },
+        {
+          "feature": "HCI_log",
+          "label": "Human impact",
+          "importance": 0.004,
+          "kind": "flood"
+        }
+      ],
+      "beeswarm": "img/beeswarm_A_agriculture.png",
+      "narrative": "**FE (inference):** No flood dimension significant.  \n**XGBoost (prediction):** XGBoost test-R2=-0.08 - predictions collapse toward the mean; flooding does not predict this outcome.  \n**Overall:** significance is not the same as predictability - even where FE detects an effect, flooding is not a strong predictor of a agriculture.",
+      "n": 4626
+    },
+    "B_mining": {
+      "key": "grdp_B_mining_growth",
+      "label": "B Mining",
+      "stages": [
+        {
+          "stage": "Train (CV)",
+          "r2": 0.0208,
+          "rmse": 6.164,
+          "mae": 4.169
+        },
+        {
+          "stage": "Validation",
+          "r2": 0.0214,
+          "rmse": 5.57,
+          "mae": 3.439
+        },
+        {
+          "stage": "Test",
+          "r2": 0.0226,
+          "rmse": 5.815,
+          "mae": 3.711
+        },
+        {
+          "stage": "Naive baseline",
+          "r2": -0.0002,
+          "rmse": 5.882,
+          "mae": 3.725
+        }
+      ],
+      "flood_share": 23.1,
+      "importance": [
+        {
+          "feature": "log_population",
+          "label": "Population",
+          "importance": 0.3568,
+          "kind": "control"
+        },
+        {
+          "feature": "rls_years",
+          "label": "Schooling",
+          "importance": 0.3434,
+          "kind": "control"
+        },
+        {
+          "feature": "event_count_log",
+          "label": "Flood frequency",
+          "importance": 0.1482,
+          "kind": "flood"
+        },
+        {
+          "feature": "PDI_log",
+          "label": "Physical damage",
+          "importance": 0.0533,
+          "kind": "flood"
+        },
+        {
+          "feature": "HCI_log",
+          "label": "Human impact",
+          "importance": 0.0085,
+          "kind": "flood"
+        }
+      ],
+      "beeswarm": "img/beeswarm_B_mining.png",
+      "narrative": "**FE (inference):** Significant: PDI(-0.04)  \n**XGBoost (prediction):** XGBoost reaches test-R2=+0.02, but SHAP shows the top driver is 'Population' (a control); flood share is only 23%. The predictive power comes from controls, not flooding.  \n**Overall:** significance is not the same as predictability - even where FE detects an effect, flooding is not a strong predictor of b mining.",
+      "n": 4396
+    },
+    "C_manufacturing": {
+      "key": "grdp_C_manufacturing_growth",
+      "label": "C Manufacturing",
+      "stages": [
+        {
+          "stage": "Train (CV)",
+          "r2": 0.0163,
+          "rmse": 4.784,
+          "mae": 3.235
+        },
+        {
+          "stage": "Validation",
+          "r2": 0.0196,
+          "rmse": 4.667,
+          "mae": 2.841
+        },
+        {
+          "stage": "Test",
+          "r2": -0.1381,
+          "rmse": 5.326,
+          "mae": 3.31
+        },
+        {
+          "stage": "Naive baseline",
+          "r2": -0.1266,
+          "rmse": 5.299,
+          "mae": 3.298
+        }
+      ],
+      "flood_share": 32.9,
+      "importance": [
+        {
+          "feature": "rls_years",
+          "label": "Schooling",
+          "importance": 0.3164,
+          "kind": "control"
+        },
+        {
+          "feature": "log_population",
+          "label": "Population",
+          "importance": 0.2604,
+          "kind": "control"
+        },
+        {
+          "feature": "PDI_log",
+          "label": "Physical damage",
+          "importance": 0.1387,
+          "kind": "flood"
+        },
+        {
+          "feature": "event_count_log",
+          "label": "Flood frequency",
+          "importance": 0.1305,
+          "kind": "flood"
+        },
+        {
+          "feature": "HCI_log",
+          "label": "Human impact",
+          "importance": 0.0132,
+          "kind": "flood"
+        }
+      ],
+      "beeswarm": "img/beeswarm_C_manufacturing.png",
+      "narrative": "**FE (inference):** Significant: PDI(-0.07)  \n**XGBoost (prediction):** XGBoost test-R2=-0.14 - predictions collapse toward the mean; flooding does not predict this outcome.  \n**Overall:** significance is not the same as predictability - even where FE detects an effect, flooding is not a strong predictor of c manufacturing.",
+      "n": 4622
+    },
+    "D_electricity": {
+      "key": "grdp_D_electricity_growth",
+      "label": "D Electricity",
+      "stages": [
+        {
+          "stage": "Train (CV)",
+          "r2": 0.0366,
+          "rmse": 4.483,
+          "mae": 3.094
+        },
+        {
+          "stage": "Validation",
+          "r2": -0.0423,
+          "rmse": 4.814,
+          "mae": 3.247
+        },
+        {
+          "stage": "Test",
+          "r2": 0.0306,
+          "rmse": 4.705,
+          "mae": 3.232
+        },
+        {
+          "stage": "Naive baseline",
+          "r2": -0.0111,
+          "rmse": 4.806,
+          "mae": 3.278
+        }
+      ],
+      "flood_share": 22.4,
+      "importance": [
+        {
+          "feature": "log_population",
+          "label": "Population",
+          "importance": 0.3981,
+          "kind": "control"
+        },
+        {
+          "feature": "rls_years",
+          "label": "Schooling",
+          "importance": 0.3427,
+          "kind": "control"
+        },
+        {
+          "feature": "event_count_log",
+          "label": "Flood frequency",
+          "importance": 0.1649,
+          "kind": "flood"
+        },
+        {
+          "feature": "PDI_log",
+          "label": "Physical damage",
+          "importance": 0.0289,
+          "kind": "flood"
+        },
+        {
+          "feature": "HCI_log",
+          "label": "Human impact",
+          "importance": 0.0204,
+          "kind": "flood"
+        }
+      ],
+      "beeswarm": "img/beeswarm_D_electricity.png",
+      "narrative": "**FE (inference):** No flood dimension significant.  \n**XGBoost (prediction):** XGBoost reaches test-R2=+0.03, but SHAP shows the top driver is 'Population' (a control); flood share is only 22%. The predictive power comes from controls, not flooding.  \n**Overall:** significance is not the same as predictability - even where FE detects an effect, flooding is not a strong predictor of d electricity.",
+      "n": 4571
+    },
+    "E_water": {
+      "key": "grdp_E_water_growth",
+      "label": "E Water",
+      "stages": [
+        {
+          "stage": "Train (CV)",
+          "r2": 0.0186,
+          "rmse": 3.27,
+          "mae": 2.487
+        },
+        {
+          "stage": "Validation",
+          "r2": -0.0474,
+          "rmse": 2.98,
+          "mae": 2.24
+        },
+        {
+          "stage": "Test",
+          "r2": -0.1573,
+          "rmse": 3.598,
+          "mae": 2.844
+        },
+        {
+          "stage": "Naive baseline",
+          "r2": -0.1558,
+          "rmse": 3.596,
+          "mae": 2.831
+        }
+      ],
+      "flood_share": 13.1,
+      "importance": [
+        {
+          "feature": "rls_years",
+          "label": "Schooling",
+          "importance": 0.3194,
+          "kind": "control"
+        },
+        {
+          "feature": "log_population",
+          "label": "Population",
+          "importance": 0.1785,
+          "kind": "control"
+        },
+        {
+          "feature": "PDI_log",
+          "label": "Physical damage",
+          "importance": 0.0538,
+          "kind": "flood"
+        },
+        {
+          "feature": "event_count_log",
+          "label": "Flood frequency",
+          "importance": 0.0126,
+          "kind": "flood"
+        },
+        {
+          "feature": "HCI_log",
+          "label": "Human impact",
+          "importance": 0.0088,
+          "kind": "flood"
+        }
+      ],
+      "beeswarm": "img/beeswarm_E_water.png",
+      "narrative": "**FE (inference):** No flood dimension significant.  \n**XGBoost (prediction):** XGBoost test-R2=-0.16 - predictions collapse toward the mean; flooding does not predict this outcome.  \n**Overall:** significance is not the same as predictability - even where FE detects an effect, flooding is not a strong predictor of e water.",
+      "n": 4492
+    },
+    "F_construction": {
+      "key": "grdp_F_construction_growth",
+      "label": "F Construction",
+      "stages": [
+        {
+          "stage": "Train (CV)",
+          "r2": 0.0167,
+          "rmse": 4.918,
+          "mae": 3.752
+        },
+        {
+          "stage": "Validation",
+          "r2": -0.1359,
+          "rmse": 4.187,
+          "mae": 3.023
+        },
+        {
+          "stage": "Test",
+          "r2": -0.0133,
+          "rmse": 4.257,
+          "mae": 3.152
+        },
+        {
+          "stage": "Naive baseline",
+          "r2": -0.0077,
+          "rmse": 4.246,
+          "mae": 3.111
+        }
+      ],
+      "flood_share": 40.6,
+      "importance": [
+        {
+          "feature": "rls_years",
+          "label": "Schooling",
+          "importance": 0.4136,
+          "kind": "control"
+        },
+        {
+          "feature": "event_count_log",
+          "label": "Flood frequency",
+          "importance": 0.353,
+          "kind": "flood"
+        },
+        {
+          "feature": "log_population",
+          "label": "Population",
+          "importance": 0.1669,
+          "kind": "control"
+        },
+        {
+          "feature": "PDI_log",
+          "label": "Physical damage",
+          "importance": 0.0334,
+          "kind": "flood"
+        },
+        {
+          "feature": "HCI_log",
+          "label": "Human impact",
+          "importance": 0.0103,
+          "kind": "flood"
+        }
+      ],
+      "beeswarm": "img/beeswarm_F_construction.png",
+      "narrative": "**FE (inference):** Significant: event(+0.40), HCI(-0.18)  \n**XGBoost (prediction):** XGBoost test-R2=-0.01 - predictions collapse toward the mean; flooding does not predict this outcome.  \n**Overall:** significance is not the same as predictability - even where FE detects an effect, flooding is not a strong predictor of f construction.",
+      "n": 4626
+    },
+    "G_trade": {
+      "key": "grdp_G_trade_growth",
+      "label": "G Trade",
+      "stages": [
+        {
+          "stage": "Train (CV)",
+          "r2": 0.015,
+          "rmse": 4.27,
+          "mae": 3.141
+        },
+        {
+          "stage": "Validation",
+          "r2": -0.4392,
+          "rmse": 2.847,
+          "mae": 2.159
+        },
+        {
+          "stage": "Test",
+          "r2": -0.309,
+          "rmse": 2.965,
+          "mae": 2.199
+        },
+        {
+          "stage": "Naive baseline",
+          "r2": -0.2442,
+          "rmse": 2.891,
+          "mae": 2.086
+        }
+      ],
+      "flood_share": 55.5,
+      "importance": [
+        {
+          "feature": "event_count_log",
+          "label": "Flood frequency",
+          "importance": 0.3262,
+          "kind": "flood"
+        },
+        {
+          "feature": "rls_years",
+          "label": "Schooling",
+          "importance": 0.1728,
+          "kind": "control"
+        },
+        {
+          "feature": "log_population",
+          "label": "Population",
+          "importance": 0.1618,
+          "kind": "control"
+        },
+        {
+          "feature": "PDI_log",
+          "label": "Physical damage",
+          "importance": 0.0837,
+          "kind": "flood"
+        },
+        {
+          "feature": "HCI_log",
+          "label": "Human impact",
+          "importance": 0.0067,
+          "kind": "flood"
+        }
+      ],
+      "beeswarm": "img/beeswarm_G_trade.png",
+      "narrative": "**FE (inference):** Significant: event(+0.30)  \n**XGBoost (prediction):** XGBoost test-R2=-0.31 - predictions collapse toward the mean; flooding does not predict this outcome.  \n**Overall:** significance is not the same as predictability - even where FE detects an effect, flooding is not a strong predictor of g trade.",
+      "n": 4626
+    },
+    "H_transport": {
+      "key": "grdp_H_transport_growth",
+      "label": "H Transport",
+      "stages": [
+        {
+          "stage": "Train (CV)",
+          "r2": 0.0055,
+          "rmse": 9.874,
+          "mae": 6.025
+        },
+        {
+          "stage": "Validation",
+          "r2": -0.5738,
+          "rmse": 5.883,
+          "mae": 4.218
+        },
+        {
+          "stage": "Test",
+          "r2": -0.3903,
+          "rmse": 4.703,
+          "mae": 3.447
+        },
+        {
+          "stage": "Naive baseline",
+          "r2": -0.4019,
+          "rmse": 4.722,
+          "mae": 3.454
+        }
+      ],
+      "flood_share": 49.3,
+      "importance": [
+        {
+          "feature": "log_population",
+          "label": "Population",
+          "importance": 0.3711,
+          "kind": "control"
+        },
+        {
+          "feature": "PDI_log",
+          "label": "Physical damage",
+          "importance": 0.2727,
+          "kind": "flood"
+        },
+        {
+          "feature": "event_count_log",
+          "label": "Flood frequency",
+          "importance": 0.1925,
+          "kind": "flood"
+        },
+        {
+          "feature": "rls_years",
+          "label": "Schooling",
+          "importance": 0.1255,
+          "kind": "control"
+        },
+        {
+          "feature": "HCI_log",
+          "label": "Human impact",
+          "importance": 0.0171,
+          "kind": "flood"
+        }
+      ],
+      "beeswarm": "img/beeswarm_H_transport.png",
+      "narrative": "**FE (inference):** No flood dimension significant.  \n**XGBoost (prediction):** XGBoost test-R2=-0.39 - predictions collapse toward the mean; flooding does not predict this outcome.  \n**Overall:** significance is not the same as predictability - even where FE detects an effect, flooding is not a strong predictor of h transport.",
+      "n": 4626
+    },
+    "I_accommodation": {
+      "key": "grdp_I_accommodation_growth",
+      "label": "I Accommodation",
+      "stages": [
+        {
+          "stage": "Train (CV)",
+          "r2": 0.0045,
+          "rmse": 7.101,
+          "mae": 5.019
+        },
+        {
+          "stage": "Validation",
+          "r2": -0.844,
+          "rmse": 5.078,
+          "mae": 4.075
+        },
+        {
+          "stage": "Test",
+          "r2": -0.4742,
+          "rmse": 4.832,
+          "mae": 3.68
+        },
+        {
+          "stage": "Naive baseline",
+          "r2": -0.4332,
+          "rmse": 4.764,
+          "mae": 3.633
+        }
+      ],
+      "flood_share": 60.8,
+      "importance": [
+        {
+          "feature": "event_count_log",
+          "label": "Flood frequency",
+          "importance": 0.1893,
+          "kind": "flood"
+        },
+        {
+          "feature": "PDI_log",
+          "label": "Physical damage",
+          "importance": 0.1479,
+          "kind": "flood"
+        },
+        {
+          "feature": "rls_years",
+          "label": "Schooling",
+          "importance": 0.144,
+          "kind": "control"
+        },
+        {
+          "feature": "log_population",
+          "label": "Population",
+          "importance": 0.0835,
+          "kind": "control"
+        },
+        {
+          "feature": "HCI_log",
+          "label": "Human impact",
+          "importance": 0.0161,
+          "kind": "flood"
+        }
+      ],
+      "beeswarm": "img/beeswarm_I_accommodation.png",
+      "narrative": "**FE (inference):** Significant: HCI(-0.18)  \n**XGBoost (prediction):** XGBoost test-R2=-0.47 - predictions collapse toward the mean; flooding does not predict this outcome.  \n**Overall:** significance is not the same as predictability - even where FE detects an effect, flooding is not a strong predictor of i accommodation.",
+      "n": 4626
+    },
+    "J_infocomm": {
+      "key": "grdp_J_infocomm_growth",
+      "label": "J Infocomm",
+      "stages": [
+        {
+          "stage": "Train (CV)",
+          "r2": 0.0537,
+          "rmse": 3.427,
+          "mae": 2.56
+        },
+        {
+          "stage": "Validation",
+          "r2": -0.1172,
+          "rmse": 2.95,
+          "mae": 2.249
+        },
+        {
+          "stage": "Test",
+          "r2": -0.245,
+          "rmse": 2.976,
+          "mae": 2.415
+        },
+        {
+          "stage": "Naive baseline",
+          "r2": -0.3656,
+          "rmse": 3.117,
+          "mae": 2.525
+        }
+      ],
+      "flood_share": 16.2,
+      "importance": [
+        {
+          "feature": "log_population",
+          "label": "Population",
+          "importance": 0.5419,
+          "kind": "control"
+        },
+        {
+          "feature": "rls_years",
+          "label": "Schooling",
+          "importance": 0.1779,
+          "kind": "control"
+        },
+        {
+          "feature": "HCI_log",
+          "label": "Human impact",
+          "importance": 0.0495,
+          "kind": "flood"
+        },
+        {
+          "feature": "PDI_log",
+          "label": "Physical damage",
+          "importance": 0.0488,
+          "kind": "flood"
+        },
+        {
+          "feature": "event_count_log",
+          "label": "Flood frequency",
+          "importance": 0.0405,
+          "kind": "flood"
+        }
+      ],
+      "beeswarm": "img/beeswarm_J_infocomm.png",
+      "narrative": "**FE (inference):** No flood dimension significant.  \n**XGBoost (prediction):** XGBoost test-R2=-0.24 - predictions collapse toward the mean; flooding does not predict this outcome.  \n**Overall:** significance is not the same as predictability - even where FE detects an effect, flooding is not a strong predictor of j infocomm.",
+      "n": 4617
+    },
+    "K_finance": {
+      "key": "grdp_K_finance_growth",
+      "label": "K Finance",
+      "stages": [
+        {
+          "stage": "Train (CV)",
+          "r2": 0.0215,
+          "rmse": 3.549,
+          "mae": 2.665
+        },
+        {
+          "stage": "Validation",
+          "r2": 0.0091,
+          "rmse": 4.629,
+          "mae": 3.361
+        },
+        {
+          "stage": "Test",
+          "r2": -0.1204,
+          "rmse": 4.125,
+          "mae": 2.868
+        },
+        {
+          "stage": "Naive baseline",
+          "r2": -0.1074,
+          "rmse": 4.101,
+          "mae": 2.811
+        }
+      ],
+      "flood_share": 19.3,
+      "importance": [
+        {
+          "feature": "log_population",
+          "label": "Population",
+          "importance": 0.3353,
+          "kind": "control"
+        },
+        {
+          "feature": "rls_years",
+          "label": "Schooling",
+          "importance": 0.1616,
+          "kind": "control"
+        },
+        {
+          "feature": "event_count_log",
+          "label": "Flood frequency",
+          "importance": 0.0738,
+          "kind": "flood"
+        },
+        {
+          "feature": "PDI_log",
+          "label": "Physical damage",
+          "importance": 0.0417,
+          "kind": "flood"
+        },
+        {
+          "feature": "HCI_log",
+          "label": "Human impact",
+          "importance": 0.0032,
+          "kind": "flood"
+        }
+      ],
+      "beeswarm": "img/beeswarm_K_finance.png",
+      "narrative": "**FE (inference):** No flood dimension significant.  \n**XGBoost (prediction):** XGBoost test-R2=-0.12 - predictions collapse toward the mean; flooding does not predict this outcome.  \n**Overall:** significance is not the same as predictability - even where FE detects an effect, flooding is not a strong predictor of k finance.",
+      "n": 4581
+    },
+    "L_realestate": {
+      "key": "grdp_L_realestate_growth",
+      "label": "L Realestate",
+      "stages": [
+        {
+          "stage": "Train (CV)",
+          "r2": 0.049,
+          "rmse": 2.707,
+          "mae": 2.189
+        },
+        {
+          "stage": "Validation",
+          "r2": -0.0424,
+          "rmse": 2.551,
+          "mae": 1.965
+        },
+        {
+          "stage": "Test",
+          "r2": -0.2367,
+          "rmse": 2.445,
+          "mae": 1.862
+        },
+        {
+          "stage": "Naive baseline",
+          "r2": -0.1515,
+          "rmse": 2.359,
+          "mae": 1.778
+        }
+      ],
+      "flood_share": 32.8,
+      "importance": [
+        {
+          "feature": "log_population",
+          "label": "Population",
+          "importance": 0.3832,
+          "kind": "control"
+        },
+        {
+          "feature": "rls_years",
+          "label": "Schooling",
+          "importance": 0.2054,
+          "kind": "control"
+        },
+        {
+          "feature": "event_count_log",
+          "label": "Flood frequency",
+          "importance": 0.1467,
+          "kind": "flood"
+        },
+        {
+          "feature": "PDI_log",
+          "label": "Physical damage",
+          "importance": 0.1336,
+          "kind": "flood"
+        },
+        {
+          "feature": "HCI_log",
+          "label": "Human impact",
+          "importance": 0.0073,
+          "kind": "flood"
+        }
+      ],
+      "beeswarm": "img/beeswarm_L_realestate.png",
+      "narrative": "**FE (inference):** No flood dimension significant.  \n**XGBoost (prediction):** XGBoost test-R2=-0.24 - predictions collapse toward the mean; flooding does not predict this outcome.  \n**Overall:** significance is not the same as predictability - even where FE detects an effect, flooding is not a strong predictor of l realestate.",
+      "n": 4626
+    },
+    "MN_business": {
+      "key": "grdp_MN_business_growth",
+      "label": "Mn Business",
+      "stages": [
+        {
+          "stage": "Train (CV)",
+          "r2": 0.0196,
+          "rmse": 5.24,
+          "mae": 3.82
+        },
+        {
+          "stage": "Validation",
+          "r2": -0.4349,
+          "rmse": 4.147,
+          "mae": 3.338
+        },
+        {
+          "stage": "Test",
+          "r2": -0.5333,
+          "rmse": 3.704,
+          "mae": 3.004
+        },
+        {
+          "stage": "Naive baseline",
+          "r2": -0.501,
+          "rmse": 3.665,
+          "mae": 2.991
+        }
+      ],
+      "flood_share": 59.5,
+      "importance": [
+        {
+          "feature": "log_population",
+          "label": "Population",
+          "importance": 0.3156,
+          "kind": "control"
+        },
+        {
+          "feature": "PDI_log",
+          "label": "Physical damage",
+          "importance": 0.2987,
+          "kind": "flood"
+        },
+        {
+          "feature": "event_count_log",
+          "label": "Flood frequency",
+          "importance": 0.1554,
+          "kind": "flood"
+        },
+        {
+          "feature": "HCI_log",
+          "label": "Human impact",
+          "importance": 0.0367,
+          "kind": "flood"
+        },
+        {
+          "feature": "rls_years",
+          "label": "Schooling",
+          "importance": 0.0185,
+          "kind": "control"
+        }
+      ],
+      "beeswarm": "img/beeswarm_MN_business.png",
+      "narrative": "**FE (inference):** Significant: event(+0.34), HCI(-0.18)  \n**XGBoost (prediction):** XGBoost test-R2=-0.53 - predictions collapse toward the mean; flooding does not predict this outcome.  \n**Overall:** significance is not the same as predictability - even where FE detects an effect, flooding is not a strong predictor of mn business.",
+      "n": 4601
+    },
+    "O_government": {
+      "key": "grdp_O_government_growth",
+      "label": "O Government",
+      "stages": [
+        {
+          "stage": "Train (CV)",
+          "r2": 0.0638,
+          "rmse": 3.381,
+          "mae": 2.712
+        },
+        {
+          "stage": "Validation",
+          "r2": -0.042,
+          "rmse": 2.835,
+          "mae": 2.208
+        },
+        {
+          "stage": "Test",
+          "r2": -0.467,
+          "rmse": 4.925,
+          "mae": 3.892
+        },
+        {
+          "stage": "Naive baseline",
+          "r2": -0.3641,
+          "rmse": 4.749,
+          "mae": 3.753
+        }
+      ],
+      "flood_share": 41.8,
+      "importance": [
+        {
+          "feature": "event_count_log",
+          "label": "Flood frequency",
+          "importance": 0.4077,
+          "kind": "flood"
+        },
+        {
+          "feature": "log_population",
+          "label": "Population",
+          "importance": 0.3873,
+          "kind": "control"
+        },
+        {
+          "feature": "rls_years",
+          "label": "Schooling",
+          "importance": 0.2999,
+          "kind": "control"
+        },
+        {
+          "feature": "PDI_log",
+          "label": "Physical damage",
+          "importance": 0.0571,
+          "kind": "flood"
+        },
+        {
+          "feature": "HCI_log",
+          "label": "Human impact",
+          "importance": 0.0297,
+          "kind": "flood"
+        }
+      ],
+      "beeswarm": "img/beeswarm_O_government.png",
+      "narrative": "**FE (inference):** No flood dimension significant.  \n**XGBoost (prediction):** XGBoost test-R2=-0.47 - predictions collapse toward the mean; flooding does not predict this outcome.  \n**Overall:** significance is not the same as predictability - even where FE detects an effect, flooding is not a strong predictor of o government.",
+      "n": 4626
+    },
+    "P_education": {
+      "key": "grdp_P_education_growth",
+      "label": "P Education",
+      "stages": [
+        {
+          "stage": "Train (CV)",
+          "r2": 0.0112,
+          "rmse": 2.916,
+          "mae": 2.394
+        },
+        {
+          "stage": "Validation",
+          "r2": -0.0028,
+          "rmse": 2.288,
+          "mae": 1.797
+        },
+        {
+          "stage": "Test",
+          "r2": -0.0918,
+          "rmse": 2.637,
+          "mae": 2.131
+        },
+        {
+          "stage": "Naive baseline",
+          "r2": -0.0563,
+          "rmse": 2.593,
+          "mae": 2.106
+        }
+      ],
+      "flood_share": 71.3,
+      "importance": [
+        {
+          "feature": "event_count_log",
+          "label": "Flood frequency",
+          "importance": 0.2355,
+          "kind": "flood"
+        },
+        {
+          "feature": "log_population",
+          "label": "Population",
+          "importance": 0.0676,
+          "kind": "control"
+        },
+        {
+          "feature": "PDI_log",
+          "label": "Physical damage",
+          "importance": 0.0551,
+          "kind": "flood"
+        },
+        {
+          "feature": "rls_years",
+          "label": "Schooling",
+          "importance": 0.0546,
+          "kind": "control"
+        },
+        {
+          "feature": "HCI_log",
+          "label": "Human impact",
+          "importance": 0.0136,
+          "kind": "flood"
+        }
+      ],
+      "beeswarm": "img/beeswarm_P_education.png",
+      "narrative": "**FE (inference):** Significant: HCI(-0.13)  \n**XGBoost (prediction):** XGBoost test-R2=-0.09 - predictions collapse toward the mean; flooding does not predict this outcome.  \n**Overall:** significance is not the same as predictability - even where FE detects an effect, flooding is not a strong predictor of p education.",
+      "n": 4626
+    },
+    "Q_health": {
+      "key": "grdp_Q_health_growth",
+      "label": "Q Health",
+      "stages": [
+        {
+          "stage": "Train (CV)",
+          "r2": 0.0033,
+          "rmse": 3.462,
+          "mae": 2.569
+        },
+        {
+          "stage": "Validation",
+          "r2": -0.0969,
+          "rmse": 3.779,
+          "mae": 2.804
+        },
+        {
+          "stage": "Test",
+          "r2": -0.0806,
+          "rmse": 2.867,
+          "mae": 2.193
+        },
+        {
+          "stage": "Naive baseline",
+          "r2": -0.09,
+          "rmse": 2.88,
+          "mae": 2.196
+        }
+      ],
+      "flood_share": 41.4,
+      "importance": [
+        {
+          "feature": "rls_years",
+          "label": "Schooling",
+          "importance": 0.0725,
+          "kind": "control"
+        },
+        {
+          "feature": "event_count_log",
+          "label": "Flood frequency",
+          "importance": 0.0454,
+          "kind": "flood"
+        },
+        {
+          "feature": "log_population",
+          "label": "Population",
+          "importance": 0.0342,
+          "kind": "control"
+        },
+        {
+          "feature": "HCI_log",
+          "label": "Human impact",
+          "importance": 0.0224,
+          "kind": "flood"
+        },
+        {
+          "feature": "PDI_log",
+          "label": "Physical damage",
+          "importance": 0.0077,
+          "kind": "flood"
+        }
+      ],
+      "beeswarm": "img/beeswarm_Q_health.png",
+      "narrative": "**FE (inference):** Significant: event(+0.39)  \n**XGBoost (prediction):** XGBoost test-R2=-0.08 - predictions collapse toward the mean; flooding does not predict this outcome.  \n**Overall:** significance is not the same as predictability - even where FE detects an effect, flooding is not a strong predictor of q health.",
+      "n": 4626
+    },
+    "RSTU_other": {
+      "key": "grdp_RSTU_other_growth",
+      "label": "Rstu Other",
+      "stages": [
+        {
+          "stage": "Train (CV)",
+          "r2": 0.0091,
+          "rmse": 5.825,
+          "mae": 4.204
+        },
+        {
+          "stage": "Validation",
+          "r2": -0.6103,
+          "rmse": 4.617,
+          "mae": 3.543
+        },
+        {
+          "stage": "Test",
+          "r2": -0.4251,
+          "rmse": 3.997,
+          "mae": 3.107
+        },
+        {
+          "stage": "Naive baseline",
+          "r2": -0.4253,
+          "rmse": 3.997,
+          "mae": 3.108
+        }
+      ],
+      "flood_share": 60.0,
+      "importance": [
+        {
+          "feature": "event_count_log",
+          "label": "Flood frequency",
+          "importance": 0.1872,
+          "kind": "flood"
+        },
+        {
+          "feature": "log_population",
+          "label": "Population",
+          "importance": 0.1465,
+          "kind": "control"
+        },
+        {
+          "feature": "PDI_log",
+          "label": "Physical damage",
+          "importance": 0.1238,
+          "kind": "flood"
+        },
+        {
+          "feature": "rls_years",
+          "label": "Schooling",
+          "importance": 0.0852,
+          "kind": "control"
+        },
+        {
+          "feature": "HCI_log",
+          "label": "Human impact",
+          "importance": 0.0368,
+          "kind": "flood"
+        }
+      ],
+      "beeswarm": "img/beeswarm_RSTU_other.png",
+      "narrative": "**FE (inference):** Significant: HCI(-0.16)  \n**XGBoost (prediction):** XGBoost test-R2=-0.43 - predictions collapse toward the mean; flooding does not predict this outcome.  \n**Overall:** significance is not the same as predictability - even where FE detects an effect, flooding is not a strong predictor of rstu other.",
+      "n": 4626
+    }
+  }
+}
