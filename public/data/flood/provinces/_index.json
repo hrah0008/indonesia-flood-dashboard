@@ -2,12 +2,12 @@
  "11": {
   "prov_name": "Aceh",
   "n_regencies": 23,
-  "n_hot_spots": 15
+  "n_hot_spots": 14
  },
  "12": {
   "prov_name": "Sumatera Utara",
   "n_regencies": 33,
-  "n_hot_spots": 8
+  "n_hot_spots": 9
  },
  "13": {
   "prov_name": "Sumatera Barat",
@@ -22,7 +22,7 @@
  "15": {
   "prov_name": "Jambi",
   "n_regencies": 11,
-  "n_hot_spots": 3
+  "n_hot_spots": 2
  },
  "16": {
   "prov_name": "Sumatera Selatan",
@@ -62,7 +62,7 @@
  "33": {
   "prov_name": "Jawa Tengah",
   "n_regencies": 35,
-  "n_hot_spots": 4
+  "n_hot_spots": 3
  },
  "34": {
   "prov_name": "Di Yogyakarta",
@@ -72,12 +72,12 @@
  "35": {
   "prov_name": "Jawa Timur",
   "n_regencies": 38,
-  "n_hot_spots": 1
+  "n_hot_spots": 0
  },
  "36": {
   "prov_name": "Banten",
   "n_regencies": 8,
-  "n_hot_spots": 2
+  "n_hot_spots": 1
  },
  "51": {
   "prov_name": "Bali",
@@ -87,12 +87,12 @@
  "52": {
   "prov_name": "Nusa Tenggara Barat",
   "n_regencies": 10,
-  "n_hot_spots": 2
+  "n_hot_spots": 1
  },
  "53": {
   "prov_name": "Nusa Tenggara Timur",
   "n_regencies": 22,
-  "n_hot_spots": 1
+  "n_hot_spots": 2
  },
  "61": {
   "prov_name": "Kalimantan Barat",
@@ -107,7 +107,7 @@
  "63": {
   "prov_name": "Kalimantan Selatan",
   "n_regencies": 13,
-  "n_hot_spots": 1
+  "n_hot_spots": 0
  },
  "64": {
   "prov_name": "Kalimantan Timur",
@@ -127,12 +127,12 @@
  "72": {
   "prov_name": "Sulawesi Tengah",
   "n_regencies": 13,
-  "n_hot_spots": 4
+  "n_hot_spots": 2
  },
  "73": {
   "prov_name": "Sulawesi Selatan",
   "n_regencies": 24,
-  "n_hot_spots": 0
+  "n_hot_spots": 1
  },
  "74": {
   "prov_name": "Sulawesi Tenggara",
