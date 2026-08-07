@@ -4,15 +4,15 @@
   "kab_name": "Kabupaten Tabanan",
   "prov_code": 51,
   "prov_name": "Bali",
-  "centroid_lat": -8.4419,
+  "centroid_lat": -8.4418,
   "centroid_lon": 115.071,
   "total_events": 8,
   "total_deaths": 0,
   "total_missing": 0,
   "total_injured": 0,
   "total_houses": 54,
-  "fsi": -0.9018,
-  "fsi_index": 21.63,
+  "fsi": -0.9023,
+  "fsi_index": 21.61,
   "gi_cat_fsi": "Not sig.",
   "gi_z_fsi": -1.339,
   "gi_hot_significant": false,
@@ -71,16 +71,16 @@
    100.0
   ],
   "fsi_index": [
-   40.41,
+   40.4,
    0.0,
    100.0,
    0.0,
    0.0,
    0.0,
-   63.26,
+   63.33,
    0.0,
    0.0,
-   84.25
+   84.31
   ],
   "events": [
    1,
@@ -229,7 +229,7 @@
     0.0,
     0.0,
     0.0,
-    3.96,
+    3.95,
     0.0,
     0.0
    ],
@@ -370,9 +370,9 @@
   0.0,
   0.63,
   0.0,
-  0.96,
+  0.95,
   0.4,
-  0.34,
+  0.33,
   0.0
  ]
 }

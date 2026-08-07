@@ -5,16 +5,16 @@
   "prov_code": 12,
   "prov_name": "Sumatera Utara",
   "centroid_lat": 1.3125,
-  "centroid_lon": 97.3384,
+  "centroid_lon": 97.3388,
   "total_events": 13,
   "total_deaths": 0,
   "total_missing": 0,
   "total_injured": 0,
   "total_houses": 8111,
-  "fsi": -0.475,
+  "fsi": -0.4751,
   "fsi_index": 30.59,
   "gi_cat_fsi": "Not sig.",
-  "gi_z_fsi": 0.966,
+  "gi_z_fsi": 0.967,
   "gi_hot_significant": false,
   "is_extreme_severity": false,
   "mk_sig_event_count": false,
@@ -71,16 +71,16 @@
    46.41
   ],
   "fsi_index": [
-   55.5,
+   55.51,
    0.0,
    0.0,
    0.0,
-   59.78,
+   59.75,
    100.0,
-   20.16,
-   42.15,
-   65.53,
-   68.02
+   20.11,
+   42.13,
+   65.51,
+   67.96
   ],
   "events": [
    1,
@@ -231,7 +231,7 @@
     0.0,
     0.0,
     0.0,
-    9.23
+    9.24
    ],
    [
     0.0,
@@ -297,11 +297,11 @@
     0.0,
     0.0,
     0.0,
-    13.89,
+    13.9,
     0.0,
     0.0,
     0.0,
-    11.68
+    11.69
    ],
    [
     0.0,
@@ -371,7 +371,7 @@
   0.0,
   2.48,
   0.0,
-  0.75,
+  0.74,
   1.77,
   2.43
  ]

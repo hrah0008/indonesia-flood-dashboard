@@ -6,11 +6,11 @@
  "total_missing": 559,
  "total_injured": 26072,
  "total_houses": 8614478,
- "avg_fsi_index": 40.58,
+ "avg_fsi_index": 40.57,
  "avg_freq_annual": 1303.0,
  "avg_hci_annual": 139.49,
  "avg_pdi_annual": 2444.08,
- "morans_i": 0.3347,
+ "morans_i": 0.3209,
  "morans_p": 0.001,
  "knn_k": 5,
  "n_hot_spots": 54,
@@ -24,7 +24,7 @@
  "trend_direction": "Increasing",
  "mk_tau": 0.6,
  "mk_p_hr": 0.0,
- "mk_slope_pct": 1.0818401811582328,
+ "mk_slope_pct": 1.0920508392694046,
  "year_min": 2016,
  "year_max": 2025
 }

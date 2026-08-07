@@ -11,8 +11,8 @@
   "total_missing": 82,
   "total_injured": 983,
   "total_houses": 6112,
-  "fsi": 2.3875,
-  "fsi_index": 90.74,
+  "fsi": 2.3877,
+  "fsi_index": 90.73,
   "gi_cat_fsi": "Cold 95%",
   "gi_z_fsi": -2.076,
   "gi_hot_significant": false,
@@ -264,7 +264,7 @@
    [
     23.34,
     8.83,
-    96.28,
+    96.29,
     0.0,
     0.0,
     0.0,
@@ -343,7 +343,7 @@
     0.0,
     0.0,
     0.0,
-    12.27
+    12.28
    ],
    [
     0.0,

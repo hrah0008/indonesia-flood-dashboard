@@ -4,7 +4,7 @@
   "kab_name": "Kabupaten Gunungkidul",
   "prov_code": 34,
   "prov_name": "Di Yogyakarta",
-  "centroid_lat": -7.9952,
+  "centroid_lat": -7.9955,
   "centroid_lon": 110.5479,
   "total_events": 9,
   "total_deaths": 3,
@@ -12,7 +12,7 @@
   "total_injured": 0,
   "total_houses": 667,
   "fsi": -0.2461,
-  "fsi_index": 35.41,
+  "fsi_index": 35.4,
   "gi_cat_fsi": "Not sig.",
   "gi_z_fsi": -0.73,
   "gi_hot_significant": false,
@@ -72,15 +72,15 @@
   ],
   "fsi_index": [
    0.0,
-   75.99,
+   75.93,
    0.0,
-   80.36,
+   80.35,
    0.0,
-   61.0,
+   60.96,
    100.0,
-   54.49,
+   54.44,
    0.0,
-   45.42
+   45.41
   ],
   "events": [
    0,
@@ -244,7 +244,7 @@
     0.0,
     0.0,
     0.0,
-    12.1,
+    12.09,
     0.0
    ],
    [
@@ -264,7 +264,7 @@
    [
     0.0,
     0.0,
-    12.79,
+    12.8,
     0.0,
     0.0,
     0.0,
@@ -314,7 +314,7 @@
     0.0,
     0.0,
     0.0,
-    15.92,
+    15.93,
     0.0
    ],
    [

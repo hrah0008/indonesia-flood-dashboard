@@ -4,15 +4,15 @@
   "kab_name": "Kabupaten Dairi",
   "prov_code": 12,
   "prov_name": "Sumatera Utara",
-  "centroid_lat": 2.8296,
-  "centroid_lon": 98.311,
+  "centroid_lat": 2.8292,
+  "centroid_lon": 98.3114,
   "total_events": 10,
   "total_deaths": 3,
   "total_missing": 4,
   "total_injured": 0,
   "total_houses": 119,
-  "fsi": -0.2395,
-  "fsi_index": 35.54,
+  "fsi": -0.2398,
+  "fsi_index": 35.53,
   "gi_cat_fsi": "Not sig.",
   "gi_z_fsi": -0.684,
   "gi_hot_significant": false,
@@ -78,9 +78,9 @@
    0.0,
    0.0,
    0.0,
-   52.75,
-   77.03,
-   56.88
+   52.78,
+   77.05,
+   56.91
   ],
   "events": [
    0,
@@ -259,7 +259,7 @@
     0.0,
     0.0,
     0.0,
-    18.52
+    18.51
    ],
    [
     0.0,
@@ -325,7 +325,7 @@
     0.0,
     0.0,
     0.0,
-    4.76,
+    4.75,
     0.0,
     0.0,
     6.4,
@@ -341,7 +341,7 @@
     0.0,
     0.0,
     0.0,
-    14.27,
+    14.26,
     0.0,
     0.0
    ],

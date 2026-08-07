@@ -4,17 +4,17 @@
   "kab_name": "Kota Sungai Penuh",
   "prov_code": 15,
   "prov_name": "Jambi",
-  "centroid_lat": -2.1394,
-  "centroid_lon": 101.3397,
+  "centroid_lat": -2.1418,
+  "centroid_lon": 101.34,
   "total_events": 28,
   "total_deaths": 2,
   "total_missing": 0,
   "total_injured": 3,
   "total_houses": 22407,
-  "fsi": 0.498,
+  "fsi": 0.4984,
   "fsi_index": 51.04,
   "gi_cat_fsi": "Hot 90%",
-  "gi_z_fsi": 1.957,
+  "gi_z_fsi": 1.958,
   "gi_hot_significant": true,
   "is_extreme_severity": false,
   "mk_sig_event_count": false,
@@ -72,15 +72,15 @@
   ],
   "fsi_index": [
    0.0,
-   56.09,
+   56.06,
    36.75,
    0.0,
-   43.85,
-   47.14,
+   43.82,
+   47.13,
    0.0,
    100.0,
-   62.12,
-   28.7
+   62.11,
+   28.68
   ],
   "events": [
    0,
@@ -234,7 +234,7 @@
     0.0
    ],
    [
-    7.25,
+    7.24,
     0.0,
     0.0,
     0.0,
@@ -258,7 +258,7 @@
     0.0,
     0.0,
     0.0,
-    10.35,
+    10.36,
     0.0
    ],
    [
@@ -301,7 +301,7 @@
     0.0,
     12.74,
     0.0,
-    9.91
+    9.92
    ],
    [
     0.0,
@@ -329,16 +329,16 @@
     0.0,
     0.0,
     0.0,
-    33.59
+    33.6
    ],
    [
-    15.95,
+    15.96,
     0.0,
     0.0,
-    7.63,
+    7.64,
     0.0,
-    11.99,
-    8.35,
+    12.0,
+    8.36,
     0.0,
     0.0,
     0.0,

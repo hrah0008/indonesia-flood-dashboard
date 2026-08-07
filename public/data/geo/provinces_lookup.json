@@ -26,8 +26,8 @@
  "15": {
   "name": "Jambi",
   "n_regencies": 11,
-  "centroid_lat": -1.750415,
-  "centroid_lon": 102.582534
+  "centroid_lat": -1.750956,
+  "centroid_lon": 102.581535
  },
  "16": {
   "name": "Sumatera Selatan",
@@ -68,8 +68,8 @@
  "32": {
   "name": "Jawa Barat",
   "n_regencies": 27,
-  "centroid_lat": -6.870693,
-  "centroid_lon": 107.609989
+  "centroid_lat": -6.870711,
+  "centroid_lon": 107.609984
  },
  "33": {
   "name": "Jawa Tengah",
@@ -92,8 +92,8 @@
  "36": {
   "name": "Banten",
   "n_regencies": 8,
-  "centroid_lat": -6.437785,
-  "centroid_lon": 106.133315
+  "centroid_lat": -6.437779,
+  "centroid_lon": 106.133329
  },
  "51": {
   "name": "Bali",
@@ -200,26 +200,26 @@
  "92": {
   "name": "Papua Barat",
   "n_regencies": 7,
-  "centroid_lat": -2.485549,
-  "centroid_lon": 134.038073
+  "centroid_lat": -2.476703,
+  "centroid_lon": 134.126598
  },
  "93": {
   "name": "Papua Selatan",
   "n_regencies": 4,
-  "centroid_lat": -6.850261,
-  "centroid_lon": 139.883493
+  "centroid_lat": -6.838924,
+  "centroid_lon": 139.926067
  },
  "94": {
   "name": "Papua Tengah",
   "n_regencies": 8,
-  "centroid_lat": -3.962751,
-  "centroid_lon": 136.531876
+  "centroid_lat": -3.926851,
+  "centroid_lon": 136.606632
  },
  "95": {
   "name": "Papua Pegunungan",
   "n_regencies": 8,
-  "centroid_lat": -4.133003,
-  "centroid_lon": 139.485887
+  "centroid_lat": -4.186709,
+  "centroid_lon": 139.482694
  },
  "96": {
   "name": "Papua Barat Daya",

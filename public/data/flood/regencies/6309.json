@@ -4,17 +4,17 @@
   "kab_name": "Kabupaten Tabalong",
   "prov_code": 63,
   "prov_name": "Kalimantan Selatan",
-  "centroid_lat": -1.8358,
+  "centroid_lat": -1.8361,
   "centroid_lon": 115.5152,
   "total_events": 27,
   "total_deaths": 0,
   "total_missing": 0,
   "total_injured": 0,
   "total_houses": 11196,
-  "fsi": -0.0327,
-  "fsi_index": 39.89,
+  "fsi": -0.0326,
+  "fsi_index": 39.88,
   "gi_cat_fsi": "Not sig.",
-  "gi_z_fsi": 0.035,
+  "gi_z_fsi": 0.034,
   "gi_hot_significant": false,
   "is_extreme_severity": false,
   "mk_sig_event_count": false,
@@ -72,15 +72,15 @@
   ],
   "fsi_index": [
    100.0,
-   39.68,
+   39.61,
    0.0,
-   26.89,
-   94.66,
-   72.68,
-   54.98,
-   36.73,
-   15.95,
-   53.31
+   26.85,
+   94.59,
+   72.58,
+   54.93,
+   36.7,
+   15.96,
+   53.3
   ],
   "events": [
    3,
@@ -230,7 +230,7 @@
     0.0,
     0.0,
     0.0,
-    14.05,
+    14.07,
     0.0
    ],
    [
@@ -244,7 +244,7 @@
     0.0,
     0.0,
     0.0,
-    8.16,
+    8.15,
     0.0
    ],
    [
@@ -286,8 +286,8 @@
     0.0,
     0.0,
     0.0,
-    8.77,
-    5.66
+    8.78,
+    5.65
    ],
    [
     10.81,
@@ -308,7 +308,7 @@
     0.0,
     6.43,
     0.0,
-    7.57,
+    7.58,
     0.0,
     0.0,
     0.0,

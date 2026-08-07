@@ -12,9 +12,9 @@
   "total_injured": 0,
   "total_houses": 296,
   "fsi": -0.7756,
-  "fsi_index": 24.28,
+  "fsi_index": 24.27,
   "gi_cat_fsi": "Cold 90%",
-  "gi_z_fsi": -1.762,
+  "gi_z_fsi": -1.761,
   "gi_hot_significant": false,
   "is_extreme_severity": false,
   "mk_sig_event_count": false,
@@ -72,15 +72,15 @@
   ],
   "fsi_index": [
    0.0,
-   45.82,
-   60.52,
+   45.83,
+   60.56,
    0.0,
    0.0,
    0.0,
    100.0,
    0.0,
    0.0,
-   60.43
+   60.48
   ],
   "events": [
    0,
@@ -240,7 +240,7 @@
     0.0,
     0.0,
     0.0,
-    5.88,
+    5.87,
     0.0,
     0.0,
     0.0,
@@ -306,7 +306,7 @@
    [
     0.0,
     0.0,
-    10.66,
+    10.65,
     6.67,
     0.0,
     0.0,

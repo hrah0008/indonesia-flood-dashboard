@@ -11,10 +11,10 @@
   "total_missing": 0,
   "total_injured": 0,
   "total_houses": 469,
-  "fsi": -0.2656,
-  "fsi_index": 35.0,
+  "fsi": -0.2657,
+  "fsi_index": 34.99,
   "gi_cat_fsi": "Not sig.",
-  "gi_z_fsi": 0.546,
+  "gi_z_fsi": 0.547,
   "gi_hot_significant": false,
   "is_extreme_severity": false,
   "mk_sig_event_count": false,
@@ -72,15 +72,15 @@
   ],
   "fsi_index": [
    0.0,
-   25.76,
-   16.33,
-   18.5,
+   25.77,
+   16.32,
+   18.49,
    0.0,
    100.0,
    0.0,
    0.0,
    0.0,
-   30.62
+   30.61
   ],
   "events": [
    0,

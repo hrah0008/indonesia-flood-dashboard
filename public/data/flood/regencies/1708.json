@@ -4,17 +4,17 @@
   "kab_name": "Kabupaten Kepahiang",
   "prov_code": 17,
   "prov_name": "Bengkulu",
-  "centroid_lat": -3.6485,
+  "centroid_lat": -3.6487,
   "centroid_lon": 102.6597,
   "total_events": 13,
   "total_deaths": 3,
   "total_missing": 1,
   "total_injured": 0,
   "total_houses": 1157,
-  "fsi": 0.0192,
+  "fsi": 0.0195,
   "fsi_index": 40.98,
   "gi_cat_fsi": "Not sig.",
-  "gi_z_fsi": 0.429,
+  "gi_z_fsi": 0.43,
   "gi_hot_significant": false,
   "is_extreme_severity": false,
   "mk_sig_event_count": false,
@@ -73,13 +73,13 @@
   "fsi_index": [
    0.0,
    0.0,
-   19.4,
+   19.38,
    100.0,
    29.98,
-   47.92,
-   33.97,
+   47.88,
+   33.95,
    0.0,
-   42.53,
+   42.5,
    0.0
   ],
   "events": [
@@ -265,7 +265,7 @@
     0.0,
     0.0,
     0.0,
-    27.64,
+    27.66,
     0.0,
     0.0,
     0.0,
@@ -301,7 +301,7 @@
     0.0,
     0.0,
     0.0,
-    7.84
+    7.83
    ],
    [
     0.0,
@@ -332,7 +332,7 @@
     0.0
    ],
    [
-    7.59,
+    7.6,
     7.02,
     0.0,
     7.62,
@@ -372,7 +372,7 @@
   0.0,
   0.0,
   0.74,
-  0.51,
+  0.5,
   0.78
  ]
 }
