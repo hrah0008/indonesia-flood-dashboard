@@ -23,8 +23,8 @@
       "label": "Flood Severity (FSI)",
       "unit": "index 0-100",
       "values": [
-        8.16,
-        12.61,
+        8.15,
+        12.6,
         0.0,
         0.0,
         4.56,
