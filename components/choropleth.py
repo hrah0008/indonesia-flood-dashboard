@@ -325,7 +325,7 @@ def render_fsi_choropleth(
 
     # ─── Layout ──────────────────────────────────────────────────────────
     fig.update_layout(
-        mapbox_style="carto-positron",
+        mapbox_style="open-street-map",
         mapbox_zoom=mapbox_zoom,
         mapbox_center=mapbox_center or {"lat": -2.5, "lon": 117.5},
         margin=dict(l=0, r=0, t=0, b=0),
@@ -614,7 +614,7 @@ def render_economic_choropleth(
     # ─── Layout (match Flood map) ────────────────────────────────────────
     center = mapbox_center or {"lat": -2.5, "lon": 118.0}
     fig.update_layout(
-        mapbox_style="carto-positron",
+        mapbox_style="open-street-map",
         mapbox_zoom=mapbox_zoom,
         mapbox_center=center,
         height=height,
@@ -797,7 +797,7 @@ def render_social_choropleth(
 
     center = mapbox_center or {"lat": -2.5, "lon": 118.0}
     fig.update_layout(
-        mapbox_style="carto-positron", mapbox_zoom=mapbox_zoom, mapbox_center=center,
+        mapbox_style="open-street-map", mapbox_zoom=mapbox_zoom, mapbox_center=center,
         height=height, margin=dict(l=0, r=0, t=0, b=0), showlegend=False,
         font=dict(family=FONT_BODY, color=INK),
     )
